@@ -18,10 +18,10 @@
     "@agam-space/shared-types": "workspace:*",
     "@noble/ciphers": "^1.0.0",
     "@noble/hashes": "^1.8.0",
-    "axios": "^1.6.7",
+    "axios": "^1.13.2",
     "libsodium-wrappers": "^0.7.15",
     "libsodium-wrappers-sumo": "^0.7.15",
-    "lru-cache": "^11.1.0",
+    "lru-cache": "^11.2.4",
     "sha256": "link:@noble/hashes/sha256",
     "ulid": "^2.3.0",
     "zod": "^3.25.76"
@@ -33,7 +33,7 @@
     "@types/node": "^20.0.0",
     "jest": "^29.4.3",
     "rimraf": "^5.0.0",
-    "ts-jest": "^29.4.1",
-    "typescript": "^5.0.0"
+    "ts-jest": "^29.4.6",
+    "typescript": "^5.9.3"
   }
 }
