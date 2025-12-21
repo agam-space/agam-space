@@ -18,7 +18,7 @@
     "@agam-space/shared-types": "workspace:*",
     "@noble/ciphers": "^1.0.0",
     "@noble/hashes": "^1.8.0",
-    "axios": "^1.6.7",
+    "axios": "^1.12.0",
     "libsodium-wrappers": "^0.7.15",
     "libsodium-wrappers-sumo": "^0.7.15",
     "lru-cache": "^11.1.0",
