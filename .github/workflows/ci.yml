@@ -99,7 +99,7 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       - name: Test Docker build (don't push)
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: .
           file: ./apps/api-server/Dockerfile
