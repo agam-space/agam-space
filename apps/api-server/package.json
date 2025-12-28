@@ -24,7 +24,7 @@
     "@fastify/middie": "^9.0.3",
     "@fastify/static": "^8.3.0",
     "@napi-rs/blake-hash": "^1.3.6",
-    "@nestjs/cache-manager": "^3.0.1",
+    "@nestjs/cache-manager": "^3.1.0",
     "@nestjs/common": "^11.1.10",
     "@nestjs/config": "^4.0.2",
     "@nestjs/core": "^11.1.10",
