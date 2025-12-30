@@ -16,7 +16,7 @@
   "dependencies": {
     "@noble/hashes": "^1.8.0",
     "bs58": "^6.0.0",
-    "libsodium-wrappers-sumo": "^0.7.15",
+    "libsodium-wrappers-sumo": "^0.7.16",
     "zod": "^3.25.76"
   },
   "devDependencies": {
