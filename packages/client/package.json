@@ -16,7 +16,7 @@
   "dependencies": {
     "@agam-space/core": "workspace:*",
     "@agam-space/shared-types": "workspace:*",
-    "@noble/ciphers": "^1.3.0",
+    "@noble/ciphers": "^2.1.1",
     "@noble/hashes": "^1.8.0",
     "axios": "^1.13.2",
     "libsodium-wrappers": "^0.7.16",
