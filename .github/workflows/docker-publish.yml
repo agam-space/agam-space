@@ -202,7 +202,7 @@ jobs:
 
       - name: Upload integrity manifest as artifact
         if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') || (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success')
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: integrity-manifest
           path: ./integrity-manifest.json
