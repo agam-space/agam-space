@@ -43,7 +43,7 @@
     "drizzle-orm": "^0.45.1",
     "fastify": "^5.7.2",
     "helmet": "^8.1.0",
-    "nestjs-zod": "^4.3.1",
+    "nestjs-zod": "^5.1.1",
     "pg": "^8.17.2",
     "postgres": "^3.4.8",
     "sirv": "^3.0.2",

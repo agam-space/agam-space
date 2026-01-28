@@ -67,7 +67,7 @@ importers:
         version: 9.1.7
       jest:
         specifier: ^30.2.0
-        version: 30.2.0(@types/node@22.19.7)(esbuild-register@3.6.0(esbuild@0.27.2))(ts-node@10.9.2(@types/node@22.19.7)(typescript@5.9.3))
+        version: 30.2.0(@types/node@22.19.7)(esbuild-register@3.6.0(esbuild@0.27.2))
       lint-staged:
         specifier: ^16.2.7
         version: 16.2.7
@@ -85,7 +85,7 @@ importers:
         version: 4.1.18
       ts-jest:
         specifier: ^29.4.6
-        version: 29.4.6(@babel/core@7.28.5)(@jest/transform@30.2.0)(@jest/types@30.2.0)(babel-jest@30.2.0(@babel/core@7.28.5))(esbuild@0.27.2)(jest-util@30.2.0)(jest@30.2.0(@types/node@22.19.7)(esbuild-register@3.6.0(esbuild@0.27.2))(ts-node@10.9.2(@types/node@22.19.7)(typescript@5.9.3)))(typescript@5.9.3)
+        version: 29.4.6(@babel/core@7.28.5)(@jest/transform@30.2.0)(@jest/types@30.2.0)(babel-jest@30.2.0(@babel/core@7.28.5))(esbuild@0.27.2)(jest-util@30.2.0)(jest@30.2.0(@types/node@22.19.7)(esbuild-register@3.6.0(esbuild@0.27.2)))(typescript@5.9.3)
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
@@ -168,8 +168,8 @@ importers:
         specifier: ^8.1.0
         version: 8.1.0
       nestjs-zod:
-        specifier: ^4.3.1
-        version: 4.3.1(@nestjs/common@11.1.12(class-transformer@0.5.1)(class-validator@0.14.3)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@11.1.12)(@nestjs/swagger@11.2.5(@fastify/static@8.3.0)(@nestjs/common@11.1.12(class-transformer@0.5.1)(class-validator@0.14.3)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@11.1.12)(class-transformer@0.5.1)(class-validator@0.14.3)(reflect-metadata@0.2.2))(zod@3.25.76)
+        specifier: ^5.1.1
+        version: 5.1.1(@nestjs/common@11.1.12(class-transformer@0.5.1)(class-validator@0.14.3)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/swagger@11.2.5(@fastify/static@8.3.0)(@nestjs/common@11.1.12(class-transformer@0.5.1)(class-validator@0.14.3)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@11.1.12)(class-transformer@0.5.1)(class-validator@0.14.3)(reflect-metadata@0.2.2))(rxjs@7.8.1)(zod@3.25.76)
       pg:
         specifier: ^8.17.2
         version: 8.17.2
@@ -436,13 +436,13 @@ importers:
         version: 22.19.3
       jest:
         specifier: ^30.2.0
-        version: 30.2.0(@types/node@22.19.3)(esbuild-register@3.6.0(esbuild@0.27.2))(ts-node@10.9.2(@types/node@22.19.3)(typescript@5.9.3))
+        version: 30.2.0(@types/node@22.19.3)(esbuild-register@3.6.0(esbuild@0.27.2))
       rimraf:
         specifier: ^6.1.2
         version: 6.1.2
       ts-jest:
         specifier: ^29.4.6
-        version: 29.4.6(@babel/core@7.28.5)(@jest/transform@30.2.0)(@jest/types@30.2.0)(babel-jest@30.2.0(@babel/core@7.28.5))(esbuild@0.27.2)(jest-util@30.2.0)(jest@30.2.0(@types/node@22.19.3)(esbuild-register@3.6.0(esbuild@0.27.2))(ts-node@10.9.2(@types/node@22.19.3)(typescript@5.9.3)))(typescript@5.9.3)
+        version: 29.4.6(@babel/core@7.28.5)(@jest/transform@30.2.0)(@jest/types@30.2.0)(babel-jest@30.2.0(@babel/core@7.28.5))(esbuild@0.27.2)(jest-util@30.2.0)(jest@30.2.0(@types/node@22.19.3)(esbuild-register@3.6.0(esbuild@0.27.2)))(typescript@5.9.3)
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
@@ -470,7 +470,7 @@ importers:
         version: 22.19.3
       jest:
         specifier: ^30.2.0
-        version: 30.2.0(@types/node@22.19.3)(esbuild-register@3.6.0(esbuild@0.27.2))(ts-node@10.9.2(@types/node@22.19.3)(typescript@5.9.3))
+        version: 30.2.0(@types/node@22.19.3)(esbuild-register@3.6.0(esbuild@0.27.2))
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
@@ -1991,21 +1991,6 @@ packages:
 
   '@napi-rs/wasm-runtime@0.2.12':
     resolution: {integrity: sha512-ZVWUcfwY4E/yPitQJl481FjFo3K22D6qF0DuFH6Y/nbnE11GY5uguDxZMGXPQ8WQ0128MXQD7TnfHyK4oWoIJQ==}
-
-  '@nest-zod/z@2.0.0':
-    resolution: {integrity: sha512-OqmJUZlpcx9ECzPYSIjaR/q/xLKrm9FkV+0FIWLEb9MVc9YeP21GmnQJBxE1dPRlLJ1kybNFBlt4D/PB8YAPkA==}
-    peerDependencies:
-      '@nestjs/common': ^10.0.0 || ^11.0.0
-      '@nestjs/core': ^10.0.0 || ^11.0.0
-      '@nestjs/swagger': ^7.4.2 || ^8.0.0 || ^11.0.0
-      zod: '>= 3.14.3'
-    peerDependenciesMeta:
-      '@nestjs/common':
-        optional: true
-      '@nestjs/core':
-        optional: true
-      '@nestjs/swagger':
-        optional: true
 
   '@nestjs/cache-manager@3.1.0':
     resolution: {integrity: sha512-pEIqYZrBcE8UdkJmZRduurvoUfdU+3kRPeO1R2muiMbZnRuqlki5klFFNllO9LyYWzrx98bd1j0PSPKSJk1Wbw==}
@@ -5834,18 +5819,14 @@ packages:
   neo-async@2.6.2:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
 
-  nestjs-zod@4.3.1:
-    resolution: {integrity: sha512-gl10NOf/AhWt4HLcnMI1J0WUlBCKyteJBftD6SwNyX71/vzAorr5MJQWiDJoPPkou9QL2CRHHBtyjr55o7++Xw==}
+  nestjs-zod@5.1.1:
+    resolution: {integrity: sha512-pXa9Jrdip7iedKvGxJTvvCFVRCoIcNENPCsHjpCefPH3PcFejRgkZkUcr3TYITRyxnUk7Zy5OsLpirZGLYBfBQ==}
     peerDependencies:
       '@nestjs/common': ^10.0.0 || ^11.0.0
-      '@nestjs/core': ^10.0.0 || ^11.0.0
       '@nestjs/swagger': ^7.4.2 || ^8.0.0 || ^11.0.0
-      zod: '>= 3.14.3'
+      rxjs: ^7.0.0
+      zod: ^3.25.0 || ^4.0.0
     peerDependenciesMeta:
-      '@nestjs/common':
-        optional: true
-      '@nestjs/core':
-        optional: true
       '@nestjs/swagger':
         optional: true
 
@@ -8436,7 +8417,7 @@ snapshots:
       - supports-color
       - ts-node
 
-  '@jest/core@30.2.0(esbuild-register@3.6.0(esbuild@0.27.2))(ts-node@10.9.2(@types/node@22.19.3)(typescript@5.9.3))':
+  '@jest/core@30.2.0(esbuild-register@3.6.0(esbuild@0.27.2))':
     dependencies:
       '@jest/console': 30.2.0
       '@jest/pattern': 30.0.1
@@ -8451,43 +8432,7 @@ snapshots:
       exit-x: 0.2.2
       graceful-fs: 4.2.11
       jest-changed-files: 30.2.0
-      jest-config: 30.2.0(@types/node@22.19.7)(esbuild-register@3.6.0(esbuild@0.27.2))(ts-node@10.9.2(@types/node@22.19.3)(typescript@5.9.3))
-      jest-haste-map: 30.2.0
-      jest-message-util: 30.2.0
-      jest-regex-util: 30.0.1
-      jest-resolve: 30.2.0
-      jest-resolve-dependencies: 30.2.0
-      jest-runner: 30.2.0
-      jest-runtime: 30.2.0
-      jest-snapshot: 30.2.0
-      jest-util: 30.2.0
-      jest-validate: 30.2.0
-      jest-watcher: 30.2.0
-      micromatch: 4.0.8
-      pretty-format: 30.2.0
-      slash: 3.0.0
-    transitivePeerDependencies:
-      - babel-plugin-macros
-      - esbuild-register
-      - supports-color
-      - ts-node
-
-  '@jest/core@30.2.0(esbuild-register@3.6.0(esbuild@0.27.2))(ts-node@10.9.2(@types/node@22.19.7)(typescript@5.9.3))':
-    dependencies:
-      '@jest/console': 30.2.0
-      '@jest/pattern': 30.0.1
-      '@jest/reporters': 30.2.0
-      '@jest/test-result': 30.2.0
-      '@jest/transform': 30.2.0
-      '@jest/types': 30.2.0
-      '@types/node': 22.19.7
-      ansi-escapes: 4.3.2
-      chalk: 4.1.2
-      ci-info: 4.3.1
-      exit-x: 0.2.2
-      graceful-fs: 4.2.11
-      jest-changed-files: 30.2.0
-      jest-config: 30.2.0(@types/node@22.19.7)(esbuild-register@3.6.0(esbuild@0.27.2))(ts-node@10.9.2(@types/node@22.19.7)(typescript@5.9.3))
+      jest-config: 30.2.0(@types/node@22.19.7)(esbuild-register@3.6.0(esbuild@0.27.2))
       jest-haste-map: 30.2.0
       jest-message-util: 30.2.0
       jest-regex-util: 30.0.1
@@ -8805,14 +8750,6 @@ snapshots:
       '@emnapi/runtime': 1.7.1
       '@tybys/wasm-util': 0.10.1
     optional: true
-
-  '@nest-zod/z@2.0.0(@nestjs/common@11.1.12(class-transformer@0.5.1)(class-validator@0.14.3)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@11.1.12)(@nestjs/swagger@11.2.5(@fastify/static@8.3.0)(@nestjs/common@11.1.12(class-transformer@0.5.1)(class-validator@0.14.3)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@11.1.12)(class-transformer@0.5.1)(class-validator@0.14.3)(reflect-metadata@0.2.2))(zod@3.25.76)':
-    dependencies:
-      zod: 3.25.76
-    optionalDependencies:
-      '@nestjs/common': 11.1.12(class-transformer@0.5.1)(class-validator@0.14.3)(reflect-metadata@0.2.2)(rxjs@7.8.1)
-      '@nestjs/core': 11.1.12(@nestjs/common@11.1.12(class-transformer@0.5.1)(class-validator@0.14.3)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/platform-express@11.1.12)(reflect-metadata@0.2.2)(rxjs@7.8.1)
-      '@nestjs/swagger': 11.2.5(@fastify/static@8.3.0)(@nestjs/common@11.1.12(class-transformer@0.5.1)(class-validator@0.14.3)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@11.1.12)(class-transformer@0.5.1)(class-validator@0.14.3)(reflect-metadata@0.2.2)
 
   '@nestjs/cache-manager@3.1.0(@nestjs/common@11.1.12(class-transformer@0.5.1)(class-validator@0.14.3)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@11.1.12)(cache-manager@6.4.3)(keyv@5.5.5)(rxjs@7.8.1)':
     dependencies:
@@ -12607,15 +12544,15 @@ snapshots:
       - babel-plugin-macros
       - supports-color
 
-  jest-cli@30.2.0(@types/node@22.19.3)(esbuild-register@3.6.0(esbuild@0.27.2))(ts-node@10.9.2(@types/node@22.19.3)(typescript@5.9.3)):
+  jest-cli@30.2.0(@types/node@22.19.3)(esbuild-register@3.6.0(esbuild@0.27.2)):
     dependencies:
-      '@jest/core': 30.2.0(esbuild-register@3.6.0(esbuild@0.27.2))(ts-node@10.9.2(@types/node@22.19.3)(typescript@5.9.3))
+      '@jest/core': 30.2.0(esbuild-register@3.6.0(esbuild@0.27.2))
       '@jest/test-result': 30.2.0
       '@jest/types': 30.2.0
       chalk: 4.1.2
       exit-x: 0.2.2
       import-local: 3.2.0
-      jest-config: 30.2.0(@types/node@22.19.3)(esbuild-register@3.6.0(esbuild@0.27.2))(ts-node@10.9.2(@types/node@22.19.3)(typescript@5.9.3))
+      jest-config: 30.2.0(@types/node@22.19.3)(esbuild-register@3.6.0(esbuild@0.27.2))
       jest-util: 30.2.0
       jest-validate: 30.2.0
       yargs: 17.7.2
@@ -12645,15 +12582,15 @@ snapshots:
       - supports-color
       - ts-node
 
-  jest-cli@30.2.0(@types/node@22.19.7)(esbuild-register@3.6.0(esbuild@0.27.2))(ts-node@10.9.2(@types/node@22.19.7)(typescript@5.9.3)):
+  jest-cli@30.2.0(@types/node@22.19.7)(esbuild-register@3.6.0(esbuild@0.27.2)):
     dependencies:
-      '@jest/core': 30.2.0(esbuild-register@3.6.0(esbuild@0.27.2))(ts-node@10.9.2(@types/node@22.19.7)(typescript@5.9.3))
+      '@jest/core': 30.2.0(esbuild-register@3.6.0(esbuild@0.27.2))
       '@jest/test-result': 30.2.0
       '@jest/types': 30.2.0
       chalk: 4.1.2
       exit-x: 0.2.2
       import-local: 3.2.0
-      jest-config: 30.2.0(@types/node@22.19.7)(esbuild-register@3.6.0(esbuild@0.27.2))(ts-node@10.9.2(@types/node@22.19.7)(typescript@5.9.3))
+      jest-config: 30.2.0(@types/node@22.19.7)(esbuild-register@3.6.0(esbuild@0.27.2))
       jest-util: 30.2.0
       jest-validate: 30.2.0
       yargs: 17.7.2
@@ -12664,7 +12601,7 @@ snapshots:
       - supports-color
       - ts-node
 
-  jest-config@30.2.0(@types/node@22.19.3)(esbuild-register@3.6.0(esbuild@0.27.2))(ts-node@10.9.2(@types/node@22.19.3)(typescript@5.9.3)):
+  jest-config@30.2.0(@types/node@22.19.3)(esbuild-register@3.6.0(esbuild@0.27.2)):
     dependencies:
       '@babel/core': 7.28.5
       '@jest/get-type': 30.1.0
@@ -12693,7 +12630,6 @@ snapshots:
     optionalDependencies:
       '@types/node': 22.19.3
       esbuild-register: 3.6.0(esbuild@0.27.2)
-      ts-node: 10.9.2(@types/node@22.19.3)(typescript@5.9.3)
     transitivePeerDependencies:
       - babel-plugin-macros
       - supports-color
@@ -12732,7 +12668,7 @@ snapshots:
       - babel-plugin-macros
       - supports-color
 
-  jest-config@30.2.0(@types/node@22.19.7)(esbuild-register@3.6.0(esbuild@0.27.2))(ts-node@10.9.2(@types/node@22.19.3)(typescript@5.9.3)):
+  jest-config@30.2.0(@types/node@22.19.7)(esbuild-register@3.6.0(esbuild@0.27.2)):
     dependencies:
       '@babel/core': 7.28.5
       '@jest/get-type': 30.1.0
@@ -12761,41 +12697,6 @@ snapshots:
     optionalDependencies:
       '@types/node': 22.19.7
       esbuild-register: 3.6.0(esbuild@0.27.2)
-      ts-node: 10.9.2(@types/node@22.19.3)(typescript@5.9.3)
-    transitivePeerDependencies:
-      - babel-plugin-macros
-      - supports-color
-
-  jest-config@30.2.0(@types/node@22.19.7)(esbuild-register@3.6.0(esbuild@0.27.2))(ts-node@10.9.2(@types/node@22.19.7)(typescript@5.9.3)):
-    dependencies:
-      '@babel/core': 7.28.5
-      '@jest/get-type': 30.1.0
-      '@jest/pattern': 30.0.1
-      '@jest/test-sequencer': 30.2.0
-      '@jest/types': 30.2.0
-      babel-jest: 30.2.0(@babel/core@7.28.5)
-      chalk: 4.1.2
-      ci-info: 4.3.1
-      deepmerge: 4.3.1
-      glob: 10.5.0
-      graceful-fs: 4.2.11
-      jest-circus: 30.2.0
-      jest-docblock: 30.2.0
-      jest-environment-node: 30.2.0
-      jest-regex-util: 30.0.1
-      jest-resolve: 30.2.0
-      jest-runner: 30.2.0
-      jest-util: 30.2.0
-      jest-validate: 30.2.0
-      micromatch: 4.0.8
-      parse-json: 5.2.0
-      pretty-format: 30.2.0
-      slash: 3.0.0
-      strip-json-comments: 3.1.1
-    optionalDependencies:
-      '@types/node': 22.19.7
-      esbuild-register: 3.6.0(esbuild@0.27.2)
-      ts-node: 10.9.2(@types/node@22.19.7)(typescript@5.9.3)
     transitivePeerDependencies:
       - babel-plugin-macros
       - supports-color
@@ -13021,12 +12922,12 @@ snapshots:
       merge-stream: 2.0.0
       supports-color: 8.1.1
 
-  jest@30.2.0(@types/node@22.19.3)(esbuild-register@3.6.0(esbuild@0.27.2))(ts-node@10.9.2(@types/node@22.19.3)(typescript@5.9.3)):
+  jest@30.2.0(@types/node@22.19.3)(esbuild-register@3.6.0(esbuild@0.27.2)):
     dependencies:
-      '@jest/core': 30.2.0(esbuild-register@3.6.0(esbuild@0.27.2))(ts-node@10.9.2(@types/node@22.19.3)(typescript@5.9.3))
+      '@jest/core': 30.2.0(esbuild-register@3.6.0(esbuild@0.27.2))
       '@jest/types': 30.2.0
       import-local: 3.2.0
-      jest-cli: 30.2.0(@types/node@22.19.3)(esbuild-register@3.6.0(esbuild@0.27.2))(ts-node@10.9.2(@types/node@22.19.3)(typescript@5.9.3))
+      jest-cli: 30.2.0(@types/node@22.19.3)(esbuild-register@3.6.0(esbuild@0.27.2))
     transitivePeerDependencies:
       - '@types/node'
       - babel-plugin-macros
@@ -13047,12 +12948,12 @@ snapshots:
       - supports-color
       - ts-node
 
-  jest@30.2.0(@types/node@22.19.7)(esbuild-register@3.6.0(esbuild@0.27.2))(ts-node@10.9.2(@types/node@22.19.7)(typescript@5.9.3)):
+  jest@30.2.0(@types/node@22.19.7)(esbuild-register@3.6.0(esbuild@0.27.2)):
     dependencies:
-      '@jest/core': 30.2.0(esbuild-register@3.6.0(esbuild@0.27.2))(ts-node@10.9.2(@types/node@22.19.7)(typescript@5.9.3))
+      '@jest/core': 30.2.0(esbuild-register@3.6.0(esbuild@0.27.2))
       '@jest/types': 30.2.0
       import-local: 3.2.0
-      jest-cli: 30.2.0(@types/node@22.19.7)(esbuild-register@3.6.0(esbuild@0.27.2))(ts-node@10.9.2(@types/node@22.19.7)(typescript@5.9.3))
+      jest-cli: 30.2.0(@types/node@22.19.7)(esbuild-register@3.6.0(esbuild@0.27.2))
     transitivePeerDependencies:
       - '@types/node'
       - babel-plugin-macros
@@ -13444,14 +13345,13 @@ snapshots:
 
   neo-async@2.6.2: {}
 
-  nestjs-zod@4.3.1(@nestjs/common@11.1.12(class-transformer@0.5.1)(class-validator@0.14.3)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@11.1.12)(@nestjs/swagger@11.2.5(@fastify/static@8.3.0)(@nestjs/common@11.1.12(class-transformer@0.5.1)(class-validator@0.14.3)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@11.1.12)(class-transformer@0.5.1)(class-validator@0.14.3)(reflect-metadata@0.2.2))(zod@3.25.76):
+  nestjs-zod@5.1.1(@nestjs/common@11.1.12(class-transformer@0.5.1)(class-validator@0.14.3)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/swagger@11.2.5(@fastify/static@8.3.0)(@nestjs/common@11.1.12(class-transformer@0.5.1)(class-validator@0.14.3)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@11.1.12)(class-transformer@0.5.1)(class-validator@0.14.3)(reflect-metadata@0.2.2))(rxjs@7.8.1)(zod@3.25.76):
     dependencies:
-      '@nest-zod/z': 2.0.0(@nestjs/common@11.1.12(class-transformer@0.5.1)(class-validator@0.14.3)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@11.1.12)(@nestjs/swagger@11.2.5(@fastify/static@8.3.0)(@nestjs/common@11.1.12(class-transformer@0.5.1)(class-validator@0.14.3)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@11.1.12)(class-transformer@0.5.1)(class-validator@0.14.3)(reflect-metadata@0.2.2))(zod@3.25.76)
+      '@nestjs/common': 11.1.12(class-transformer@0.5.1)(class-validator@0.14.3)(reflect-metadata@0.2.2)(rxjs@7.8.1)
       deepmerge: 4.3.1
+      rxjs: 7.8.1
       zod: 3.25.76
     optionalDependencies:
-      '@nestjs/common': 11.1.12(class-transformer@0.5.1)(class-validator@0.14.3)(reflect-metadata@0.2.2)(rxjs@7.8.1)
-      '@nestjs/core': 11.1.12(@nestjs/common@11.1.12(class-transformer@0.5.1)(class-validator@0.14.3)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/platform-express@11.1.12)(reflect-metadata@0.2.2)(rxjs@7.8.1)
       '@nestjs/swagger': 11.2.5(@fastify/static@8.3.0)(@nestjs/common@11.1.12(class-transformer@0.5.1)(class-validator@0.14.3)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@11.1.12)(class-transformer@0.5.1)(class-validator@0.14.3)(reflect-metadata@0.2.2)
 
   next-themes@0.4.6(react-dom@19.2.3(react@19.2.3))(react@19.2.3):
@@ -14630,12 +14530,12 @@ snapshots:
 
   ts-interface-checker@0.1.13: {}
 
-  ts-jest@29.4.6(@babel/core@7.28.5)(@jest/transform@30.2.0)(@jest/types@30.2.0)(babel-jest@30.2.0(@babel/core@7.28.5))(esbuild@0.27.2)(jest-util@30.2.0)(jest@30.2.0(@types/node@22.19.3)(esbuild-register@3.6.0(esbuild@0.27.2))(ts-node@10.9.2(@types/node@22.19.3)(typescript@5.9.3)))(typescript@5.9.3):
+  ts-jest@29.4.6(@babel/core@7.28.5)(@jest/transform@30.2.0)(@jest/types@30.2.0)(babel-jest@30.2.0(@babel/core@7.28.5))(esbuild@0.27.2)(jest-util@30.2.0)(jest@30.2.0(@types/node@22.19.3)(esbuild-register@3.6.0(esbuild@0.27.2)))(typescript@5.9.3):
     dependencies:
       bs-logger: 0.2.6
       fast-json-stable-stringify: 2.1.0
       handlebars: 4.7.8
-      jest: 30.2.0(@types/node@22.19.3)(esbuild-register@3.6.0(esbuild@0.27.2))(ts-node@10.9.2(@types/node@22.19.3)(typescript@5.9.3))
+      jest: 30.2.0(@types/node@22.19.3)(esbuild-register@3.6.0(esbuild@0.27.2))
       json5: 2.2.3
       lodash.memoize: 4.1.2
       make-error: 1.3.6
@@ -14651,12 +14551,12 @@ snapshots:
       esbuild: 0.27.2
       jest-util: 30.2.0
 
-  ts-jest@29.4.6(@babel/core@7.28.5)(@jest/transform@30.2.0)(@jest/types@30.2.0)(babel-jest@30.2.0(@babel/core@7.28.5))(esbuild@0.27.2)(jest-util@30.2.0)(jest@30.2.0(@types/node@22.19.7)(esbuild-register@3.6.0(esbuild@0.27.2))(ts-node@10.9.2(@types/node@22.19.7)(typescript@5.9.3)))(typescript@5.9.3):
+  ts-jest@29.4.6(@babel/core@7.28.5)(@jest/transform@30.2.0)(@jest/types@30.2.0)(babel-jest@30.2.0(@babel/core@7.28.5))(esbuild@0.27.2)(jest-util@30.2.0)(jest@30.2.0(@types/node@22.19.7)(esbuild-register@3.6.0(esbuild@0.27.2)))(typescript@5.9.3):
     dependencies:
       bs-logger: 0.2.6
       fast-json-stable-stringify: 2.1.0
       handlebars: 4.7.8
-      jest: 30.2.0(@types/node@22.19.7)(esbuild-register@3.6.0(esbuild@0.27.2))(ts-node@10.9.2(@types/node@22.19.7)(typescript@5.9.3))
+      jest: 30.2.0(@types/node@22.19.7)(esbuild-register@3.6.0(esbuild@0.27.2))
       json5: 2.2.3
       lodash.memoize: 4.1.2
       make-error: 1.3.6
@@ -14681,25 +14581,6 @@ snapshots:
       source-map: 0.7.6
       typescript: 5.9.3
       webpack: 5.104.1(esbuild@0.25.12)
-
-  ts-node@10.9.2(@types/node@22.19.3)(typescript@5.9.3):
-    dependencies:
-      '@cspotcode/source-map-support': 0.8.1
-      '@tsconfig/node10': 1.0.12
-      '@tsconfig/node12': 1.0.11
-      '@tsconfig/node14': 1.0.3
-      '@tsconfig/node16': 1.0.4
-      '@types/node': 22.19.3
-      acorn: 8.15.0
-      acorn-walk: 8.3.4
-      arg: 4.1.3
-      create-require: 1.1.1
-      diff: 4.0.2
-      make-error: 1.3.6
-      typescript: 5.9.3
-      v8-compile-cache-lib: 3.0.1
-      yn: 3.1.1
-    optional: true
 
   ts-node@10.9.2(@types/node@22.19.7)(typescript@5.9.3):
     dependencies:
