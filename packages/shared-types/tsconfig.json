@@ -8,7 +8,8 @@
     "declarationMap": true,
     "sourceMap": true,
     "module": "commonjs",
-    "moduleResolution": "node"
+    "moduleResolution": "node10",
+    "ignoreDeprecations": "6.0"
   },
   "include": ["src/**/*"],
   "exclude": ["dist", "node_modules", "**/*.test.ts", "**/*.spec.ts"]

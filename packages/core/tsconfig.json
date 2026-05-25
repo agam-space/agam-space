@@ -2,9 +2,12 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "dist",
-    "baseUrl": ".",
+    "rootDir": "src",
     "composite": true,
     "declaration": true,
+    "module": "commonjs",
+    "moduleResolution": "node10",
+    "ignoreDeprecations": "6.0",
     "paths": {
       "@agam-space/shared-types": ["../shared-types/src"]
     }

@@ -7,8 +7,9 @@
     "declaration": true,
     "sourceMap": true,
     "composite": true,
-    "module": "CommonJS",
-    "moduleResolution": "node"
+    "module": "commonjs",
+    "moduleResolution": "node10",
+    "ignoreDeprecations": "6.0"
   },
   "include": ["src/**/*"],
   "references": [{ "path": "../shared-types" }, { "path": "../core" }]

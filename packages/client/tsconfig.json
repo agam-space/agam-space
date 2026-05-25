@@ -3,13 +3,13 @@
   "compilerOptions": {
     "outDir": "dist",
     "rootDir": "src",
-    "module": "CommonJS",
-    "moduleResolution": "node",
-    "esModuleInterop": true,
     "composite": true,
     "declaration": true,
     "declarationMap": true,
     "incremental": true,
+    "module": "commonjs",
+    "moduleResolution": "node10",
+    "ignoreDeprecations": "6.0",
     "tsBuildInfoFile": "dist/.tsbuildinfo"
   },
   "references": [{ "path": "../core" }, { "path": "../shared-types" }],
