@@ -5,7 +5,7 @@ WORKDIR /app
 
 RUN apt-get update && \
   apt-get install -y --no-install-recommends python3 make g++ && \
-  npm install -g npm@11.7.0 pnpm@10 && \
+  npm install -g npm@11.7.0 pnpm@11 && \
   rm -rf /var/lib/apt/lists/*
 
 COPY pnpm-workspace.yaml package.json pnpm-lock.yaml ./
@@ -42,7 +42,7 @@ WORKDIR /app
 
 RUN apt-get update && \
   apt-get install -y --no-install-recommends python3 make g++ && \
-  npm install -g npm@11.7.0 pnpm@10 && \
+  npm install -g npm@11.7.0 pnpm@11 && \
   rm -rf /var/lib/apt/lists/*
 
 COPY pnpm-workspace.yaml package.json pnpm-lock.yaml ./
