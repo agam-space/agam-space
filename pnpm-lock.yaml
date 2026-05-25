@@ -286,8 +286,8 @@ importers:
         specifier: ^8.0.3
         version: 8.0.3
       libsodium-wrappers-sumo:
-        specifier: ^0.7.16
-        version: 0.7.16
+        specifier: ^0.8.4
+        version: 0.8.4
       lucide-react:
         specifier: ^0.577.0
         version: 0.577.0(react@19.2.6)
@@ -386,11 +386,11 @@ importers:
         specifier: ^1.13.2
         version: 1.13.2
       libsodium-wrappers:
-        specifier: ^0.7.16
-        version: 0.7.16
+        specifier: ^0.8.4
+        version: 0.8.4
       libsodium-wrappers-sumo:
-        specifier: ^0.7.16
-        version: 0.7.16
+        specifier: ^0.8.4
+        version: 0.8.4
       lru-cache:
         specifier: ^11.2.4
         version: 11.2.4
@@ -438,8 +438,8 @@ importers:
         specifier: ^6.0.0
         version: 6.0.0
       libsodium-wrappers-sumo:
-        specifier: ^0.7.16
-        version: 0.7.16
+        specifier: ^0.8.4
+        version: 0.8.4
       zod:
         specifier: ^4.4.3
         version: 4.4.3
@@ -5705,17 +5705,17 @@ packages:
   libphonenumber-js@1.12.33:
     resolution: {integrity: sha512-r9kw4OA6oDO4dPXkOrXTkArQAafIKAU71hChInV4FxZ69dxCfbwQGDPzqR5/vea94wU705/3AZroEbSoeVWrQw==}
 
-  libsodium-sumo@0.7.16:
-    resolution: {integrity: sha512-x6atrz2AdXCJg6G709x9W9TTJRI6/0NcL5dD0l5GGVqNE48UJmDsjO4RUWYTeyXXUpg+NXZ2SHECaZnFRYzwGA==}
+  libsodium-sumo@0.8.4:
+    resolution: {integrity: sha512-TMtHShQfVVsaxDygyapvUC3o7YsPgXa/hRWeIgzyFz6w5k/1hirGptCxp1U7XwW3rCskaTTYKgV10v86UiGgNw==}
 
-  libsodium-wrappers-sumo@0.7.16:
-    resolution: {integrity: sha512-gR0JEFPeN3831lB9+ogooQk0KH4K5LSMIO5Prd5Q5XYR2wHFtZfPg0eP7t1oJIWq+UIzlU4WVeBxZ97mt28tXw==}
+  libsodium-wrappers-sumo@0.8.4:
+    resolution: {integrity: sha512-ql7hcgulKZ3ekfa2DGAogcCKsWU0diA/0nArz1CFzh93WQdb46/Kj18ka/Hifq6uA3Ush34Pc6vU/6HXeRwUkg==}
 
-  libsodium-wrappers@0.7.16:
-    resolution: {integrity: sha512-Gtr/WBx4dKjvRL1pvfwZqu7gO6AfrQ0u9vFL+kXihtHf6NfkROR8pjYWn98MFDI3jN19Ii1ZUfPR9afGiPyfHg==}
+  libsodium-wrappers@0.8.4:
+    resolution: {integrity: sha512-mu8aAWucZjTB5O/BtGXtW4e1agy7uHxNYG7zPthmmD1jU43LCDmSWZLN4JhflbdPXj3yDO4lxM1O9hLDgIOXDw==}
 
-  libsodium@0.7.16:
-    resolution: {integrity: sha512-3HrzSPuzm6Yt9aTYCDxYEG8x8/6C0+ag655Y7rhhWZM9PT4NpdnbqlzXhGZlDnkgR6MeSTnOt/VIyHLs9aSf+Q==}
+  libsodium@0.8.4:
+    resolution: {integrity: sha512-lMcYaRi0zcs7tarATsQUYC7rstliIXZuoq0c6zXSgNtSNtdvBgkSegjWhpMJAXzKX3SUSwIp7+zEsob+j3LuRw==}
 
   light-my-request@6.6.0:
     resolution: {integrity: sha512-CHYbu8RtboSIoVsHZ6Ye4cj4Aw/yg2oAFimlF7mNvfDV192LR7nDiKtSIfCuLT7KokPSTn/9kfVLm5OGN0A28A==}
@@ -13619,17 +13619,17 @@ snapshots:
 
   libphonenumber-js@1.12.33: {}
 
-  libsodium-sumo@0.7.16: {}
+  libsodium-sumo@0.8.4: {}
 
-  libsodium-wrappers-sumo@0.7.16:
+  libsodium-wrappers-sumo@0.8.4:
     dependencies:
-      libsodium-sumo: 0.7.16
+      libsodium-sumo: 0.8.4
 
-  libsodium-wrappers@0.7.16:
+  libsodium-wrappers@0.8.4:
     dependencies:
-      libsodium: 0.7.16
+      libsodium: 0.8.4
 
-  libsodium@0.7.16: {}
+  libsodium@0.8.4: {}
 
   light-my-request@6.6.0:
     dependencies:

@@ -33,12 +33,12 @@ describe('EncryptedEnvelopeCodec', () => {
     let mockEnvelope = getRandomEnvelope();
     mockEnvelope.v = -1;
     expect(() => EncryptedEnvelopeCodec.serialize(mockEnvelope)).toThrow(
-      'Number must be greater than or equal to 1'
+      'Too small: expected number to be >=1'
     );
     mockEnvelope = getRandomEnvelope();
     mockEnvelope.v = 256;
     expect(() => EncryptedEnvelopeCodec.serialize(mockEnvelope)).toThrow(
-      'Number must be less than or equal to 255'
+      'Too big: expected number to be <=255'
     );
 
     mockEnvelope = getRandomEnvelope();

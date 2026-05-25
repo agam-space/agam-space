@@ -11,7 +11,7 @@ import { EFF_WORDLIST } from './utils/wordlist';
 export async function generateFingerprint(publicKey: Uint8Array): Promise<string> {
   const sodium = await getSodium();
 
-  const hash = sodium.crypto_generichash(32, publicKey);
+  const hash = sodium.crypto_generichash(32, publicKey, null);
 
   // Extract 4 10-bit indices from the first 40 bits (5 bytes)
   const hashArray = new Uint8Array(hash);
