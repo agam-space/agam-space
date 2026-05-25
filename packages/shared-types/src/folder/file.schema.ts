@@ -44,7 +44,7 @@ export const UpdateFileSchema = z.object({
 });
 
 export const RawFileMetadataSchema = z.object({
-  name: z.string().min(1).max(100),
+  name: z.string().min(1).max(255),
   size: z.number().int().nonnegative(),
   mimeType: z.string().nullish(),
   createdAt: datetimeSchema.nullish(),
