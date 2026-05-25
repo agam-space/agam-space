@@ -23,7 +23,7 @@
     "lru-cache": "^11.2.4",
     "sha256": "link:@noble/hashes/sha256",
     "ulid": "^3.0.2",
-    "zod": "^3.25.76"
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@types/jest": "^30.0.0",

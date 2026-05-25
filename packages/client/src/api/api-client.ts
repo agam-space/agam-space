@@ -73,11 +73,7 @@ export class ApiClient {
     return this.config;
   }
 
-  async fetchAndParse<T>(
-    path: string,
-    schema: ZodType<T, any, any>,
-    options: RequestInit = {}
-  ): Promise<T> {
+  async fetchAndParse<T>(path: string, schema: ZodType<T>, options: RequestInit = {}): Promise<T> {
     const res = await this.fetchRaw(path, options);
     const data = await res.json();
     const parsed = schema.safeParse(data);

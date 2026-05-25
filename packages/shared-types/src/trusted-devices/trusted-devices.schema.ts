@@ -45,7 +45,7 @@ export type RegisterChallengeRequest = z.infer<typeof RegisterChallengeRequestSc
 // Device register challenge response
 export const RegisterChallengeResponseSchema = z.object({
   deviceId: UlidSchema,
-  options: z.record(z.any()), // WebAuthn registration options
+  options: z.record(z.string(), z.any()), // WebAuthn registration options
 });
 
 export type RegisterChallengeResponse = z.infer<typeof RegisterChallengeResponseSchema>;
@@ -59,7 +59,7 @@ export type UnlockChallengeRequest = z.infer<typeof UnlockChallengeRequestSchema
 
 // Device unlock challenge response
 export const UnlockChallengeResponseSchema = z.object({
-  options: z.record(z.any()), // WebAuthn options
+  options: z.record(z.string(), z.any()), // WebAuthn options
   challengeId: z.string().min(1).max(100),
   prfInput: z.string().optional(),
 });

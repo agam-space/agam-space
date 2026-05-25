@@ -274,7 +274,7 @@ export class ConfigLoader {
       security: securityDefaults,
       file: fileDefaults,
       account: accountDefaults,
-    };
+    } as Partial<AppConfig>;
   }
 
   /**

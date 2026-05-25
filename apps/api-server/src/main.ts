@@ -5,7 +5,6 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { AppConfigService } from './config/config.service';
 import { runMigrations } from './database/migration';
-import { patchNestJsSwagger } from 'nestjs-zod';
 
 import type { FastifyCookieOptions } from '@fastify/cookie';
 import fastifyCookie from '@fastify/cookie';
@@ -100,8 +99,6 @@ async function bootstrap() {
   setupStaticAssets(app, config);
 
   if (configService.isDocsEnabled()) {
-    patchNestJsSwagger();
-
     const swaggerConfig = new DocumentBuilder()
       .setTitle('Agam Space API')
       .setDescription('Self-hosted, end-to-end encrypted file storage platform API')

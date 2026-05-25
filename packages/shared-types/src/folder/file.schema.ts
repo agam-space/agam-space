@@ -53,7 +53,7 @@ export const RawFileMetadataSchema = z.object({
 
 export const UserFileMetadataSchema = RawFileMetadataSchema.extend({
   customTags: z.array(z.string()).nullish(),
-  extra: z.record(z.any()).nullish(),
+  extra: z.record(z.string(), z.any()).nullish(),
 });
 
 export const TrashFilesResponseSchema = z.object({
