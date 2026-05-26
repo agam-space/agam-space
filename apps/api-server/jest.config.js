@@ -7,6 +7,14 @@ const config = {
   rootDir: '.',
   testMatch: ['<rootDir>/test/**/*.test.ts'],
   coverageDirectory: '<rootDir>/coverage',
+  transform: {
+    '^.+\\.tsx?$': [
+      'ts-jest',
+      {
+        tsconfig: '<rootDir>/tsconfig.test.json',
+      },
+    ],
+  },
   moduleNameMapper: {
     ...base.moduleNameMapper,
     '^src/(.*)$': '<rootDir>/src/$1',
