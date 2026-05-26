@@ -73,10 +73,13 @@ docker-compose restart agam
 
 ### Option 2: SSO Auto-Create
 
-Enable SSO with auto-create:
+Enable SSO and set auto-create:
 
 ```yaml
-SSO_ENABLED: 'true'
+SSO_ISSUER: 'https://auth.yourdomain.com'
+SSO_CLIENT_ID: 'agam-space'
+SSO_CLIENT_SECRET: 'your-secret'
+SSO_REDIRECT_URI: 'https://files.yourdomain.com/api/v1/auth/sso/oidc/callback'
 SSO_AUTO_CREATE_USER: 'true'
 ```
 
@@ -101,7 +104,7 @@ register.
 
 ## Storage Quotas
 
-Default quota: 10GB per user (configurable via `DEFAULT_USER_QUOTA_GB`)
+Default quota: 10GB per user (configurable via `DEFAULT_USER_STORAGE_QUOTA`)
 
 ### Using Admin Panel
 
@@ -173,17 +176,13 @@ docker exec -it agam-space-postgres-1 psql -U postgres -d agam_space -c \
 
 ## User Roles
 
-Currently supports two roles:
+Agam Space has three roles:
 
-- **Admin:** Full access to admin panel and all features
-- **User:** Standard user access
-
-:::info Future Feature
-
-Role-based access control and custom permissions are planned for future
-releases.
-
-:::
+- **Owner:** The first user to register. Full admin access and cannot be deleted
+  or demoted.
+- **Admin:** Users promoted by the Owner. Can manage users, quotas, and invite
+  codes.
+- **User:** Standard user access to their own encrypted storage.
 
 ## Best Practices
 

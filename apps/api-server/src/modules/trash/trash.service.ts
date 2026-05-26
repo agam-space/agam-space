@@ -3,7 +3,7 @@ import { FoldersService } from '@/modules/folders/folders.service';
 import { FilesService } from '@/modules/files/files.service';
 import { DATABASE_CONNECTION, files, folders } from '@/database';
 import { drizzle } from 'drizzle-orm/postgres-js';
-import { and, eq } from 'drizzle-orm';
+import { and, eq, sql } from 'drizzle-orm';
 import {
   File,
   FileSchema,
@@ -13,6 +13,7 @@ import {
   FolderStatus,
   TrashedItems,
 } from '@agam-space/shared-types';
+import { AppConfigService } from '@/config/config.service';
 
 @Injectable()
 export class TrashService {
@@ -21,7 +22,8 @@ export class TrashService {
   constructor(
     @Inject(DATABASE_CONNECTION) private readonly db: ReturnType<typeof drizzle>,
     private readonly foldersService: FoldersService,
-    private readonly filesService: FilesService
+    private readonly filesService: FilesService,
+    private readonly configService: AppConfigService
   ) {}
 
   async emptyTrash(userId: string) {
@@ -34,6 +36,46 @@ export class TrashService {
     this.cleanupDeletedContents().then();
 
     return folders.length + files.length;
+  }
+
+  async expireOldTrashedItems(): Promise<void> {
+    const trashCleanupIntervalDays = this.configService.getConfig().file.trashCleanupIntervalDays;
+
+    this.logger.log(`Expiring trashed items older than ${trashCleanupIntervalDays} days`);
+
+    // Mark old trashed files as deleted
+    const expiredFiles = await this.db
+      .update(files)
+      .set({ status: FileStatus.DELETED })
+      .where(
+        and(
+          eq(files.status, FileStatus.TRASHED),
+          sql`${files.updatedAt} < NOW() - make_interval(days => ${trashCleanupIntervalDays})`
+        )
+      )
+      .returning({ id: files.id });
+
+    // Mark old trashed folders as deleted
+    const expiredFolders = await this.db
+      .update(folders)
+      .set({ status: FolderStatus.DELETED })
+      .where(
+        and(
+          eq(folders.status, FolderStatus.TRASHED),
+          sql`${folders.updatedAt} < NOW() - make_interval(days => ${trashCleanupIntervalDays})`
+        )
+      )
+      .returning({ id: folders.id });
+
+    const totalExpired = expiredFiles.length + expiredFolders.length;
+
+    if (totalExpired > 0) {
+      this.logger.log(
+        `Expired ${expiredFiles.length} files and ${expiredFolders.length} folders (total: ${totalExpired})`
+      );
+    } else {
+      this.logger.debug('No trashed items to expire');
+    }
   }
 
   async cleanupDeletedContents() {

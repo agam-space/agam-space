@@ -40,7 +40,7 @@ identity_providers:
         description: Agam Space File Storage
         secret: your_random_secret_here_min_32_chars
         redirect_uris:
-          - https://files.yourdomain.com/api/v1/auth/oidc/callback
+          - https://files.yourdomain.com/api/v1/auth/sso/oidc/callback
         scopes:
           - openid
           - email
@@ -107,7 +107,7 @@ docker-compose restart agam
 4. Configure:
    - Name: `Agam Space`
    - Client type: `Confidential`
-   - Redirect URIs: `https://files.yourdomain.com/api/v1/auth/oidc/callback`
+   - Redirect URIs: `https://files.yourdomain.com/api/v1/auth/sso/oidc/callback`
    - Scopes: `openid`, `email`, `profile`
 5. Save and copy Client ID and Client Secret
 
@@ -150,7 +150,8 @@ agam:
 ### Configure Client
 
 1. Access Type: `confidential`
-2. Valid Redirect URIs: `https://files.yourdomain.com/api/v1/auth/oidc/callback`
+2. Valid Redirect URIs:
+   `https://files.yourdomain.com/api/v1/auth/sso/oidc/callback`
 3. Save
 4. Go to **Credentials** tab and copy Client Secret
 
@@ -172,7 +173,7 @@ agam:
 See [Configuration Reference](../configuration/) for all SSO environment
 variables.
 
-## Disable Password Login
+## Disable Password Login (planned for future release)
 
 To use SSO-only authentication:
 

@@ -21,6 +21,7 @@ export class TrashCleanupJob extends AbstractScheduledJob {
   }
 
   protected async run(): Promise<void> {
+    await this.trashService.expireOldTrashedItems();
     return this.trashService.cleanupDeletedContents();
   }
 }

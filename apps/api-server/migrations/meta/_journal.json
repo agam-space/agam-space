@@ -85,6 +85,13 @@
       "when": 1769464829920,
       "tag": "0011_robust_dragon_lord",
       "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1779464829920,
+      "tag": "0012_add_updated_at_triggers",
+      "breakpoints": true
     }
   ]
 }

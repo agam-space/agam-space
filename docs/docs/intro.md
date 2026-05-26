@@ -59,10 +59,12 @@ but expect bugs and breaking changes.
 - Trash bin (30-day retention)
 - WebAuthn device unlock
 - Storage quota enforcement
+- Public sharing — share files or folders via a link (no account needed)
+- SSO via OIDC (Authelia, Authentik, Keycloak, etc.)
+- Invite codes for controlled user registration
 
 **Known limitations:**
 
-- No file sharing between users
 - No mobile apps (web UI is responsive)
 - No file versioning
 - Local storage only (no S3 yet)

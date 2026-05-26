@@ -8,6 +8,21 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: false,
   },
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      // Handle node: protocol imports (libsodium-sumo uses node:fs in CJS build,
+      // but its "browser" field only maps bare "fs" → false, not "node:fs")
+      config.plugins.push(
+        new (require('webpack').NormalModuleReplacementPlugin)(
+          /^node:/,
+          (resource: { request: string }) => {
+            resource.request = resource.request.replace(/^node:/, '');
+          }
+        )
+      );
+    }
+    return config;
+  },
   generateBuildId: async () => {
     const buildId = process.env.NEXT_PUBLIC_BUILD_ID;
 

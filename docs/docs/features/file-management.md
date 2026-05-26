@@ -65,11 +65,19 @@ Deleted files and folders move to trash instead of being permanently deleted.
 
 **Features:**
 
-- 30-day retention before permanent deletion
-- Restore deleted items anytime within 30 days
-- Empty trash manually to free up quota space
+- Restore deleted items anytime before permanent deletion
+- Empty trash manually to free up quota space immediately
+- Auto-deletion: Items in trash older than the configured interval (default: 7
+  days) are automatically moved to permanent deletion
+- Configurable via `TRASH_CLEANUP_INTERVAL_DAYS` (range: 1-30 days)
 
 Items in trash still count toward your storage quota until permanently deleted.
+
+**How auto-deletion works:**
+
+A background job runs every 5 minutes to clean up old trashed items. Items that
+have been in trash longer than `TRASH_CLEANUP_INTERVAL_DAYS` are automatically
+marked for permanent deletion and removed from the server.
 
 ## Public Sharing
 

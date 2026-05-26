@@ -83,7 +83,7 @@ These must be set for Agam Space to run:
 
 | Environment Variable | Config File Property | Default | Description             |
 | -------------------- | -------------------- | ------- | ----------------------- |
-| `DOCS_ENABLED`       | `docs.enabled`       | `true`  | Enable Swagger API docs |
+| `DOCS_ENABLED`       | `docs.enabled`       | `false` | Enable Swagger API docs |
 | `DOCS_PATH`          | `docs.path`          | `docs`  | Path to access API docs |
 
 Access Swagger docs at: `http://localhost:3331/docs`
