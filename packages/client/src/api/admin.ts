@@ -15,13 +15,13 @@ export async function updateUserStatus(
   } catch (e) {
     if (e instanceof ApiClientError) {
       if (e.status === 403) {
-        throw new Error('Cannot modify your own account status');
+        throw new Error('Cannot modify your own account status', { cause: e });
       }
       if (e.status === 404) {
-        throw new Error('User not found');
+        throw new Error('User not found', { cause: e });
       }
     }
-    throw new Error('Failed to update user status');
+    throw new Error('Failed to update user status', { cause: e });
   }
 }
 
@@ -38,9 +38,9 @@ export async function updateUserQuota(
   } catch (e) {
     if (e instanceof ApiClientError) {
       if (e.status === 404) {
-        throw new Error('User or quota not found');
+        throw new Error('User or quota not found', { cause: e });
       }
     }
-    throw new Error('Failed to update user quota');
+    throw new Error('Failed to update user quota', { cause: e });
   }
 }

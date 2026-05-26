@@ -141,7 +141,8 @@ export function PublicSharePage({ shareId, clientKey }: PublicSharePageProps) {
       } catch (decryptError: unknown) {
         logger.error('PublicSharePage', 'Error during item key decryption', decryptError);
         throw new Error(
-          'Failed to decrypt share keys, check if url is copied completely or password is correct'
+          'Failed to decrypt share keys, check if url is copied completely or password is correct',
+          { cause: decryptError }
         );
       }
 

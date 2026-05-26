@@ -15,7 +15,7 @@ export async function fetchE2eeKeys(): Promise<UserKeys | null> {
     if (e instanceof ApiClientError && (e as ApiClientError)?.status === 404) {
       return null;
     }
-    throw new Error(`Error fetching keys: ${e}`);
+    throw new Error(`Error fetching keys: ${e}`, { cause: e });
   }
 }
 

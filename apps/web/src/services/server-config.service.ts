@@ -16,7 +16,8 @@ export const ServerConfigService = {
     } catch (err) {
       console.error('Failed to fetch config', err);
       throw new Error(
-        'Failed to fetch server configuration' + (err instanceof Error ? `: ${err.message}` : '')
+        'Failed to fetch server configuration' + (err instanceof Error ? `: ${err.message}` : ''),
+        { cause: err }
       );
     }
   },

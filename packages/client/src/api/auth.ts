@@ -25,10 +25,10 @@ export async function loginWithPassword(
   } catch (e) {
     if (e instanceof ApiClientError) {
       if (e.status === 401) {
-        throw new Error('Invalid credentials');
+        throw new Error('Invalid credentials', { cause: e });
       }
     }
-    throw new Error(`Login failed`);
+    throw new Error(`Login failed`, { cause: e });
   }
 }
 
@@ -56,10 +56,10 @@ export async function signupApi(
   } catch (e) {
     if (e instanceof ApiClientError) {
       if (e.status === 409) {
-        throw new Error('Username or email already exists');
+        throw new Error('Username or email already exists', { cause: e });
       }
     }
-    throw new Error(`Signup failed: ${e}`);
+    throw new Error(`Signup failed: ${e}`, { cause: e });
   }
 }
 
@@ -77,12 +77,12 @@ export async function changeLoginPasswordApi(request: ChangeLoginPasswordRequest
   } catch (e) {
     if (e instanceof ApiClientError) {
       if (e.status === 401) {
-        throw new Error('Current password is incorrect');
+        throw new Error('Current password is incorrect', { cause: e });
       }
       if (e.status === 403) {
-        throw new Error('SSO users cannot change login password');
+        throw new Error('SSO users cannot change login password', { cause: e });
       }
     }
-    throw new Error('Failed to change password');
+    throw new Error('Failed to change password', { cause: e });
   }
 }

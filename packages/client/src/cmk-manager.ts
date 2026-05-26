@@ -113,7 +113,9 @@ export class CmkManager {
       return this.encryptionStrategy.decrypt(envelope, recoveryKeyBuffer);
     } catch (e) {
       console.error('Failed to decrypt CMK with recovery key:', e);
-      throw new Error(`Invalid recovery key or decryption failed: ${(e as Error).message}`);
+      throw new Error(`Invalid recovery key or decryption failed: ${(e as Error).message}`, {
+        cause: e,
+      });
     }
   }
 

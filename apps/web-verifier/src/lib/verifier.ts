@@ -107,7 +107,7 @@ export async function verifyInstance(
       throw { steps, message: error.message };
     }
 
-    throw new Error('Verification failed');
+    throw new Error('Verification failed', { cause: error });
   }
 }
 
@@ -129,7 +129,7 @@ export async function verifyInstanceManual(
     if (error instanceof Error) {
       throw error;
     }
-    throw new Error('Verification failed');
+    throw new Error('Verification failed', { cause: error });
   }
 }
 
@@ -412,7 +412,7 @@ async function fetchInstanceHTML(instanceUrl: string): Promise<string> {
     if (error instanceof Error) {
       throw error;
     }
-    throw new Error('Failed to fetch instance');
+    throw new Error('Failed to fetch instance', { cause: error });
   }
 }
 
@@ -440,13 +440,14 @@ async function fetchInstanceHTMLViaProxy(instanceUrl: string): Promise<string> {
   } catch (error) {
     if (error instanceof TypeError && error.message.includes('fetch')) {
       throw new Error(
-        'Cannot connect to instance. Possible reasons: (1) Instance is offline or unreachable, (2) Instance is behind authentication/VPN - try Manual HTML mode.'
+        'Cannot connect to instance. Possible reasons: (1) Instance is offline or unreachable, (2) Instance is behind authentication/VPN - try Manual HTML mode.',
+        { cause: error }
       );
     }
     if (error instanceof Error) {
       throw error;
     }
-    throw new Error('Failed to fetch instance via proxy');
+    throw new Error('Failed to fetch instance via proxy', { cause: error });
   }
 }
 

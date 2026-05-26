@@ -348,7 +348,7 @@ export const TrustedDevicesService = {
         }
       }
       toast.error(message);
-      throw new Error(message);
+      throw new Error(message, { cause: err });
     }
   },
 };

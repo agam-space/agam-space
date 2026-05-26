@@ -167,11 +167,11 @@ export class RestoreConflictService {
         }
       } catch (err) {
         console.error('Failed to get item encryption key:', err);
-        throw new Error('Failed to prepare metadata for restore');
+        throw new Error('Failed to prepare metadata for restore', { cause: err });
       }
 
       // Decrypt existing metadata, update name, re-encrypt
-      let newMetadataEncrypted = '';
+      let newMetadataEncrypted: string;
       try {
         if (isFolder) {
           const updatedMetadata: FolderMetadata = {
@@ -188,7 +188,7 @@ export class RestoreConflictService {
         }
       } catch (err) {
         console.error('Failed to encrypt new metadata:', err);
-        throw new Error('Failed to prepare renamed file/folder for restore');
+        throw new Error('Failed to prepare renamed file/folder for restore', { cause: err });
       }
 
       restoreItem = {
@@ -217,7 +217,7 @@ export class RestoreConflictService {
         restoreItem.parentId = finalParentId;
       } catch (err) {
         console.error('Failed to get item encryption key:', err);
-        throw new Error('Failed to prepare metadata for restore');
+        throw new Error('Failed to prepare metadata for restore', { cause: err });
       }
     }
 

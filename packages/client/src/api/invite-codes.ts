@@ -26,10 +26,10 @@ export async function createInviteCode(
   } catch (e) {
     if (e instanceof ApiClientError) {
       if (e.status === 400) {
-        throw new Error(e.message || 'Invalid invite code parameters');
+        throw new Error(e.message || 'Invalid invite code parameters', { cause: e });
       }
     }
-    throw new Error('Failed to create invite code');
+    throw new Error('Failed to create invite code', { cause: e });
   }
 }
 
@@ -43,7 +43,7 @@ export async function listInviteCodes(): Promise<InviteCodeList> {
       }
     );
   } catch (_e) {
-    throw new Error('Failed to load invite codes');
+    throw new Error('Failed to load invite codes', { cause: _e });
   }
 }
 
@@ -55,10 +55,10 @@ export async function revokeInviteCode(id: string): Promise<void> {
   } catch (e) {
     if (e instanceof ApiClientError) {
       if (e.status === 404) {
-        throw new Error('Invite code not found');
+        throw new Error('Invite code not found', { cause: e });
       }
     }
-    throw new Error('Failed to revoke invite code');
+    throw new Error('Failed to revoke invite code', { cause: e });
   }
 }
 
@@ -72,6 +72,6 @@ export async function validateInviteCode(id: string): Promise<ValidateInviteCode
       }
     );
   } catch (_e) {
-    throw new Error('Failed to validate invite code');
+    throw new Error('Failed to validate invite code', { cause: _e });
   }
 }

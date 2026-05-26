@@ -75,7 +75,7 @@ export async function decryptFileChunk(
     envelope = EncryptedEnvelopeCodec.deserializeFromTLV(chunkEncrypted);
   } catch (e) {
     console.error(`Failed to deserialize chunk: ${e}`);
-    throw new Error('Invalid encrypted chunk format');
+    throw new Error('Invalid encrypted chunk format', { cause: e });
   }
   return EncryptionRegistry.get().decrypt(envelope, fileKey);
 }

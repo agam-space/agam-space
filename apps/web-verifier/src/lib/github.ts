@@ -20,6 +20,6 @@ export async function fetchOfficialManifest(version: string): Promise<IntegrityM
     if (error instanceof Error) {
       throw error;
     }
-    throw new Error(`Failed to fetch manifest: ${error}`);
+    throw new Error(`Failed to fetch manifest: ${error}`, { cause: error });
   }
 }

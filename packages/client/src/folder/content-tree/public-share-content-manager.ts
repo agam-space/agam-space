@@ -209,8 +209,8 @@ export class PublicShareContentManager {
         createdAt: new Date(file.createdAt),
         updatedAt: new Date(file.updatedAt),
       };
-    } catch (_err) {
-      throw new Error(`Failed to decrypt public shared file`);
+    } catch (err) {
+      throw new Error(`Failed to decrypt public shared file`, { cause: err });
     }
   }
 

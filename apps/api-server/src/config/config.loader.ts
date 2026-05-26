@@ -82,7 +82,7 @@ export class ConfigLoader {
       if (error instanceof Error) {
         console.error(error.message);
       }
-      throw new Error(`Invalid configuration: ${error}`);
+      throw new Error(`Invalid configuration: ${error}`, { cause: error });
     }
   }
 

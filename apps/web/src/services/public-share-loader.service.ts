@@ -62,7 +62,7 @@ export class PublicShareLoaderService {
       return itemKey;
     } catch (e: unknown) {
       logger.error('PublicShareLoaderService', 'Failed to decrypt share item key', e);
-      throw new Error('Failed to decrypt share item key');
+      throw new Error('Failed to decrypt share item key', { cause: e });
     }
   }
 

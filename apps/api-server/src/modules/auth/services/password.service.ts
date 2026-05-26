@@ -23,7 +23,8 @@ export class PasswordService {
       });
     } catch (error) {
       throw new Error(
-        `Password hashing failed: ${error instanceof Error ? error.message : 'Unknown error'}`
+        `Password hashing failed: ${error instanceof Error ? error.message : 'Unknown error'}`,
+        { cause: error }
       );
     }
   }
