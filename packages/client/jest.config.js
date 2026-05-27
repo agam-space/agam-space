@@ -19,6 +19,12 @@ const config = {
   },
   testMatch: ['<rootDir>/packages/client/test/**/*.test.ts'],
   coverageDirectory: '<rootDir>/packages/client/coverage',
+  collectCoverageFrom: [
+    'packages/client/src/**/*.{ts,tsx}',
+    '!packages/client/src/**/*.d.ts',
+    '!packages/client/src/**/*.test.ts',
+    '!packages/client/src/**/*.spec.ts',
+  ],
 };
 
 module.exports = config;
