@@ -20,6 +20,34 @@ describe('cmkChallenge', () => {
       expect(signature).toMatch(/^[A-Za-z0-9+/]+={0,2}$/); // Base64 format
       expect(signature.length).toBeGreaterThan(44);
     });
+
+    it('should use custom signFunction when provided', async () => {
+      const payload = { userId: 'test-user' };
+      const seed = IdentityKeyManager.generateIdentitySeed();
+      const identityKeys = await IdentityKeyManager.generateIdentityKeys(seed);
+
+      const customSign = jest.fn(async (message: Uint8Array) =>
+        IdentityKeyManager.sign(message, identityKeys.signKey.privateKey)
+      );
+
+      const { timestamp, signature } = await generateCmkChallenge(
+        payload,
+        new Uint8Array(32), // key arg ignored when signFunction provided
+        customSign
+      );
+
+      expect(customSign).toHaveBeenCalledTimes(1);
+      // Signature produced by custom function should still verify correctly
+      await expect(
+        verifyCmkChallenge(
+          payload,
+          signature,
+          Buffer.from(identityKeys.signKey.publicKey).toString('base64'),
+          timestamp,
+          30000
+        )
+      ).resolves.toBeUndefined();
+    });
   });
 
   describe('verifyCmkChallenge', () => {

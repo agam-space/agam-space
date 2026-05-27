@@ -2,17 +2,12 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "dist",
-    "rootDir": "src",
-    "composite": true,
-    "declaration": true,
-    "declarationMap": true,
-    "incremental": true,
     "module": "commonjs",
     "moduleResolution": "node10",
     "ignoreDeprecations": "6.0",
-    "tsBuildInfoFile": "dist/.tsbuildinfo"
+    "types": ["node", "jest"]
   },
   "references": [{ "path": "../core" }, { "path": "../shared-types" }],
-  "include": ["src/**/*"],
-  "exclude": ["dist", "node_modules", "**/*.test.ts"]
+  "include": ["src/**/*", "test/**/*"],
+  "exclude": ["dist", "node_modules"]
 }

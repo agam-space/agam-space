@@ -98,4 +98,33 @@ describe('IdentityKeyManager', () => {
     const isValid = await IdentityKeyManager.verify(message, signature, keys2.signKey.publicKey);
     expect(isValid).toBe(false);
   });
+
+  it('should generate a legacy Ed25519 keypair from CMK (generateIdentityKeyPairWithCmk)', async () => {
+    const cmk = randomBytes(32);
+    const keypair = await IdentityKeyManager.generateIdentityKeyPairWithCmk(cmk);
+
+    expect(keypair.publicKey).toBeInstanceOf(Uint8Array);
+    expect(keypair.privateKey).toBeInstanceOf(Uint8Array);
+    // Ed25519: public key 32 bytes, private key 64 bytes
+    expect(keypair.publicKey.length).toBe(32);
+    expect(keypair.privateKey.length).toBe(64);
+  });
+
+  it('should derive the same legacy keypair deterministically from the same CMK', async () => {
+    const cmk = randomBytes(32);
+    const keypair1 = await IdentityKeyManager.generateIdentityKeyPairWithCmk(cmk);
+    const keypair2 = await IdentityKeyManager.generateIdentityKeyPairWithCmk(cmk);
+
+    expect(keypair1.publicKey).toEqual(keypair2.publicKey);
+    expect(keypair1.privateKey).toEqual(keypair2.privateKey);
+  });
+
+  it('should derive different legacy keypairs from different CMKs', async () => {
+    const cmk1 = randomBytes(32);
+    const cmk2 = randomBytes(32);
+    const keypair1 = await IdentityKeyManager.generateIdentityKeyPairWithCmk(cmk1);
+    const keypair2 = await IdentityKeyManager.generateIdentityKeyPairWithCmk(cmk2);
+
+    expect(keypair1.publicKey).not.toEqual(keypair2.publicKey);
+  });
 });

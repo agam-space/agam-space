@@ -143,4 +143,38 @@ describe('encoding', () => {
       expect(fromUtf8Bytes(result)).toBe('a');
     });
   });
+
+  describe('Base64 / Base64Url (browser fallback — no Buffer)', () => {
+    let savedBuffer: typeof Buffer;
+
+    beforeAll(() => {
+      savedBuffer = global.Buffer;
+      // @ts-expect-error simulate browser environment where Buffer is not defined
+      global.Buffer = undefined;
+    });
+
+    afterAll(() => {
+      global.Buffer = savedBuffer;
+    });
+
+    it('toBase64 should use btoa fallback', () => {
+      const data = new Uint8Array([72, 101, 108, 108, 111]); // "Hello"
+      expect(toBase64(data)).toBe('SGVsbG8=');
+    });
+
+    it('fromBase64 should use atob fallback', () => {
+      const result = fromBase64('SGVsbG8=');
+      expect(result).toEqual(new Uint8Array([72, 101, 108, 108, 111]));
+    });
+
+    it('fromBase64Url should use atob fallback', () => {
+      const result = fromBase64Url('SGVsbG8');
+      expect(result).toEqual(new Uint8Array([72, 101, 108, 108, 111]));
+    });
+
+    it('toBase64 + fromBase64 round-trip via fallback', () => {
+      const data = new Uint8Array([1, 2, 3, 4, 5, 255, 0, 128]);
+      expect(fromBase64(toBase64(data))).toEqual(data);
+    });
+  });
 });

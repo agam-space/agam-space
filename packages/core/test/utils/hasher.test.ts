@@ -85,5 +85,11 @@ describe('hasher', () => {
 
       expect(hashFromString).toBe(hashFromBytes);
     });
+
+    it('should throw for unsupported output format', () => {
+      expect(() => blake3HashWithEncoding('test', 'binary' as never)).toThrow(
+        'Unsupported output format'
+      );
+    });
   });
 });
