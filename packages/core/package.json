@@ -10,7 +10,8 @@
   },
   "scripts": {
     "build": "tsc -b tsconfig.build.json",
-    "test": "jest",
+    "test": "jest --passWithNoTests",
+    "test:cov": "jest --coverage --passWithNoTests",
     "clean": "rimraf dist"
   },
   "dependencies": {

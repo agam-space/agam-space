@@ -60,9 +60,9 @@ jobs:
         run: pnpm lint
 
   test:
-    name: Unit Tests
+    name: Unit Tests & Coverage
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     needs: [lint-and-format]
     steps:
       - uses: actions/checkout@v4
@@ -79,8 +79,50 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Run unit tests
-        run: pnpm test
+      - name: Build packages (required before testing dependents)
+        run: pnpm build:packages
+
+      - name: Run tests with coverage (all packages & apps)
+        run: pnpm test:cov
+
+      - name: Upload coverage – core
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-core
+          path: packages/core/coverage/
+          if-no-files-found: ignore
+
+      - name: Upload coverage – client
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-client
+          path: packages/client/coverage/
+          if-no-files-found: ignore
+
+      - name: Upload coverage – shared-types
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-shared-types
+          path: packages/shared-types/coverage/
+          if-no-files-found: ignore
+
+      - name: Upload coverage – api-server
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-api-server
+          path: apps/api-server/coverage/
+          if-no-files-found: ignore
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: >-
+            packages/core/coverage/lcov.info,
+            packages/client/coverage/lcov.info,
+            apps/api-server/coverage/lcov.info
+          flags: core,client,api-server
+          fail_ci_if_error: false
 
   integration-test:
     name: Integration Tests

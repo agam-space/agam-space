@@ -16,7 +16,7 @@
     "db:drop": "drizzle-kit drop",
     "lint": "eslint . --ext .ts",
     "test:watch": "jest --watch",
-    "test:cov": "jest --coverage"
+    "test:cov": "jest --coverage --passWithNoTests"
   },
   "dependencies": {
     "@agam-space/core": "workspace:*",

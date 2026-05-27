@@ -8,7 +8,7 @@
     "lint": "eslint . --ext .ts",
     "test": "jest --passWithNoTests",
     "test:watch": "jest --watch",
-    "test:cov": "jest --coverage"
+    "test:cov": "jest --coverage --passWithNoTests"
   },
   "dependencies": {
     "zod": "^4.4.3"

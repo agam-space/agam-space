@@ -1,0 +1,45 @@
+coverage:
+  # Overall badge targets (based on core + client — the meaningful crypto/logic layer)
+  status:
+    project:
+      default:
+        target: 70%
+        threshold: 2%
+    patch:
+      default:
+        target: 60%
+        threshold: 5%
+
+# Per-package flags
+flag_management:
+  default_rules:
+    carryforward: true
+
+flags:
+  core:
+    paths:
+      - packages/core/src/
+    carryforward: true
+  client:
+    paths:
+      - packages/client/src/
+    carryforward: true
+  api-server:
+    paths:
+      - apps/api-server/src/
+    carryforward: true
+
+# Ignore files that aren't meaningful to test
+ignore:
+  - '**/*.dto.ts'
+  - '**/*.module.ts'
+  - '**/*.config.ts'
+  - '**/*.types.ts'
+  - '**/*.d.ts'
+  - '**/dist/**'
+  - '**/node_modules/**'
+
+comment:
+  layout: 'reach,diff,flags,files'
+  behavior: default
+  require_changes: true
