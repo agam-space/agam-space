@@ -110,6 +110,7 @@ CMD ["node", "dist/main.js"]
 FROM node:22.22-bullseye-slim AS runner
 
 RUN apt-get update && \
+    apt-get upgrade -y --no-install-recommends && \
     apt-get install -y --no-install-recommends tini && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* \

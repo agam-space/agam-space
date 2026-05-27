@@ -3,6 +3,12 @@ import { validateMasterPassword, decryptCmkWithPassword, resetMasterPassword } f
 import { UserKeysSetup } from '@agam-space/shared-types';
 import { IdentityKeyManager, toBase64 } from '@agam-space/core';
 
+jest.mock('../../src/api', () => ({
+  resetCmkPasswordApi: jest.fn(),
+}));
+
+import { resetCmkPasswordApi } from '../../src/api';
+
 const TEST_PASSWORD = 'TestPassword123!';
 const WRONG_PASSWORD = 'WrongPassword456!';
 const NEW_PASSWORD = 'NewPassword789!';
@@ -160,6 +166,34 @@ describe('master-password', () => {
 
       expect(result.success).toBe(false);
       expect(result.error).toBeDefined();
+    });
+
+    it('should fail when encIdentitySeed is missing', async () => {
+      const keysWithoutSeed = { ...userKeys, encIdentitySeed: undefined as unknown as string };
+      const result = await resetMasterPassword(recoveryKey, NEW_PASSWORD, keysWithoutSeed);
+
+      expect(result.success).toBe(false);
+      expect(result.error).toContain('not fully migrated');
+    });
+
+    it('should succeed when API returns updated keys', async () => {
+      const mockUpdatedKeys = { ...userKeys };
+      (resetCmkPasswordApi as jest.Mock).mockResolvedValueOnce(mockUpdatedKeys);
+
+      const result = await resetMasterPassword(recoveryKey, NEW_PASSWORD, userKeys);
+
+      expect(result.success).toBe(true);
+      expect(result.userKeys).toBeDefined();
+      expect(resetCmkPasswordApi).toHaveBeenCalledTimes(1);
+    });
+
+    it('should fail when API returns null', async () => {
+      (resetCmkPasswordApi as jest.Mock).mockResolvedValueOnce(null);
+
+      const result = await resetMasterPassword(recoveryKey, NEW_PASSWORD, userKeys);
+
+      expect(result.success).toBe(false);
+      expect(result.error).toBe('Failed to reset master password');
     });
   });
 });
