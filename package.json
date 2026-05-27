@@ -8,6 +8,7 @@
     "build:apps": "pnpm --filter \"./apps/**\" build",
     "clean": "pnpm -r clean",
     "test": "pnpm -r test",
+    "test:cov": "pnpm -r --if-present test:cov",
     "dev": "pnpm --parallel -r dev",
     "dev:api": "pnpm --filter api-server dev",
     "dev:web": "pnpm --filter web dev",
@@ -15,7 +16,8 @@
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "eslint . --fix --ext .ts,.tsx",
     "format": "prettier --write \"**/*.{ts,js,json,md,yml,yaml}\" --ignore-path .prettierignore",
-    "format:check": "prettier --check \"**/*.{ts,js,json,md,yml,yaml}\" --ignore-path .prettierignore"
+    "format:check": "prettier --check \"**/*.{ts,js,json,md,yml,yaml}\" --ignore-path .prettierignore",
+    "release": "bash scripts/release.sh"
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx}": [
