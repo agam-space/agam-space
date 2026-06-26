@@ -12,6 +12,7 @@ import {
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { FastifyReply, FastifyRequest } from 'fastify';
+import { Throttle } from '@nestjs/throttler';
 
 import { FileChunkService } from './file-chunk.service';
 
@@ -33,6 +34,7 @@ export class FileChunksController {
     private readonly filesService: FilesService
   ) {}
 
+  @Throttle({ default: { limit: 60, ttl: 60_000 } })
   @Put(':chunkIndex')
   @HttpCode(HttpStatus.CREATED)
   async uploadChunk(

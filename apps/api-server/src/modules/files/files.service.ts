@@ -88,22 +88,46 @@ export class FilesService {
       throw new ConflictException('A file with this name already exists at this level');
     }
 
+    // Guard: cap concurrent pending uploads per user so a single user cannot
+    // exhaust quota reservations without ever completing uploads.
+    const [{ count: pendingCount }] = await this.db
+      .select({ count: sql<number>`count(*)` })
+      .from(files)
+      .where(and(eq(files.userId, userId), eq(files.status, FileStatus.PENDING)));
+    if (Number(pendingCount) >= 10) {
+      throw new ConflictException(
+        'Too many pending uploads. Complete or cancel existing uploads before starting new ones.'
+      );
+    }
+
     this.logger.log(`📄 Creating file for user: ${userId}`);
 
     try {
-      const newFile: NewFile = {
-        userId,
-        parentId,
-        metadataEncrypted: data.metadataEncrypted,
-        nameHash: data.nameHash,
-        fkWrapped: data.fkWrapped,
-        chunkCount: data.chunkCount,
-        status: FileStatus.PENDING,
-        approxSize: 0,
-      };
-      const [createdFile] = await this.db.insert(files).values(newFile).returning();
+      return await this.db.transaction(async tx => {
+        // Reserve estimated quota upfront so chunks written to disk always count against
+        // the user's limit — even if the upload is abandoned. The reservation equals
+        // chunkCount * chunkSize (worst case). cleanupFile() already decrements by
+        // file.approxSize, so storing estimatedSize here means abandoned pending files
+        // correctly release their reservation when the cleanup job runs.
+        const reserved = await this.quotaService.incrementUsedStorage(userId, estimatedSize, tx);
+        if (reserved === null) {
+          throw new ConflictException('Insufficient storage quota to start this upload');
+        }
 
-      return FileSchema.parse(createdFile);
+        const newFile: NewFile = {
+          userId,
+          parentId,
+          metadataEncrypted: data.metadataEncrypted,
+          nameHash: data.nameHash,
+          fkWrapped: data.fkWrapped,
+          chunkCount: data.chunkCount,
+          status: FileStatus.PENDING,
+          approxSize: estimatedSize, // reserved quota; reconciled to actual size at completion
+        };
+        const [createdFile] = await tx.insert(files).values(newFile).returning();
+
+        return FileSchema.parse(createdFile);
+      });
     } catch (error) {
       this.logger.error(`Failed to create file for user ${userId}:`, error);
       throw error;
@@ -156,9 +180,20 @@ export class FilesService {
     }
 
     const updatedFileEntity = await this.db.transaction(async tx => {
-      const updatedQuota = await this.quotaService.incrementUsedStorage(userId, approxSize, tx);
-      if (updatedQuota === null) {
-        throw new ConflictException('User storage quota exceeded');
+      // Quota was already reserved at createFile as estimatedSize (chunkCount * chunkSize).
+      // Reconcile to the actual size: increment if larger than estimated, decrement if smaller.
+      const reservedSize = file.approxSize;
+      const delta = approxSize - reservedSize;
+
+      if (delta > 0) {
+        // Actual is larger than estimated — request remaining quota
+        const updated = await this.quotaService.incrementUsedStorage(userId, delta, tx);
+        if (updated === null) {
+          throw new ConflictException('User storage quota exceeded');
+        }
+      } else if (delta < 0) {
+        // Actual is smaller than estimated — release the over-reservation
+        await this.quotaService.decrementUsedStorage(userId, Math.abs(delta), tx);
       }
 
       const updatedFile = await this.updateFileProps(
