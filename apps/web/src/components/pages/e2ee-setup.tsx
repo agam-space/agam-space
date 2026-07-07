@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { setupCmkWithPassword } from '@/lib/e2ee';
 import { useE2eeKeys } from '@/store/e2ee-keys.store';
+import { downloadTextFile } from '@/utils/download-text-file';
 import { useRouter } from 'next/navigation';
 import { useRef, useState } from 'react';
 
@@ -48,6 +49,13 @@ export default function E2eeSetupPage() {
       .catch(err => {
         console.error('Copy failed:', err);
       });
+  };
+
+  const handleDownload = () => {
+    downloadTextFile(
+      'agam-space-recovery-key.txt',
+      `Agam Space recovery key\n\n${recoveryKey}\n\nKeep this somewhere safe and offline. Anyone with this key and access to your account can reset your master password. If you lose both your master password and this key, your files cannot be recovered.\n`
+    );
   };
 
   async function handleSubmit(e: React.FormEvent) {
@@ -211,6 +219,15 @@ export default function E2eeSetupPage() {
                     {copied ? '✓' : 'Copy'}
                   </Button>
                 )}
+                <Button
+                  type='button'
+                  variant='outline'
+                  size='sm'
+                  onClick={handleDownload}
+                  className='shrink-0'
+                >
+                  Download
+                </Button>
               </div>
             </div>
 
