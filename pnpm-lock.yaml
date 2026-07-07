@@ -200,7 +200,7 @@ importers:
         version: 0.31.10
       jest:
         specifier: ^30.4.2
-        version: 30.4.2(@types/node@22.20.0)(ts-node@10.9.2(@types/node@26.1.0)(typescript@6.0.3))
+        version: 30.4.2(@types/node@26.1.0)(ts-node@10.9.2(@types/node@26.1.0)(typescript@6.0.3))
       supertest:
         specifier: ^7.2.2
         version: 7.2.2
@@ -307,14 +307,14 @@ importers:
         specifier: ^0.4.6
         version: 0.4.6(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       pdfjs-dist:
-        specifier: 5.7.284
-        version: 5.7.284
+        specifier: 6.1.200
+        version: 6.1.200
       react:
         specifier: 19.2.7
         version: 19.2.7
       react-day-picker:
-        specifier: ^9.14.0
-        version: 9.14.0(react@19.2.7)
+        specifier: ^10.0.1
+        version: 10.0.1(@types/react@19.2.17)(react@19.2.7)
       react-dom:
         specifier: 19.2.7
         version: 19.2.7(react@19.2.7)
@@ -2050,8 +2050,8 @@ packages:
     cpu: [arm64]
     os: [android]
 
-  '@napi-rs/canvas-android-arm64@0.1.86':
-    resolution: {integrity: sha512-IjkZFKUr6GzMzzrawJaN3v+yY3Fvpa71e0DcbePfxWelFKnESIir+XUcdAbim29JOd0JE0/hQJdfUCb5t/Fjrw==}
+  '@napi-rs/canvas-android-arm64@1.0.2':
+    resolution: {integrity: sha512-IMXKVQod0ol4vt3gmClUfXz4JAgHYESGPCUqmH3lQxBoL0K/2greJaQE1HVBVxWWFKfLc4OLZVdxg7kXVyXv+g==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [android]
@@ -2062,8 +2062,8 @@ packages:
     cpu: [arm64]
     os: [darwin]
 
-  '@napi-rs/canvas-darwin-arm64@0.1.86':
-    resolution: {integrity: sha512-PUCxDq0wSSJbtaOqoKj3+t5tyDbtxWumziOTykdn3T839hu6koMaBFpGk9lXpsGaPNgyFpPqjxhtsPljBGnDHg==}
+  '@napi-rs/canvas-darwin-arm64@1.0.2':
+    resolution: {integrity: sha512-Sc8tPi6cF+5lqOzCCKFALJHhDiRwyMzTPYm3bbhdXsOunU0lQO5f05ucyOzN2r55I23Hg5bsjH63uSCvWp3EgQ==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [darwin]
@@ -2074,8 +2074,8 @@ packages:
     cpu: [x64]
     os: [darwin]
 
-  '@napi-rs/canvas-darwin-x64@0.1.86':
-    resolution: {integrity: sha512-rlCFLv4Rrg45qFZq7mysrKnsUbMhwdNg3YPuVfo9u4RkOqm7ooAJvdyDFxiqfSsJJTqupYqa9VQCUt8WKxKhNQ==}
+  '@napi-rs/canvas-darwin-x64@1.0.2':
+    resolution: {integrity: sha512-niDXZ9LhKB1zLrUdYB64RHQFDGz9rr0eGx061qtJJU3U20EMMIx28ADF5fVYbhtOgkWQrBjFicfaye1yM0U62A==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [darwin]
@@ -2086,8 +2086,8 @@ packages:
     cpu: [arm]
     os: [linux]
 
-  '@napi-rs/canvas-linux-arm-gnueabihf@0.1.86':
-    resolution: {integrity: sha512-6xWwyMc9BlDBt+9XHN/GzUo3MozHta/2fxQHMb80x0K2zpZuAdDKUYHmYzx9dFWDY3SbPYnx6iRlQl6wxnwS1w==}
+  '@napi-rs/canvas-linux-arm-gnueabihf@1.0.2':
+    resolution: {integrity: sha512-sgatQL9JxGRH/Amzcvu0P3t8Am3duou74CisfuJ41Dwt8cWy723z/9KZ8LlgmxfypEwEZxSTNFJtU8d281lmhQ==}
     engines: {node: '>= 10'}
     cpu: [arm]
     os: [linux]
@@ -2099,8 +2099,8 @@ packages:
     os: [linux]
     libc: [glibc]
 
-  '@napi-rs/canvas-linux-arm64-gnu@0.1.86':
-    resolution: {integrity: sha512-r2OX3w50xHxrToTovOSQWwkVfSq752CUzH9dzlVXyr8UDKFV8dMjfa9hePXvAJhN3NBp4TkHcGx15QCdaCIwnA==}
+  '@napi-rs/canvas-linux-arm64-gnu@1.0.2':
+    resolution: {integrity: sha512-dgKuX0peF3xwY6ZF5QxGS4wbfDqpoFAJYXiLSp+guZKARQUKMkRqZSDrXKj7nfrec3UCMzC0PFCPte0ES98AiA==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
@@ -2113,8 +2113,8 @@ packages:
     os: [linux]
     libc: [musl]
 
-  '@napi-rs/canvas-linux-arm64-musl@0.1.86':
-    resolution: {integrity: sha512-jbXuh8zVFUPw6a9SGpgc6EC+fRbGGyP1NFfeQiVqGLs6bN93ROtPLPL6MH9Bp6yt0CXUFallk2vgKdWDbmW+bw==}
+  '@napi-rs/canvas-linux-arm64-musl@1.0.2':
+    resolution: {integrity: sha512-qwROoDIC9upfvDoRLuPn2aNg9CGW1x0Ygr4k2Or+8paA9d0qBLwk87U+g8KQpoOviKoPoiwl97kvBYuYD7qZoA==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
@@ -2127,8 +2127,8 @@ packages:
     os: [linux]
     libc: [glibc]
 
-  '@napi-rs/canvas-linux-riscv64-gnu@0.1.86':
-    resolution: {integrity: sha512-9IwHR2qbq2HceM9fgwyL7x37Jy3ptt1uxvikQEuWR0FisIx9QEdt7F3huljCky76aoouF2vSd0R2fHo3ESRoPw==}
+  '@napi-rs/canvas-linux-riscv64-gnu@1.0.2':
+    resolution: {integrity: sha512-fXRjnPihdnbO6qy1QQOgxAonb68A0TCEG7rj1x7v7rxNElsE8EVIKIEUTvyDtU+sthYSbX+8e7g3oZiLGnOmxw==}
     engines: {node: '>= 10'}
     cpu: [riscv64]
     os: [linux]
@@ -2141,8 +2141,8 @@ packages:
     os: [linux]
     libc: [glibc]
 
-  '@napi-rs/canvas-linux-x64-gnu@0.1.86':
-    resolution: {integrity: sha512-Jor+rhRN6ubix+D2QkNn9XlPPVAYl+2qFrkZ4oZN9UgtqIUZ+n+HljxhlkkDFRaX1mlxXOXPQjxaZg17zDSFcQ==}
+  '@napi-rs/canvas-linux-x64-gnu@1.0.2':
+    resolution: {integrity: sha512-nPR97DXhbWIAy7yazF3jc06kEPMqYMLmPzFOVNlwKPfIoSChnI+x7dc0hTLaihz3jxrjL6j4BbA7earxfx4X3g==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
@@ -2155,8 +2155,8 @@ packages:
     os: [linux]
     libc: [musl]
 
-  '@napi-rs/canvas-linux-x64-musl@0.1.86':
-    resolution: {integrity: sha512-A28VTy91DbclopSGZ2tIon3p8hcVI1JhnNpDpJ5N9rYlUnVz1WQo4waEMh+FICTZF07O3coxBNZc4Vu4doFw7A==}
+  '@napi-rs/canvas-linux-x64-musl@1.0.2':
+    resolution: {integrity: sha512-l7zZY5+jL5qnBZtDz7CoBtY6p7EkHu422g/0zWwrOrzIwWyWxZFRfZZORY1UG7YApymPLx+UbOkN206xXn/c1Q==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
@@ -2168,8 +2168,8 @@ packages:
     cpu: [arm64]
     os: [win32]
 
-  '@napi-rs/canvas-win32-arm64-msvc@0.1.86':
-    resolution: {integrity: sha512-q6G1YXUt3gBCAS2bcDMCaBL4y20di8eVVBi1XhjUqZSVyZZxxwIuRQHy31NlPJUCMiyNiMuc6zeI0uqgkWwAmA==}
+  '@napi-rs/canvas-win32-arm64-msvc@1.0.2':
+    resolution: {integrity: sha512-yE0koHCFF4PIbMc2o2SEALhnipz7WBISh5glLvQiomtIoCcW0np3H4Lw93ceJAfJttTTeIIWFbwH84F7EVzjMQ==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [win32]
@@ -2180,8 +2180,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@napi-rs/canvas-win32-x64-msvc@0.1.86':
-    resolution: {integrity: sha512-X0g46uRVgnvCM1cOjRXAOSFSG63ktUFIf/TIfbKCUc7QpmYUcHmSP9iR6DGOYfk+SggLsXoJCIhPTotYeZEAmg==}
+  '@napi-rs/canvas-win32-x64-msvc@1.0.2':
+    resolution: {integrity: sha512-okU8/t2foV6C31n0GtvEMbfD5rOFc70+/6xUNME9Guld29sgSOIGUEDScAWFlcP3k5TYQRl9TNkwJEEjh15w8A==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [win32]
@@ -2190,8 +2190,8 @@ packages:
     resolution: {integrity: sha512-xglYA6q3XO5P3BNJYxVZ1IV7DLVjp1Py6nwag88YntrS+3vKHyYcMqXVS4ZztJmwz2uGvz1FWhI/4LgbR5uQDA==}
     engines: {node: '>= 10'}
 
-  '@napi-rs/canvas@0.1.86':
-    resolution: {integrity: sha512-hOkywnrkdFdVpsuaNsZWfEY7kc96eROV2DuMTTvGF15AZfwobzdG2w0eDlU5UBx3Lg/XlWUnqVT5zLUWyo5h6A==}
+  '@napi-rs/canvas@1.0.2':
+    resolution: {integrity: sha512-EYEqlMYaCbpZDz+IgDH5xp9MTd3ui4dmGqbQYryhMLnSRxrhHKq5KQWHHKxFUcEP4Hp8/BWgvqXocX4j7iSbOQ==}
     engines: {node: '>= 10'}
 
   '@napi-rs/wasm-runtime@0.2.12':
@@ -3037,10 +3037,6 @@ packages:
 
   '@swc/helpers@0.5.15':
     resolution: {integrity: sha512-JQ5TuMi45Owi4/BIMAJBoSQoOJu12oOk/gADqlcUL9JEdHB8vyjUSsxqeNXnmXHjYKMi2WcYtezGEEhqUI/E2g==}
-
-  '@tabby_ai/hijri-converter@1.0.5':
-    resolution: {integrity: sha512-r5bClKrcIusDoo049dSL8CawnHR6mRdDwhlQuIgZRNty68q0x8k3Lf1BtPAMxRf/GgnHBnIO4ujd3+GQdLWzxQ==}
-    engines: {node: '>=16.0.0'}
 
   '@tabler/icons-react@3.44.0':
     resolution: {integrity: sha512-8+rvzBbVm/1Z3sG3x7GUNAaxIKxwgz8xaMhRs23nrCnMTKRFAhEC+82zAIFeAA0seXdrAGX5HFCkaLpGK2rVHg==}
@@ -4229,9 +4225,6 @@ packages:
   data-view-byte-offset@1.0.1:
     resolution: {integrity: sha512-BS8PfmtDGnrgYdOonGZQdLZslWIeCGFP9tpan0hi1Co2Zr2NKADsvGYA8XxuG/4UWgJ6Cjtv+YJnB6MM69QGlQ==}
     engines: {node: '>= 0.4'}
-
-  date-fns-jalali@4.1.0-0:
-    resolution: {integrity: sha512-hTIP/z+t+qKwBDcmmsnmjWTduxCg+5KfdqWQvb2X/8C9+knYY6epN/pfxdDuyVlSVeFz0sM5eEfwIUQ70U4ckg==}
 
   date-fns@4.4.0:
     resolution: {integrity: sha512-+1UMbeh68lH1SegH83CGWwpb6OHHbpSgr3+s5Eww5M4CAgswBpoWS0AjTOfEJ33HiYKz1hdj/KTFprzXHmq/6w==}
@@ -6188,8 +6181,8 @@ packages:
     resolution: {integrity: sha512-DlOzet0HO7OEnmUmB6wWGJrrdvbyJKftI1bhMitK7O2N8W2gc757yyYBbINy9IDafXAV9wmKr9t7xsTaNKRG5Q==}
     engines: {node: '>=20.16.0 || >=22.3.0'}
 
-  pdfjs-dist@5.7.284:
-    resolution: {integrity: sha512-h4EdYQczmGhbOlqc3PPZwxevn7ApdWPbovAuWXOB/DjIyigSnwfy2oze7c6mRcSr9XgLp3eN3EeL4DyySTPMFw==}
+  pdfjs-dist@6.1.200:
+    resolution: {integrity: sha512-o8MolyzirkkLrcdsae/HEOiIcXWI7DS5zGpvqW8xTC2YUsW30rltFw2bDGvw/fskUdEMrQm2br68jzDS5BH2vw==}
     engines: {node: '>=22.13.0 || >=24'}
 
   pg-cloudflare@1.4.0:
@@ -6411,11 +6404,15 @@ packages:
     resolution: {integrity: sha512-K5zQjDllxWkf7Z5xJdV0/B0WTNqx6vxG70zJE4N0kBs4LovmEYWJzQGxC9bS9RAKu3bgM40lrd5zoLJ12MQ5BA==}
     engines: {node: '>= 0.10'}
 
-  react-day-picker@9.14.0:
-    resolution: {integrity: sha512-tBaoDWjPwe0M5pGrum4H0SR6Lyk+BO9oHnp9JbKpGKW2mlraNPgP9BMfsg5pWpwrssARmeqk7YBl2oXutZTaHA==}
+  react-day-picker@10.0.1:
+    resolution: {integrity: sha512-eNh6BlwcYInWaJtRv18mXQ06Ys/H6rdTZAnTaSdOYJuTpwP1JMCHNd1FDRadA+gbeinq+psdULN5Xnowy9mV8w==}
     engines: {node: '>=18'}
     peerDependencies:
+      '@types/react': '>=16.8.0'
       react: '>=16.8.0'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
 
   react-dom@19.2.7:
     resolution: {integrity: sha512-t0BRVXvbiE/o20Hfw669rLbMCDWtYZLvmJigy2f0MxsXF+71pxhR3xOkspmsO8h3ZlNzyibAmtCa3l4lYKk6gQ==}
@@ -8871,7 +8868,7 @@ snapshots:
 
   '@jest/pattern@30.4.0':
     dependencies:
-      '@types/node': 26.1.0
+      '@types/node': 22.20.0
       jest-regex-util: 30.4.0
 
   '@jest/reporters@30.4.1':
@@ -8972,7 +8969,7 @@ snapshots:
       '@jest/schemas': 30.4.1
       '@types/istanbul-lib-coverage': 2.0.6
       '@types/istanbul-reports': 3.0.4
-      '@types/node': 26.1.0
+      '@types/node': 22.20.0
       '@types/yargs': 17.0.35
       chalk: 4.1.2
 
@@ -9088,67 +9085,67 @@ snapshots:
   '@napi-rs/canvas-android-arm64@0.1.100':
     optional: true
 
-  '@napi-rs/canvas-android-arm64@0.1.86':
+  '@napi-rs/canvas-android-arm64@1.0.2':
     optional: true
 
   '@napi-rs/canvas-darwin-arm64@0.1.100':
     optional: true
 
-  '@napi-rs/canvas-darwin-arm64@0.1.86':
+  '@napi-rs/canvas-darwin-arm64@1.0.2':
     optional: true
 
   '@napi-rs/canvas-darwin-x64@0.1.100':
     optional: true
 
-  '@napi-rs/canvas-darwin-x64@0.1.86':
+  '@napi-rs/canvas-darwin-x64@1.0.2':
     optional: true
 
   '@napi-rs/canvas-linux-arm-gnueabihf@0.1.100':
     optional: true
 
-  '@napi-rs/canvas-linux-arm-gnueabihf@0.1.86':
+  '@napi-rs/canvas-linux-arm-gnueabihf@1.0.2':
     optional: true
 
   '@napi-rs/canvas-linux-arm64-gnu@0.1.100':
     optional: true
 
-  '@napi-rs/canvas-linux-arm64-gnu@0.1.86':
+  '@napi-rs/canvas-linux-arm64-gnu@1.0.2':
     optional: true
 
   '@napi-rs/canvas-linux-arm64-musl@0.1.100':
     optional: true
 
-  '@napi-rs/canvas-linux-arm64-musl@0.1.86':
+  '@napi-rs/canvas-linux-arm64-musl@1.0.2':
     optional: true
 
   '@napi-rs/canvas-linux-riscv64-gnu@0.1.100':
     optional: true
 
-  '@napi-rs/canvas-linux-riscv64-gnu@0.1.86':
+  '@napi-rs/canvas-linux-riscv64-gnu@1.0.2':
     optional: true
 
   '@napi-rs/canvas-linux-x64-gnu@0.1.100':
     optional: true
 
-  '@napi-rs/canvas-linux-x64-gnu@0.1.86':
+  '@napi-rs/canvas-linux-x64-gnu@1.0.2':
     optional: true
 
   '@napi-rs/canvas-linux-x64-musl@0.1.100':
     optional: true
 
-  '@napi-rs/canvas-linux-x64-musl@0.1.86':
+  '@napi-rs/canvas-linux-x64-musl@1.0.2':
     optional: true
 
   '@napi-rs/canvas-win32-arm64-msvc@0.1.100':
     optional: true
 
-  '@napi-rs/canvas-win32-arm64-msvc@0.1.86':
+  '@napi-rs/canvas-win32-arm64-msvc@1.0.2':
     optional: true
 
   '@napi-rs/canvas-win32-x64-msvc@0.1.100':
     optional: true
 
-  '@napi-rs/canvas-win32-x64-msvc@0.1.86':
+  '@napi-rs/canvas-win32-x64-msvc@1.0.2':
     optional: true
 
   '@napi-rs/canvas@0.1.100':
@@ -9166,19 +9163,19 @@ snapshots:
       '@napi-rs/canvas-win32-x64-msvc': 0.1.100
     optional: true
 
-  '@napi-rs/canvas@0.1.86':
+  '@napi-rs/canvas@1.0.2':
     optionalDependencies:
-      '@napi-rs/canvas-android-arm64': 0.1.86
-      '@napi-rs/canvas-darwin-arm64': 0.1.86
-      '@napi-rs/canvas-darwin-x64': 0.1.86
-      '@napi-rs/canvas-linux-arm-gnueabihf': 0.1.86
-      '@napi-rs/canvas-linux-arm64-gnu': 0.1.86
-      '@napi-rs/canvas-linux-arm64-musl': 0.1.86
-      '@napi-rs/canvas-linux-riscv64-gnu': 0.1.86
-      '@napi-rs/canvas-linux-x64-gnu': 0.1.86
-      '@napi-rs/canvas-linux-x64-musl': 0.1.86
-      '@napi-rs/canvas-win32-arm64-msvc': 0.1.86
-      '@napi-rs/canvas-win32-x64-msvc': 0.1.86
+      '@napi-rs/canvas-android-arm64': 1.0.2
+      '@napi-rs/canvas-darwin-arm64': 1.0.2
+      '@napi-rs/canvas-darwin-x64': 1.0.2
+      '@napi-rs/canvas-linux-arm-gnueabihf': 1.0.2
+      '@napi-rs/canvas-linux-arm64-gnu': 1.0.2
+      '@napi-rs/canvas-linux-arm64-musl': 1.0.2
+      '@napi-rs/canvas-linux-riscv64-gnu': 1.0.2
+      '@napi-rs/canvas-linux-x64-gnu': 1.0.2
+      '@napi-rs/canvas-linux-x64-musl': 1.0.2
+      '@napi-rs/canvas-win32-arm64-msvc': 1.0.2
+      '@napi-rs/canvas-win32-x64-msvc': 1.0.2
     optional: true
 
   '@napi-rs/wasm-runtime@0.2.12':
@@ -10081,8 +10078,6 @@ snapshots:
   '@swc/helpers@0.5.15':
     dependencies:
       tslib: 2.8.1
-
-  '@tabby_ai/hijri-converter@1.0.5': {}
 
   '@tabler/icons-react@3.44.0(react@19.2.7)':
     dependencies:
@@ -11514,8 +11509,6 @@ snapshots:
       es-errors: 1.3.0
       is-data-view: 1.0.2
 
-  date-fns-jalali@4.1.0-0: {}
-
   date-fns@4.4.0: {}
 
   debug@2.6.9:
@@ -11893,7 +11886,7 @@ snapshots:
       eslint: 9.39.2(jiti@1.21.7)
       eslint-import-resolver-node: 0.3.9
       eslint-import-resolver-typescript: 3.10.1(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.63.0(eslint@9.39.2(jiti@1.21.7))(typescript@6.0.3))(eslint@9.39.2(jiti@1.21.7)))(eslint@9.39.2(jiti@1.21.7))
-      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.63.0(eslint@9.39.2(jiti@1.21.7))(typescript@6.0.3))(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.2(jiti@1.21.7))
+      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.63.0(eslint@9.39.2(jiti@1.21.7))(typescript@6.0.3))(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.63.0(eslint@9.39.2(jiti@1.21.7))(typescript@6.0.3))(eslint@9.39.2(jiti@1.21.7)))(eslint@9.39.2(jiti@1.21.7)))(eslint@9.39.2(jiti@1.21.7))
       eslint-plugin-jsx-a11y: 6.10.2(eslint@9.39.2(jiti@1.21.7))
       eslint-plugin-react: 7.37.5(eslint@9.39.2(jiti@1.21.7))
       eslint-plugin-react-hooks: 5.2.0(eslint@9.39.2(jiti@1.21.7))
@@ -11927,7 +11920,7 @@ snapshots:
       tinyglobby: 0.2.17
       unrs-resolver: 1.11.1
     optionalDependencies:
-      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.63.0(eslint@9.39.2(jiti@1.21.7))(typescript@6.0.3))(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.2(jiti@1.21.7))
+      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.63.0(eslint@9.39.2(jiti@1.21.7))(typescript@6.0.3))(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.63.0(eslint@9.39.2(jiti@1.21.7))(typescript@6.0.3))(eslint@9.39.2(jiti@1.21.7)))(eslint@9.39.2(jiti@1.21.7)))(eslint@9.39.2(jiti@1.21.7))
     transitivePeerDependencies:
       - supports-color
 
@@ -11942,7 +11935,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.63.0(eslint@9.39.2(jiti@1.21.7))(typescript@6.0.3))(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.2(jiti@1.21.7)):
+  eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.63.0(eslint@9.39.2(jiti@1.21.7))(typescript@6.0.3))(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.63.0(eslint@9.39.2(jiti@1.21.7))(typescript@6.0.3))(eslint@9.39.2(jiti@1.21.7)))(eslint@9.39.2(jiti@1.21.7)))(eslint@9.39.2(jiti@1.21.7)):
     dependencies:
       '@rtsao/scc': 1.1.0
       array-includes: 3.1.9
@@ -12924,7 +12917,7 @@ snapshots:
       - supports-color
       - ts-node
 
-  jest-cli@30.4.2(@types/node@22.20.0)(ts-node@10.9.2(@types/node@26.1.0)(typescript@6.0.3)):
+  jest-cli@30.4.2(@types/node@26.1.0)(ts-node@10.9.2(@types/node@26.1.0)(typescript@6.0.3)):
     dependencies:
       '@jest/core': 30.4.2(ts-node@10.9.2(@types/node@26.1.0)(typescript@6.0.3))
       '@jest/test-result': 30.4.1
@@ -12932,7 +12925,7 @@ snapshots:
       chalk: 4.1.2
       exit-x: 0.2.2
       import-local: 3.2.0
-      jest-config: 30.4.2(@types/node@22.20.0)(ts-node@10.9.2(@types/node@26.1.0)(typescript@6.0.3))
+      jest-config: 30.4.2(@types/node@26.1.0)(ts-node@10.9.2(@types/node@26.1.0)(typescript@6.0.3))
       jest-util: 30.4.1
       jest-validate: 30.4.1
       yargs: 17.7.2
@@ -13007,6 +13000,38 @@ snapshots:
       - babel-plugin-macros
       - supports-color
 
+  jest-config@30.4.2(@types/node@26.1.0)(ts-node@10.9.2(@types/node@26.1.0)(typescript@6.0.3)):
+    dependencies:
+      '@babel/core': 7.28.5
+      '@jest/get-type': 30.1.0
+      '@jest/pattern': 30.4.0
+      '@jest/test-sequencer': 30.4.1
+      '@jest/types': 30.4.1
+      babel-jest: 30.4.1(@babel/core@7.28.5)
+      chalk: 4.1.2
+      ci-info: 4.4.0
+      deepmerge: 4.3.1
+      glob: 10.5.0
+      graceful-fs: 4.2.11
+      jest-circus: 30.4.2
+      jest-docblock: 30.4.0
+      jest-environment-node: 30.4.1
+      jest-regex-util: 30.4.0
+      jest-resolve: 30.4.1
+      jest-runner: 30.4.2
+      jest-util: 30.4.1
+      jest-validate: 30.4.1
+      parse-json: 5.2.0
+      pretty-format: 30.4.1
+      slash: 3.0.0
+      strip-json-comments: 3.1.1
+    optionalDependencies:
+      '@types/node': 26.1.0
+      ts-node: 10.9.2(@types/node@26.1.0)(typescript@6.0.3)
+    transitivePeerDependencies:
+      - babel-plugin-macros
+      - supports-color
+
   jest-diff@30.2.0:
     dependencies:
       '@jest/diff-sequences': 30.0.1
@@ -13046,7 +13071,7 @@ snapshots:
   jest-haste-map@30.4.1:
     dependencies:
       '@jest/types': 30.4.1
-      '@types/node': 26.1.0
+      '@types/node': 22.20.0
       anymatch: 3.1.3
       fb-watchman: 2.0.2
       graceful-fs: 4.2.11
@@ -13232,7 +13257,7 @@ snapshots:
   jest-util@30.4.1:
     dependencies:
       '@jest/types': 30.4.1
-      '@types/node': 26.1.0
+      '@types/node': 22.20.0
       chalk: 4.1.2
       ci-info: 4.4.0
       graceful-fs: 4.2.11
@@ -13260,13 +13285,13 @@ snapshots:
 
   jest-worker@27.5.1:
     dependencies:
-      '@types/node': 26.1.0
+      '@types/node': 22.20.0
       merge-stream: 2.0.0
       supports-color: 8.1.1
 
   jest-worker@30.4.1:
     dependencies:
-      '@types/node': 26.1.0
+      '@types/node': 22.20.0
       '@ungap/structured-clone': 1.3.0
       jest-util: 30.4.1
       merge-stream: 2.0.0
@@ -13285,12 +13310,12 @@ snapshots:
       - supports-color
       - ts-node
 
-  jest@30.4.2(@types/node@22.20.0)(ts-node@10.9.2(@types/node@26.1.0)(typescript@6.0.3)):
+  jest@30.4.2(@types/node@26.1.0)(ts-node@10.9.2(@types/node@26.1.0)(typescript@6.0.3)):
     dependencies:
       '@jest/core': 30.4.2(ts-node@10.9.2(@types/node@26.1.0)(typescript@6.0.3))
       '@jest/types': 30.4.1
       import-local: 3.2.0
-      jest-cli: 30.4.2(@types/node@22.20.0)(ts-node@10.9.2(@types/node@26.1.0)(typescript@6.0.3))
+      jest-cli: 30.4.2(@types/node@26.1.0)(ts-node@10.9.2(@types/node@26.1.0)(typescript@6.0.3))
     transitivePeerDependencies:
       - '@types/node'
       - babel-plugin-macros
@@ -13886,11 +13911,11 @@ snapshots:
 
   pdfjs-dist@5.4.296:
     optionalDependencies:
-      '@napi-rs/canvas': 0.1.86
-
-  pdfjs-dist@5.7.284:
-    optionalDependencies:
       '@napi-rs/canvas': 0.1.100
+
+  pdfjs-dist@6.1.200:
+    optionalDependencies:
+      '@napi-rs/canvas': 1.0.2
 
   pg-cloudflare@1.4.0:
     optional: true
@@ -14090,13 +14115,13 @@ snapshots:
       iconv-lite: 0.7.3
       unpipe: 1.0.0
 
-  react-day-picker@9.14.0(react@19.2.7):
+  react-day-picker@10.0.1(@types/react@19.2.17)(react@19.2.7):
     dependencies:
       '@date-fns/tz': 1.4.1
-      '@tabby_ai/hijri-converter': 1.0.5
       date-fns: 4.4.0
-      date-fns-jalali: 4.1.0-0
       react: 19.2.7
+    optionalDependencies:
+      '@types/react': 19.2.17
 
   react-dom@19.2.7(react@19.2.7):
     dependencies:
