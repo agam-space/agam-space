@@ -7,22 +7,8 @@ import {
   FolderEntry,
   ContentEntry,
 } from '@agam-space/client';
-import {
-  Folder,
-  FileText,
-  ChevronRight,
-  Home,
-  Loader2,
-  Image,
-  FileVideo,
-  FileArchive,
-  FileCode,
-  Music,
-  Moon,
-  Sun,
-  Monitor,
-  ArrowUpDown,
-} from 'lucide-react';
+import { Folder, ChevronRight, Home, Loader2, Moon, Sun, Monitor, ArrowUpDown } from 'lucide-react';
+import { getFileIconV2 } from '@/lib/file-mime-icon';
 import { PublicShareFilePreview } from './public-share-file-preview';
 import {
   DropdownMenu,
@@ -157,46 +143,6 @@ export function PublicShareFolderExplorer({
     } finally {
       setLoading(false);
     }
-  };
-
-  const getFileIcon = (mimeType: string) => {
-    if (mimeType.startsWith('image/')) return <Image className='w-5 h-5 text-blue-500' />;
-    if (mimeType.startsWith('video/')) return <FileVideo className='w-5 h-5 text-purple-500' />;
-    if (mimeType.startsWith('audio/')) return <Music className='w-5 h-5 text-pink-500' />;
-    if (mimeType.includes('zip') || mimeType.includes('archive'))
-      return <FileArchive className='w-5 h-5 text-orange-500' />;
-    if (mimeType.includes('code') || mimeType.includes('javascript') || mimeType.includes('python'))
-      return <FileCode className='w-5 h-5 text-green-500' />;
-
-    // Document types (.docx, .doc, .odt, etc.)
-    if (
-      mimeType.includes('word') ||
-      mimeType.includes('document') ||
-      mimeType.includes('msword') ||
-      mimeType.includes('officedocument.wordprocessing')
-    )
-      return <FileText className='w-5 h-5 text-blue-600' />;
-
-    // Spreadsheet types (.xlsx, .xls, etc.)
-    if (
-      mimeType.includes('sheet') ||
-      mimeType.includes('excel') ||
-      mimeType.includes('officedocument.spreadsheet')
-    )
-      return <FileText className='w-5 h-5 text-green-600' />;
-
-    // Presentation types (.pptx, .ppt, etc.)
-    if (
-      mimeType.includes('presentation') ||
-      mimeType.includes('powerpoint') ||
-      mimeType.includes('officedocument.presentation')
-    )
-      return <FileText className='w-5 h-5 text-orange-600' />;
-
-    // PDF
-    if (mimeType === 'application/pdf') return <FileText className='w-5 h-5 text-red-600' />;
-
-    return <FileText className='w-5 h-5 text-gray-500' />;
   };
 
   const formatFileSize = (bytes: number): string => {
@@ -343,7 +289,7 @@ export function PublicShareFolderExplorer({
                   {entry.isFolder ? (
                     <Folder className='w-8 h-8 text-yellow-500 flex-shrink-0 group-hover:scale-110 transition-transform' />
                   ) : (
-                    getFileIcon((entry as FileEntry).mime)
+                    getFileIconV2((entry as FileEntry).mime, entry.name)
                   )}
                   <div className='min-w-0 flex-1'>
                     <p className='text-sm font-medium truncate group-hover:text-foreground'>
