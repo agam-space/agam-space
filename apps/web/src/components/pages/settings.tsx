@@ -10,7 +10,6 @@ import { usePreferencesStore } from '@/store/preferences.store';
 import { SessionUnlockManager } from '@/services/session-unlock-manager';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { PublicSharesSection } from '@/components/pages/settings/public-shares';
 
 const sections = ['Account', 'Encryption', 'Trusted Devices'];
 
