@@ -21,6 +21,7 @@ import {
 import { EmptyFolder } from '@/components/empty-states/empty-folder';
 import { NewFolderDialog } from '@/components/folder/new-folder-dialog';
 import { ExplorerItem } from '@/components/explorer/explorer-item';
+import { ExplorerSkeleton } from '@/components/explorer/explorer-skeleton';
 import { toast } from 'sonner';
 import { FileUploadButton } from '@/components/upload/file-upload-button';
 import { useExplorerRefreshStore } from '@/store/explorer-refresh-store';
@@ -245,7 +246,7 @@ export function ExplorerPage({ folderId }: { folderId: string }) {
   const { entries: contentEntries } = explorerState ?? {};
 
   if (loading || !explorerState) {
-    return <div className='p-4 text-muted-foreground'>Loading...</div>;
+    return <ExplorerSkeleton view={explorerPrefs.view} />;
   }
 
   function handleItemClick(e: React.MouseEvent, id: string, index: number) {
