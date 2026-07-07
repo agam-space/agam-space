@@ -124,7 +124,9 @@ export class PublicShareService {
 
     return shares
       .filter(share => !share.expiresAt || share.expiresAt >= new Date())
-      .map(share => PublicShareDetailsSchema.parse(share));
+      .map(share =>
+        PublicShareDetailsSchema.parse({ ...share, requiredPassword: !!share.passwordHash })
+      );
   }
 
   async revokeShare(id: string, ownerId: string): Promise<void> {
@@ -350,7 +352,10 @@ export class PublicShareService {
   }
 
   async toDto(userKeys: PublicShareEntity): Promise<PublicShareDetailsDto> {
-    return PublicShareDetailsSchema.parse(userKeys);
+    return PublicShareDetailsSchema.parse({
+      ...userKeys,
+      requiredPassword: !!userKeys.passwordHash,
+    });
   }
 
   private generateShareId(length: number = 12): string {

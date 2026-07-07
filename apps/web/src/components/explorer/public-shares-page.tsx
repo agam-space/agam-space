@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { getFileDecrypted, getFolderInfo, PublicShareService } from '@agam-space/client';
 import { Button } from '@/components/ui/button';
-import { FileText, Folder, Loader2, Trash2 } from 'lucide-react';
+import { FileText, Folder, Loader2, Lock, Trash2 } from 'lucide-react';
 import { toast } from 'sonner';
 import { formatDistanceToNow } from 'date-fns';
 import { PublicShareDetails } from '@agam-space/shared-types';
@@ -117,6 +117,7 @@ export function PublicSharesPage() {
                 <tr>
                   <th className='text-left px-4 py-2'>Name</th>
                   <th className='text-left px-4 py-2'>Type</th>
+                  <th className='text-left px-4 py-2'>Protection</th>
                   <th className='text-left px-4 py-2'>Share ID</th>
                   <th className='text-left px-4 py-2'>Created</th>
                   <th className='text-left px-4 py-2'>Expires</th>
@@ -138,6 +139,16 @@ export function PublicSharesPage() {
                     </td>
                     <td className='px-4 py-3'>
                       <span className='capitalize text-muted-foreground'>{share.itemType}</span>
+                    </td>
+                    <td className='px-4 py-3'>
+                      {share.requiredPassword ? (
+                        <span className='inline-flex items-center gap-1 text-xs font-medium text-foreground bg-muted px-2 py-0.5 rounded'>
+                          <Lock className='h-3 w-3' />
+                          Password
+                        </span>
+                      ) : (
+                        <span className='text-xs text-muted-foreground'>Link only</span>
+                      )}
                     </td>
                     <td className='px-4 py-3'>
                       <code className='text-xs font-mono bg-muted px-2 py-0.5 rounded'>

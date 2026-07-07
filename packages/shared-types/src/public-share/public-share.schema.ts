@@ -37,6 +37,8 @@ export const PublicShareDetailsSchema = PublicShareSchema.pick({
   expiresAt: true,
   createdAt: true,
   updatedAt: true,
+}).extend({
+  requiredPassword: z.boolean().default(false),
 });
 
 export const PublicShareKeysSchema = PublicShareSchema.pick({
