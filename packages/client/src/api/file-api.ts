@@ -1,4 +1,5 @@
 import {
+  BatchCheckExistsResponseSchema,
   CreateFile,
   File,
   FileSchema,
@@ -6,7 +7,7 @@ import {
   TrashFilesResponseSchema,
   UpdateFile,
 } from '@agam-space/shared-types';
-import { ClientRegistry } from '../init/client.registry';
+import { ClientRegistry } from '../registry/client.registry';
 
 export async function createNewFileApi(file: CreateFile) {
   return ClientRegistry.getApiClient().fetchAndParse(`/v1/files`, FileSchema, {
@@ -92,23 +93,14 @@ export async function restoreFileApi(fileId: string, restoreItem?: RestoreItem):
 
 export async function batchCheckFileExists(
   checks: Array<{ parentId: string | null; nameHash: string }>
-): Promise<{ results: Array<{ nameHash: string; exists: boolean; existingId: string | null }> }> {
-  return ClientRegistry.getApiClient()
-    .fetchRaw(`/v1/files/batch/check-exists`, {
+) {
+  return ClientRegistry.getApiClient().fetchAndParse(
+    `/v1/files/batch/check-exists`,
+    BatchCheckExistsResponseSchema,
+    {
       method: 'POST',
       body: JSON.stringify({ checks }),
       headers: { 'Content-Type': 'application/json' },
-    })
-    .then(res => res.json());
-}
-
-export async function checkIfFileExistsApi(
-  nameHash: string,
-  folderId: string
-): Promise<{ exists: boolean; id: string | null }> {
-  const path = `/v1/files/exists/name-hash?nameHash=${encodeURIComponent(nameHash)}&folderId=${encodeURIComponent(folderId)}`;
-
-  const response = await ClientRegistry.getApiClient().fetchRaw(path);
-  const result = await response.json();
-  return { exists: result.exists, id: result.id ?? null };
+    }
+  );
 }

@@ -1,4 +1,4 @@
-import { CmkManager } from '../cmk-manager';
+import { CmkManager } from '../keys/cmk-manager';
 import { UserKeysSetup, UserKeys } from '@agam-space/shared-types';
 import { encodeBase58 } from '@agam-space/core';
 import { decryptCmkWithPassword } from './master-password';
@@ -50,7 +50,6 @@ export async function validateRecoveryKey(
   recoveryKey: string,
   userKeys: RecoveryKeyInput
 ): Promise<boolean> {
-  console.log('validateRecoveryKey:', recoveryKey, userKeys);
   const recoveryKeyBytes = await decryptCmkWithRecovery(recoveryKey.trim(), userKeys);
   return !!recoveryKeyBytes;
 }

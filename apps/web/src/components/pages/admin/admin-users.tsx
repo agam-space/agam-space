@@ -5,9 +5,8 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useEffect, useMemo, useState } from 'react';
 import { UserStatus, UsersWithQuotaArray } from '@agam-space/shared-types';
-import { fetchUsers } from '@agam-space/client';
+import { fetchUsers, formatBytes } from '@agam-space/client';
 import { formatLastSeen } from '@/utils/date-formatter';
-import { formatBytes } from '@/utils/file';
 import {
   DropdownMenu,
   DropdownMenuContent,

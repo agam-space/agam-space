@@ -2,11 +2,12 @@ import {
   DeviceInfoArraySchema,
   RegisterDeviceRequest,
   RegisterDeviceResponseSchema,
-  RegisterChallengeResponse,
+  RegisterChallengeResponseSchema,
+  UnlockAssertionRequest,
   UnlockChallengeResponseSchema,
   UnlockResponseSchema,
 } from '@agam-space/shared-types';
-import { ClientRegistry } from '../init/client.registry';
+import { ClientRegistry } from '../registry/client.registry';
 
 export async function listTrustedDevices() {
   return ClientRegistry.getApiClient().fetchAndParse('/v1/devices', DeviceInfoArraySchema);
@@ -42,7 +43,7 @@ export async function requestUnlockChallenge(deviceId: string) {
   );
 }
 
-export async function verifyUnlockAssertion(data: any) {
+export async function verifyUnlockAssertion(data: UnlockAssertionRequest) {
   return ClientRegistry.getApiClient().fetchAndParse('/v1/devices/unlock', UnlockResponseSchema, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -50,14 +51,14 @@ export async function verifyUnlockAssertion(data: any) {
   });
 }
 
-export async function getRegisterChallenge(deviceName: string): Promise<RegisterChallengeResponse> {
-  const response = await ClientRegistry.getApiClient().fetchRaw('/v1/devices/register/challenge', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ deviceName }),
-  });
-  if (!response.ok) {
-    throw new Error('Failed to get register challenge');
-  }
-  return await response.json();
+export async function getRegisterChallenge(deviceName: string) {
+  return ClientRegistry.getApiClient().fetchAndParse(
+    '/v1/devices/register/challenge',
+    RegisterChallengeResponseSchema,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ deviceName }),
+    }
+  );
 }

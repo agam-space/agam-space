@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { Infinity as InfinityIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { formatBytes } from '@/utils/file';
+import { formatBytes } from '@agam-space/client';
 import { useUserQuotaStore } from '@/store/user-quota.store';
 
 const StorageQuotaCard = () => {

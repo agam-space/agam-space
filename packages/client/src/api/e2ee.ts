@@ -6,7 +6,7 @@ import {
   MigrateIdentitySeedRequest,
 } from '@agam-space/shared-types';
 import { ApiClientError } from './api-client';
-import { ClientRegistry } from '../init/client.registry';
+import { ClientRegistry } from '../registry/client.registry';
 
 export async function fetchE2eeKeys(): Promise<UserKeys | null> {
   try {

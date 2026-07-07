@@ -1,6 +1,6 @@
 'use client';
 
-import { FileEntry, ClientRegistry, formatFileSize } from '@agam-space/client';
+import { FileEntry, ClientRegistry, formatBytes } from '@agam-space/client';
 import { FileX, ArrowDownToLine } from 'lucide-react';
 import { toast } from 'sonner';
 import { useDownloadStore } from '@/store/download-store';
@@ -50,7 +50,7 @@ export function UnsupportedPreview({ fileEntry, onClose }: Props) {
           </div>
           <div className='flex items-center justify-between text-sm'>
             <span className='text-muted-foreground'>File size</span>
-            <span className='font-medium'>{formatFileSize(fileEntry.size)}</span>
+            <span className='font-medium'>{formatBytes(fileEntry.size)}</span>
           </div>
           {fileEntry.mime && (
             <div className='flex items-center justify-between text-sm'>

@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { setupCmkWithPassword } from '@/lib/e2ee';
 import { useE2eeKeys } from '@/store/e2ee-keys.store';
-import { downloadTextFile } from '@/utils/download-text-file';
+import { downloadBlobAsFile } from '@agam-space/client';
 import { useRouter } from 'next/navigation';
 import { useRef, useState } from 'react';
 
@@ -52,10 +52,8 @@ export default function E2eeSetupPage() {
   };
 
   const handleDownload = () => {
-    downloadTextFile(
-      'agam-space-recovery-key.txt',
-      `Agam Space recovery key\n\n${recoveryKey}\n\nKeep this somewhere safe and offline. Anyone with this key and access to your account can reset your master password. If you lose both your master password and this key, your files cannot be recovered.\n`
-    );
+    const content = `Agam Space recovery key\n\n${recoveryKey}\n\nKeep this somewhere safe and offline. Anyone with this key and access to your account can reset your master password. If you lose both your master password and this key, your files cannot be recovered.\n`;
+    downloadBlobAsFile(new Blob([content], { type: 'text/plain' }), 'agam-space-recovery-key.txt');
   };
 
   async function handleSubmit(e: React.FormEvent) {

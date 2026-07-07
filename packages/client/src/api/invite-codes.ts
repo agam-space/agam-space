@@ -1,4 +1,4 @@
-import { ClientRegistry } from '../init/client.registry';
+import { ClientRegistry } from '../registry/client.registry';
 import {
   CreateInviteRequest,
   CreateInviteResponse,

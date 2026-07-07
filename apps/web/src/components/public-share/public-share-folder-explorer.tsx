@@ -6,6 +6,7 @@ import {
   FileEntry,
   FolderEntry,
   ContentEntry,
+  formatBytes,
 } from '@agam-space/client';
 import { Folder, ChevronRight, Home, Loader2, Moon, Sun, Monitor, ArrowUpDown } from 'lucide-react';
 import { getFileIconV2 } from '@/lib/file-mime-icon';
@@ -143,14 +144,6 @@ export function PublicShareFolderExplorer({
     } finally {
       setLoading(false);
     }
-  };
-
-  const formatFileSize = (bytes: number): string => {
-    if (bytes === 0) return '0 Bytes';
-    const k = 1024;
-    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return Math.round((bytes / Math.pow(k, i)) * 100) / 100 + ' ' + sizes[i];
   };
 
   if (previewFile) {
@@ -300,7 +293,7 @@ export function PublicShareFolderExplorer({
                         ? entry.createdAt
                           ? new Date(entry.createdAt).toLocaleDateString()
                           : ''
-                        : formatFileSize((entry as FileEntry).size)}
+                        : formatBytes((entry as FileEntry).size)}
                     </p>
                   </div>
                 </button>

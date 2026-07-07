@@ -216,12 +216,11 @@ export const TrustedDevicesService = {
     const assertion = await startAuthentication({ optionsJSON: options });
 
     const unlockResp = await verifyUnlockAssertion({
-      credentialId: deviceData.credentialId,
+      deviceId,
       challengeId: challengeResp.challengeId,
       authenticatorData: assertion.response.authenticatorData,
       clientDataJSON: assertion.response.clientDataJSON,
       signature: assertion.response.signature,
-      deviceId,
     });
 
     const { unlockKey: serverNonceB64 } = unlockResp;

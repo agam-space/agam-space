@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { ClientRegistry, FileEntry, formatFileSize } from '@agam-space/client';
+import { ClientRegistry, FileEntry, formatBytes } from '@agam-space/client';
 import { Dialog, DialogClose, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { ArrowDownToLine, Info, X } from 'lucide-react';
@@ -123,7 +123,7 @@ export function FilePreviewModal({ file, onClose }: Props) {
                       Size
                     </label>
                     <p className='text-sm text-foreground mt-1'>
-                      {formatFileSize(file.size)}
+                      {formatBytes(file.size)}
                       <span className='text-muted-foreground text-xs ml-2'>
                         ({file.size.toLocaleString()} bytes)
                       </span>

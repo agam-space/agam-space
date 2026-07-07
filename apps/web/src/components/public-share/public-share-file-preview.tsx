@@ -3,8 +3,8 @@
 import { useEffect, useState } from 'react';
 import {
   FileEntry,
-  PublicShareApi,
-  formatFileSize,
+  fetchPublicFileChunkApi,
+  formatBytes,
   downloadBlobAsFile,
   MAX_PREVIEW_SIZE_BYTES,
   decryptFileChunks,
@@ -56,7 +56,7 @@ export function PublicShareFilePreview({
     (async () => {
       try {
         const fetchChunk = async (fileId: string, index: number): Promise<Uint8Array> => {
-          return await PublicShareApi.fetchPublicFileChunk(shareId, accessToken, fileId, index);
+          return await fetchPublicFileChunkApi(shareId, accessToken, fileId, index);
         };
 
         const chunks: Uint8Array[] = [];
@@ -234,7 +234,7 @@ export function PublicShareFilePreview({
               </div>
               <div>
                 <h4 className='text-sm font-medium text-muted-foreground mb-1'>Size</h4>
-                <p className='text-sm'>{formatFileSize(fileEntry.size)}</p>
+                <p className='text-sm'>{formatBytes(fileEntry.size)}</p>
               </div>
               <div>
                 <h4 className='text-sm font-medium text-muted-foreground mb-1'>Type</h4>

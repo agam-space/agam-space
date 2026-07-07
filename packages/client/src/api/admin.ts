@@ -1,4 +1,4 @@
-import { ClientRegistry } from '../init/client.registry';
+import { ClientRegistry } from '../registry/client.registry';
 import { UpdateUserStatusRequest, UpdateUserQuotaRequest } from '@agam-space/shared-types';
 import { ApiClientError } from './api-client';
 

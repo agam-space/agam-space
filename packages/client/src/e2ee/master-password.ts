@@ -1,4 +1,4 @@
-import { CmkManager } from '../cmk-manager';
+import { CmkManager } from '../keys/cmk-manager';
 import { IdentityKeyManager } from '@agam-space/core';
 import { ResetCmkPasswordRequest, UserKeys, UserKeysSetup } from '@agam-space/shared-types';
 import { decryptCmkWithRecovery } from './recovery-key';
@@ -18,7 +18,6 @@ export async function validateMasterPassword(
       userKeys.kdfMetadata.salt
     );
     if (!cmk) {
-      console.log('Failed to decrypt CMK with provided master password');
       return false;
     }
 

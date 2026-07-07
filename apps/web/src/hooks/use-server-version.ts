@@ -1,5 +1,6 @@
 'use client';
 
+import { fetchServerInfoApi } from '@agam-space/client';
 import { useEffect, useState } from 'react';
 
 export function useServerVersion() {
@@ -8,11 +9,8 @@ export function useServerVersion() {
   useEffect(() => {
     async function fetchVersion() {
       try {
-        const response = await fetch('/api/v1/server/info');
-        if (response.ok) {
-          const data = await response.json();
-          setVersion(data.version);
-        }
+        const info = await fetchServerInfoApi();
+        setVersion(info.version);
       } catch {
         return;
       }

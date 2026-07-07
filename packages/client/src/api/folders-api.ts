@@ -1,4 +1,5 @@
 import {
+  BatchCheckFolderExistsResponseSchema,
   CreatedFolder,
   Folder,
   FolderArraySchema,
@@ -9,7 +10,7 @@ import {
   TrashFoldersResponseSchema,
   UpdateFolder,
 } from '@agam-space/shared-types';
-import { ClientRegistry } from '../init/client.registry';
+import { ClientRegistry } from '../registry/client.registry';
 
 export async function fetchFoldersApi(): Promise<Folder[]> {
   return await ClientRegistry.getApiClient().fetchAndParse('/v1/folders', FolderArraySchema);
@@ -74,14 +75,16 @@ export async function restoreFolderApi(folderId: string, restoreItem?: RestoreIt
 
 export async function batchCheckFolderExists(
   checks: Array<{ parentId: string | null; nameHash: string }>
-): Promise<{ results: Array<{ nameHash: string; exists: boolean }> }> {
-  return ClientRegistry.getApiClient()
-    .fetchRaw(`/v1/folders/batch/check-exists`, {
+) {
+  return ClientRegistry.getApiClient().fetchAndParse(
+    `/v1/folders/batch/check-exists`,
+    BatchCheckFolderExistsResponseSchema,
+    {
       method: 'POST',
       body: JSON.stringify({ checks }),
       headers: { 'Content-Type': 'application/json' },
-    })
-    .then(res => res.json());
+    }
+  );
 }
 
 export async function fetchFolderAncestorsApi(folderId: string, depth: number): Promise<Folder[]> {
@@ -89,15 +92,4 @@ export async function fetchFolderAncestorsApi(folderId: string, depth: number): 
     `/v1/folders/${folderId}/ancestors/path?depth=${depth}`,
     FolderArraySchema
   );
-}
-
-export async function computeFolderSizeApi(folderId: string): Promise<void> {
-  const response = await ClientRegistry.getApiClient().fetchRaw(
-    `/v1/folders/${folderId}/compute-size`,
-    {
-      method: 'GET',
-    }
-  );
-  const result = await response.json();
-  return result.totalSize ?? 0;
 }

@@ -1,4 +1,9 @@
-import { PublicShareApi, PublicShareCrypto } from '@agam-space/client';
+import {
+  getPublicShareContentApi,
+  getPublicShareKeysApi,
+  getPublicShareMetadataApi,
+  PublicShareCrypto,
+} from '@agam-space/client';
 import type {
   PublicShareExternalDetails,
   PublicShareKeys,
@@ -16,11 +21,11 @@ export interface ShareLoadResult {
 
 export class PublicShareLoaderService {
   static async fetchShareMetadata(shareId: string): Promise<PublicShareExternalDetails> {
-    return await PublicShareApi.getShareMetadata(shareId);
+    return await getPublicShareMetadataApi(shareId);
   }
 
   static async getShareKeys(shareId: string, password?: string): Promise<PublicShareKeys> {
-    return PublicShareApi.getShareKeys(shareId, password);
+    return getPublicShareKeysApi(shareId, password);
   }
 
   static async decryptShareItemKey(
@@ -70,6 +75,6 @@ export class PublicShareLoaderService {
     shareId: string,
     accessToken: string
   ): Promise<PublicShareContentResponse> {
-    return PublicShareApi.getShareContent(shareId, accessToken);
+    return getPublicShareContentApi(shareId, accessToken);
   }
 }

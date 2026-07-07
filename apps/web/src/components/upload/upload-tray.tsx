@@ -4,7 +4,7 @@ import { useUploadStore } from '@/store/upload-store';
 import { useEffect, useRef } from 'react';
 import { X } from 'lucide-react';
 import { useExplorerRefreshStore } from '@/store/explorer-refresh-store';
-import { formatBytes } from '@/utils/file';
+import { formatBytes } from '@agam-space/client';
 
 export function UploadTray({ onAllUploadsComplete }: { onAllUploadsComplete?: () => void }) {
   const uploads = useUploadStore(s => s.uploads);

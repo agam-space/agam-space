@@ -6,7 +6,8 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@radix-ui/react-label';
 import { Input } from '@/components/ui/input';
 import {
-  PublicShareApi,
+  getPublicShareMetadataApi,
+  getPublicShareKeysApi,
   PublicShareContentManager,
   ContentEntry,
   ApiClientError,
@@ -76,7 +77,7 @@ export function PublicSharePage({ shareId, clientKey }: PublicSharePageProps) {
     );
 
     try {
-      const shareMetadata = await PublicShareApi.getShareMetadata(shareId);
+      const shareMetadata = await getPublicShareMetadataApi(shareId);
       setMetadata(shareMetadata);
 
       if (shareMetadata.requiredPassword) {
@@ -127,7 +128,7 @@ export function PublicSharePage({ shareId, clientKey }: PublicSharePageProps) {
     setState('decrypting');
 
     try {
-      const keys: PublicShareKeys = await PublicShareApi.getShareKeys(shareId, pwd);
+      const keys: PublicShareKeys = await getPublicShareKeysApi(shareId, pwd);
 
       let itemKey: Uint8Array;
       try {

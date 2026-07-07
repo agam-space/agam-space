@@ -6,7 +6,8 @@ import {
   ChangeLoginPasswordRequest,
 } from '@agam-space/shared-types';
 import { ApiClientError } from './api-client';
-import { ClientRegistry } from '../init/client.registry';
+import { ClientRegistry } from '../registry/client.registry';
+import { AlreadyExistsError } from '../errors';
 
 export async function loginWithPassword(
   username: string,
@@ -56,7 +57,7 @@ export async function signupApi(
   } catch (e) {
     if (e instanceof ApiClientError) {
       if (e.status === 409) {
-        throw new Error('Username or email already exists', { cause: e });
+        throw new AlreadyExistsError('Username or email already exists', 'USER_ALREADY_EXISTS');
       }
     }
     throw new Error(`Signup failed: ${e}`, { cause: e });

@@ -5,10 +5,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { fetchE2eeKeys, retrieveRecoveryKey } from '@agam-space/client';
+import { downloadBlobAsFile, fetchE2eeKeys, retrieveRecoveryKey } from '@agam-space/client';
 import { useE2eeKeys } from '@/store/e2ee-keys.store';
-import { downloadTextFile } from '@/utils/download-text-file';
-
 type Props = {
   open: boolean;
   onClose: () => void;
@@ -64,10 +62,8 @@ export function RecoveryKeyModal({ open, onClose }: Props) {
 
   const handleDownload = () => {
     if (!recoveryKey) return;
-    downloadTextFile(
-      'agam-space-recovery-key.txt',
-      `Agam Space recovery key\n\n${recoveryKey}\n\nKeep this somewhere safe and offline. Anyone with this key and access to your account can reset your master password. If you lose both your master password and this key, your files cannot be recovered.\n`
-    );
+    const content = `Agam Space recovery key\n\n${recoveryKey}\n\nKeep this somewhere safe and offline. Anyone with this key and access to your account can reset your master password. If you lose both your master password and this key, your files cannot be recovered.\n`;
+    downloadBlobAsFile(new Blob([content], { type: 'text/plain' }), 'agam-space-recovery-key.txt');
   };
   const resetState = () => {
     setStep('password');
@@ -120,18 +116,16 @@ export function RecoveryKeyModal({ open, onClose }: Props) {
               won’t be able to reset your password.
             </p>
 
-            <div className='relative'>
-              <pre className='rounded-md border bg-muted p-4 font-mono text-sm whitespace-pre-wrap break-words overflow-auto'>
-                <span className='select-all'>{recoveryKey}</span>
-              </pre>
-              <div className='absolute top-2 right-2 flex gap-1'>
-                <Button variant='outline' size='sm' onClick={handleCopy}>
-                  {copied ? 'Copied!' : 'Copy'}
-                </Button>
-                <Button variant='outline' size='sm' onClick={handleDownload}>
-                  Download
-                </Button>
-              </div>
+            <pre className='rounded-md border bg-muted p-4 font-mono text-sm whitespace-pre-wrap break-words overflow-auto'>
+              <span className='select-all'>{recoveryKey}</span>
+            </pre>
+            <div className='flex justify-end gap-1'>
+              <Button variant='outline' size='sm' onClick={handleCopy}>
+                {copied ? 'Copied!' : 'Copy'}
+              </Button>
+              <Button variant='outline' size='sm' onClick={handleDownload}>
+                Download
+              </Button>
             </div>
 
             <Button

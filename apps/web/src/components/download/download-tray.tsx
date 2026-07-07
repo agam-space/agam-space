@@ -3,7 +3,7 @@
 import { useDownloadStore } from '@/store/download-store';
 import { useEffect, useRef } from 'react';
 import { X } from 'lucide-react';
-import { formatBytes } from '@/utils/file';
+import { formatBytes } from '@agam-space/client';
 
 export function DownloadTray() {
   const downloads = useDownloadStore(s => s.downloads);

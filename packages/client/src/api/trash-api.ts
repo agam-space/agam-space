@@ -4,7 +4,7 @@ import {
   TrashedItems,
   TrashItemsSchema,
 } from '@agam-space/shared-types';
-import { ClientRegistry } from '../init/client.registry';
+import { ClientRegistry } from '../registry/client.registry';
 
 export async function emptyTrashApi(): Promise<EmptyTrashResponse> {
   return ClientRegistry.getApiClient().fetchAndParse(`/v1/trash/empty`, EmptyTrashResponseSchema, {

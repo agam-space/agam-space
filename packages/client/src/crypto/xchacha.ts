@@ -1,5 +1,5 @@
 import { EncryptedEnvelope, getSodium } from '@agam-space/core';
-import { EncryptionStrategy } from '../encryption/encryption-strategy';
+import { EncryptionStrategy } from './encryption-strategy';
 
 export class XChaChaV1Strategy implements EncryptionStrategy {
   public readonly options = {

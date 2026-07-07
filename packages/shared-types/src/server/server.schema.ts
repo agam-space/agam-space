@@ -28,3 +28,13 @@ export const ServerConfigSchema = z.object({
 });
 
 export type ServerConfig = z.infer<typeof ServerConfigSchema>;
+
+// server info
+
+export const ServerInfoSchema = z.object({
+  version: z.string(),
+  timestamp: z.string(),
+  environment: z.string(),
+});
+
+export type ServerInfo = z.infer<typeof ServerInfoSchema>;

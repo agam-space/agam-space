@@ -23,9 +23,8 @@ import {
   X,
   Share2,
 } from 'lucide-react';
-import { ClientRegistry, ContentEntry, FileEntry } from '@agam-space/client';
+import { ClientRegistry, ContentEntry, FileEntry, formatBytes } from '@agam-space/client';
 import { getFileIconV2 } from '@/lib/file-mime-icon';
-import { formatBytes } from '@/utils/file';
 import { toast } from 'sonner';
 import { useDownloadStore } from '@/store/download-store';
 import { useState } from 'react';

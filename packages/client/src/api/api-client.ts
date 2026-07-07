@@ -2,7 +2,6 @@ import { ZodType } from 'zod';
 
 type ApiClientConfig = {
   baseUrl: string;
-  token?: string | null;
 };
 
 export class ApiClientError extends Error {
@@ -89,11 +88,10 @@ export class ApiClient {
 
     const hasContentType = options.headers && 'Content-Type' in options.headers;
 
-    const res = await fetch(`/api${path}`, {
+    const res = await fetch(`${this.config.baseUrl}${path}`, {
       ...options,
       headers: {
         ...(hasBody && !hasContentType ? { 'Content-Type': 'application/json' } : {}),
-        ...(this.config.token ? {} : {}),
         ...options.headers,
       },
     });

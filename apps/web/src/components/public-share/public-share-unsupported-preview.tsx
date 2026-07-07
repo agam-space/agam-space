@@ -1,6 +1,11 @@
 'use client';
 
-import { FileEntry, PublicShareApi, decryptFileChunks, formatFileSize } from '@agam-space/client';
+import {
+  FileEntry,
+  fetchPublicFileChunkApi,
+  decryptFileChunks,
+  formatBytes,
+} from '@agam-space/client';
 import { FileX, ArrowDownToLine, Loader2, Info, X } from 'lucide-react';
 import { useState } from 'react';
 
@@ -32,12 +37,7 @@ export function PublicShareUnsupportedPreview({
 
     try {
       const fetchChunk = async (fileId: string, index: number): Promise<Uint8Array> => {
-        const chunk = await PublicShareApi.fetchPublicFileChunk(
-          shareId,
-          accessToken,
-          fileId,
-          index
-        );
+        const chunk = await fetchPublicFileChunkApi(shareId, accessToken, fileId, index);
         // Update progress
         const progress = Math.round(((index + 1) / fileEntry.chunkCount) * 100);
         setDownloadProgress(progress);
@@ -120,7 +120,7 @@ export function PublicShareUnsupportedPreview({
             <p className='text-muted-foreground'>
               {reason === 'unsupported-type'
                 ? 'This file type cannot be previewed in your browser'
-                : `This file is too large to preview (${formatFileSize(fileEntry.size)})`}
+                : `This file is too large to preview (${formatBytes(fileEntry.size)})`}
             </p>
 
             {/* File Info Card */}
@@ -133,7 +133,7 @@ export function PublicShareUnsupportedPreview({
               </div>
               <div className='flex items-center justify-between text-sm'>
                 <span className='text-muted-foreground'>File size</span>
-                <span className='font-medium'>{formatFileSize(fileEntry.size)}</span>
+                <span className='font-medium'>{formatBytes(fileEntry.size)}</span>
               </div>
               {fileEntry.mime && (
                 <div className='flex items-center justify-between text-sm'>
