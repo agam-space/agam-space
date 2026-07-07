@@ -8,13 +8,13 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Folder } from 'lucide-react';
+import { Check, ChevronRight, Folder, Home } from 'lucide-react';
 import { useCallback, useEffect, useState } from 'react';
-import { ContentEntry, FolderEntry, getFolderInfo, getFoldersInFolder } from '@agam-space/client';
+import { ClientRegistry, ContentEntry, FolderEntry } from '@agam-space/client';
+import { cn } from '@/lib/utils';
 
 export type nullish = null | undefined;
 const isRoot = (id: string | nullish) => !id || id === 'root';
-const hasParent = (id: string | nullish) => id && !isRoot(id);
 
 interface MoveDialogProps {
   open: boolean;
@@ -27,42 +27,71 @@ interface MoveDialogProps {
 export function MoveDialog({ open, folderId, entries, onClose, handleMove }: MoveDialogProps) {
   const ROOT_ID = null;
   const selectedFolderIds = new Set(entries.filter(e => e.isFolder).map(e => e.id));
+  const sourceFolderId = isRoot(folderId) ? ROOT_ID : (folderId as string);
 
-  const [currentFolderId, setCurrentFolderId] = useState<string | nullish>(folderId ?? ROOT_ID);
+  const [currentFolderId, setCurrentFolderId] = useState<string | nullish>(sourceFolderId);
+  // Single source of truth for both breadcrumb display and "go up" navigation.
+  const [breadcrumb, setBreadcrumb] = useState<FolderEntry[]>([]);
   const [subfolders, setSubfolders] = useState<FolderEntry[]>([]);
-  const [selectedTargetId, setSelectedTargetId] = useState<string | null>(null);
+  // Explicit override when picking a subfolder without navigating into it; null = target is wherever we're browsing.
+  const [selectedSubfolder, setSelectedSubfolder] = useState<FolderEntry | null>(null);
   const [wasOpened, setWasOpened] = useState(false);
 
-  const load = useCallback(async (folderId: string | null) => {
-    const subs = await getFoldersInFolder(folderId);
+  const currentLocationName = isRoot(currentFolderId)
+    ? 'Root'
+    : (breadcrumb.at(-1)?.name ?? 'this folder');
+  const effectiveTargetId = selectedSubfolder ? selectedSubfolder.id : (currentFolderId ?? ROOT_ID);
+  const effectiveTargetName = selectedSubfolder ? selectedSubfolder.name : currentLocationName;
+  const isEffectiveTargetSameAsSource = effectiveTargetId === sourceFolderId;
+
+  const navigateTo = (id: string | null) => {
+    setCurrentFolderId(id);
+    setSelectedSubfolder(null);
+  };
+
+  const goUp = () => {
+    if (isRoot(currentFolderId)) return;
+    // breadcrumb's last entry is the current folder itself; the one before it is the parent.
+    const parent = breadcrumb.length >= 2 ? breadcrumb[breadcrumb.length - 2] : null;
+    navigateTo(parent ? parent.id : ROOT_ID);
+  };
+
+  const loadSubfolders = useCallback(async (id: string | null) => {
+    const subs = await ClientRegistry.getContentTreeManager().getFolders(id ?? 'root');
     setSubfolders(subs);
   }, []);
-
-  const goUp = async () => {
-    if (isRoot(currentFolderId)) return;
-    const parent = await getFolderInfo(currentFolderId!);
-    const newId = hasParent(parent.parentId) ? (parent.parentId ?? null) : ROOT_ID;
-    setCurrentFolderId(newId);
-    setSelectedTargetId(null);
-  };
 
   useEffect(() => {
     if (open) {
       if (!wasOpened) {
-        setCurrentFolderId(folderId ?? ROOT_ID);
-        setSelectedTargetId(null);
+        setCurrentFolderId(sourceFolderId);
+        setSelectedSubfolder(null);
         setWasOpened(true);
       }
     } else {
       setWasOpened(false); // Reset on dialog close
     }
-  }, [open, folderId, wasOpened]);
+  }, [open, sourceFolderId, wasOpened]);
 
   useEffect(() => {
     if (open) {
-      load(currentFolderId ?? null);
+      loadSubfolders(currentFolderId ?? null);
     }
-  }, [currentFolderId, open, load]);
+  }, [currentFolderId, open, loadSubfolders]);
+
+  useEffect(() => {
+    if (!open) return;
+
+    if (isRoot(currentFolderId)) {
+      setBreadcrumb([]);
+      return;
+    }
+
+    ClientRegistry.getContentTreeManager()
+      .loadAncestorsPath(currentFolderId!, 10)
+      .then(setBreadcrumb)
+      .catch(() => setBreadcrumb([]));
+  }, [currentFolderId, open]);
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
@@ -71,30 +100,88 @@ export function MoveDialog({ open, folderId, entries, onClose, handleMove }: Mov
           <DialogTitle>Move selected items</DialogTitle>
         </DialogHeader>
 
+        {/* Breadcrumb - unambiguous single source of truth for "where am I" */}
+        <div className='flex items-center flex-wrap gap-1 text-sm text-muted-foreground border rounded-md px-2 py-1.5 bg-muted/20'>
+          <button
+            className={cn(
+              'flex items-center gap-1 px-1.5 py-0.5 rounded hover:bg-muted transition-colors',
+              isRoot(currentFolderId) && 'bg-muted font-medium text-foreground'
+            )}
+            onClick={() => navigateTo(ROOT_ID)}
+          >
+            <Home className='w-3.5 h-3.5' />
+            Root
+          </button>
+          {breadcrumb.map((folder, index) => (
+            <div key={folder.id} className='flex items-center gap-1'>
+              <ChevronRight className='w-3.5 h-3.5 shrink-0' />
+              <button
+                className={cn(
+                  'px-1.5 py-0.5 rounded hover:bg-muted transition-colors truncate max-w-[140px]',
+                  index === breadcrumb.length - 1 && 'bg-muted font-medium text-foreground'
+                )}
+                onClick={() => navigateTo(folder.id)}
+                title={folder.name}
+              >
+                {folder.name}
+              </button>
+            </div>
+          ))}
+        </div>
+
         <div className='max-h-64 overflow-y-auto space-y-1'>
-          <div className='border-t border-border my-2' />
           <div className='bg-muted/30 rounded-md border max-h-64 overflow-y-auto space-y-1 p-2'>
-            {currentFolderId && (
-              <button className='w-full text-left px-2 py-1 hover:bg-muted rounded' onClick={goUp}>
-                <ArrowLeft className='inline w-4 h-4 mr-2' />
+            {!isRoot(currentFolderId) && (
+              <button
+                className='w-full text-left px-2 py-1 hover:bg-muted rounded text-sm'
+                onClick={goUp}
+              >
+                <ChevronRight className='inline w-4 h-4 mr-2 rotate-180' />
                 ..
               </button>
             )}
+            {/* Explicit option to target the folder currently being browsed, including Root. */}
+            <div
+              className={cn(
+                'flex items-center justify-between w-full text-left px-3 py-2 rounded-md cursor-pointer text-sm transition-colors',
+                !selectedSubfolder ? 'bg-muted font-medium' : 'hover:bg-accent'
+              )}
+              onClick={() => setSelectedSubfolder(null)}
+            >
+              <span className='flex items-center'>
+                {isRoot(currentFolderId) ? (
+                  <Home className='inline w-4 h-4 mr-2' />
+                ) : (
+                  <Folder className='inline w-4 h-4 mr-2' />
+                )}
+                {currentLocationName}
+              </span>
+              {!selectedSubfolder && <Check className='w-4 h-4 text-primary' />}
+            </div>
             {subfolders
               .filter(folder => !selectedFolderIds.has(folder.id))
               .map(folder => (
                 <div
                   key={folder.id}
-                  className={`w-full text-left px-3 py-2 rounded-md cursor-pointer text-sm transition-colors ${
-                    selectedTargetId === folder.id ? 'bg-muted font-medium' : 'hover:bg-accent'
-                  }`}
-                  onClick={() => setSelectedTargetId(folder.id)}
-                  onDoubleClick={() => setCurrentFolderId(folder.id)}
+                  className={cn(
+                    'flex items-center justify-between w-full text-left px-3 py-2 rounded-md cursor-pointer text-sm transition-colors',
+                    selectedSubfolder?.id === folder.id ? 'bg-muted font-medium' : 'hover:bg-accent'
+                  )}
+                  onClick={() => setSelectedSubfolder(folder)}
+                  onDoubleClick={() => navigateTo(folder.id)}
                 >
-                  <Folder className='inline w-4 h-4 mr-2' />
-                  {folder.name}
+                  <span className='flex items-center'>
+                    <Folder className='inline w-4 h-4 mr-2' />
+                    {folder.name}
+                  </span>
+                  {selectedSubfolder?.id === folder.id && (
+                    <Check className='w-4 h-4 text-primary' />
+                  )}
                 </div>
               ))}
+            {subfolders.length === 0 && (
+              <p className='px-2 py-1 text-xs text-muted-foreground'>No subfolders here.</p>
+            )}
           </div>
         </div>
 
@@ -103,10 +190,11 @@ export function MoveDialog({ open, folderId, entries, onClose, handleMove }: Mov
             Cancel
           </Button>
           <Button
-            onClick={() => handleMove(selectedTargetId)}
-            disabled={!selectedTargetId || selectedTargetId === currentFolderId}
+            onClick={() => handleMove(effectiveTargetId)}
+            disabled={isEffectiveTargetSameAsSource}
+            title={isEffectiveTargetSameAsSource ? 'Items are already in this folder' : undefined}
           >
-            Move here
+            Move to {effectiveTargetName}
           </Button>
         </DialogFooter>
       </DialogContent>

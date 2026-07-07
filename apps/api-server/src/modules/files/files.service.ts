@@ -333,26 +333,31 @@ export class FilesService {
 
     const updates: Partial<FileEntity> = {};
 
-    if (data.parentId) {
-      // Check if the new parent folder exists
-      const parentFolder = await this.foldersService.getFolder(userId, data.parentId);
-      if (!parentFolder || parentFolder.status !== 'active') {
-        throw new NotFoundException('Target folder not found');
-      }
-
+    if (data.parentId !== undefined) {
       //TODO validate wrapped key by decoding and checking structure
       if (!data.fkWrapped) {
         throw new ConflictException('Cannot move file without providing a wrapped file key');
+      }
+
+      // A null parentId means moving to the root, which has no folder record to validate.
+      if (data.parentId) {
+        const parentFolder = await this.foldersService.getFolder(userId, data.parentId);
+        if (!parentFolder || parentFolder.status !== 'active') {
+          throw new NotFoundException('Target folder not found');
+        }
       }
 
       updates.parentId = data.parentId;
       updates.fkWrapped = data.fkWrapped;
     }
 
-    // Check for duplicate name at same level
+    // Check for duplicate name at the file's resulting location (its new parent if moving,
+    // otherwise its current parent). Use `!== undefined` here, not `||` — a null parentId
+    // is an explicit, valid "move to root" and must not fall back to the current parent.
+    const targetParentId = data.parentId !== undefined ? data.parentId : file.parentId;
     const hasExisting = await this.hasFileWithNameHash(
       userId,
-      data.parentId || file.parentId,
+      targetParentId,
       data.nameHash || file.nameHash
     );
     if (hasExisting) {

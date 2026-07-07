@@ -1,15 +1,13 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowRightLeft, Download, LayoutGrid, RefreshCw, SortAsc, Trash } from 'lucide-react';
 import {
   ClientRegistry,
   ContentEntry,
-  contentTreeStore,
   ContentTreeViewModel,
   FileEntry,
-  FolderContentNode,
   FolderEntry,
   renameFile,
   renameFolder,
@@ -63,16 +61,19 @@ export function ExplorerPage({ folderId }: { folderId: string }) {
   const [explorerState, setExplorerState] = useState<ExplorerState | null>(null);
 
   const [loading, setLoading] = useState(true);
-  const [node, setNode] = useState<FolderContentNode | null>(null);
 
   // const [view, setView] = useState<'grid' | 'list'>('grid');
 
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
-  const [selectedEntries, setSelectedEntries] = useState<ContentEntry[]>([]);
   const [lastSelectedIndex, setLastSelectedIndex] = useState<number | null>(null);
   const [previewingFile, setPreviewingFile] = useState<FileEntry | null>(null);
 
   const [moveDialogOpen, setMoveDialogOpen] = useState(false);
+
+  // Tracks the most recently requested folder so async loads that resolve after
+  // the user has already navigated elsewhere don't overwrite newer state.
+  const latestFolderIdRef = useRef(folderId);
+  latestFolderIdRef.current = folderId;
 
   const addUpload = useUploadStore(s => s.addUpload);
 
@@ -118,6 +119,9 @@ export function ExplorerPage({ folderId }: { folderId: string }) {
         explorerPrefs.groupFolders
       );
       logger.debug('ExplorerPage', `Loaded entries: ${result?.entries.length} items`);
+
+      // Ignore results for a folder we've since navigated away from.
+      if (latestFolderIdRef.current !== folderId) return;
 
       setExplorerState(result);
     },
@@ -194,13 +198,18 @@ export function ExplorerPage({ folderId }: { folderId: string }) {
   };
 
   const handleMove = async (targetId: string | null) => {
-    await ExplorerPageService.handleMove(selectedEntries, targetId, folderId);
+    await ExplorerPageService.handleMove(getSelectedEntries(), targetId, folderId);
     setMoveDialogOpen(false);
+    clearSelection();
     refresh();
   };
 
   useEffect(() => {
     setLoading(true);
+    // Clear the previous folder's data immediately so we never render stale
+    // content for the folder we've just navigated away from.
+    setExplorerState(null);
+    clearSelection();
 
     const folderKey = folderId ?? 'root';
     const hadPendingRefresh = useExplorerRefreshStore
@@ -214,17 +223,6 @@ export function ExplorerPage({ folderId }: { folderId: string }) {
       loadFolderState(folderId).finally(() => setLoading(false));
     }
   }, [folderId, loadFolderState, refresh]);
-
-  useEffect(() => {
-    const unsubscribe = contentTreeStore.subscribeToFolder(folderId, updatedNode => {
-      setNode(null);
-      setTimeout(() => {
-        setNode(updatedNode);
-      }, 10);
-    });
-
-    return () => unsubscribe();
-  }, [folderId]);
 
   useEffect(() => {
     const folderKey = folderId ?? 'root';
@@ -324,21 +322,7 @@ export function ExplorerPage({ folderId }: { folderId: string }) {
       }
       console.log(`Renamed ${isFolder ? 'folder' : 'file'} ${id} to ${newName}`);
 
-      //contentTreeManager.store.upsertItem(updatedEntry);
       refresh(updatedEntry);
-
-      // const updatedNode = contentTreeStore.updateEntryForPage(updatedEntry, 'name', 'asc', 1);
-      // if (updatedNode) {
-      //   setNode(updatedNode);
-      //   // Update breadcrumb if necessary
-      //   const updatedBreadcrumb = breadcrumb.map((b) => {
-      //     if (b.id === id) {
-      //       return { ...b, name: newName };
-      //     }
-      //     return b;
-      //   });
-      //   setBreadcrumb(updatedBreadcrumb);
-      // }
 
       toast.success('Renamed successfully');
     } catch (err) {
@@ -593,8 +577,7 @@ export function ExplorerPage({ folderId }: { folderId: string }) {
                     checkIfNameExists={checkIfNameExists}
                     onRename={handleRename}
                     onMove={item => {
-                      selectedIds.add(item.id);
-                      setSelectedEntries(getSelectedEntries());
+                      setSelectedIds(new Set([item.id]));
                       setMoveDialogOpen(true);
                     }}
                     onRecomputeSize={
@@ -689,18 +672,19 @@ export function ExplorerPage({ folderId }: { folderId: string }) {
                     }
                     onTrash={() => handleTrash(entry.id, entry.isFolder)}
                     onContextOpen={() => {
-                      selectedIds.add(entry.id);
-                      setSelectedEntries(getSelectedEntries());
+                      setSelectedIds(prev => new Set(prev).add(entry.id));
                     }}
                     onContextClose={() => {
-                      selectedIds.delete(entry.id);
-                      setSelectedEntries(getSelectedEntries());
+                      setSelectedIds(prev => {
+                        const next = new Set(prev);
+                        next.delete(entry.id);
+                        return next;
+                      });
                     }}
                     checkIfNameExists={checkIfNameExists}
                     onRename={handleRename}
                     onMove={item => {
-                      selectedIds.add(item.id);
-                      setSelectedEntries(getSelectedEntries());
+                      setSelectedIds(new Set([item.id]));
                       setMoveDialogOpen(true);
                     }}
                     onRecomputeSize={
@@ -724,7 +708,7 @@ export function ExplorerPage({ folderId }: { folderId: string }) {
       <MoveDialog
         open={moveDialogOpen}
         folderId={folderId}
-        entries={selectedEntries}
+        entries={getSelectedEntries()}
         onClose={() => setMoveDialogOpen(false)}
         handleMove={handleMove}
       />

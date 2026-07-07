@@ -186,24 +186,32 @@ export class FoldersService {
 
     const allowedUpdates: Partial<FolderEntity> = {};
 
-    if (updates.parentId) {
+    if (updates.parentId !== undefined) {
       if (!updates.fkWrapped) {
         throw new BadRequestException('fkWrapped is required when updating parentId');
       }
 
-      const parentFolder = await this.getFolder(userId, updates.parentId);
-      if (!parentFolder) {
-        throw new NotFoundException('Target parent folder not found');
+      // A null parentId means moving to the root, which has no folder record to validate.
+      if (updates.parentId) {
+        const parentFolder = await this.getFolder(userId, updates.parentId);
+        if (!parentFolder) {
+          throw new NotFoundException('Target parent folder not found');
+        }
       }
 
       allowedUpdates.parentId = updates.parentId;
       allowedUpdates.fkWrapped = updates.fkWrapped;
     }
 
+    // Check for duplicate name at the folder's resulting location (its new parent if moving,
+    // otherwise its current parent). Use `!== undefined` here, not `||` — a null parentId
+    // is an explicit, valid "move to root" and must not fall back to the current parent.
+    const targetParentId =
+      updates.parentId !== undefined ? updates.parentId : existingFolder.parentId;
     const folderWithName = await this.hasFolderWithName(
       userId,
       updates.nameHash || existingFolder.nameHash,
-      updates.parentId || existingFolder.parentId
+      targetParentId
     );
     if (folderWithName) {
       throw new ConflictException('A folder with this name already exists at this level');

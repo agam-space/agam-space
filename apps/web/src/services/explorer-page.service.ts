@@ -7,12 +7,11 @@ export const ExplorerPageService = {
     selectedTargetId: string | null,
     currentFolderId: string | null
   ) {
-    if (entries.every(e => e.parentId === selectedTargetId)) {
+    if (entries.length > 0 && entries.every(e => e.parentId === selectedTargetId)) {
       toast.info('Items are already in this folder.');
       return;
     }
 
-    if (!selectedTargetId) return;
     if (await this.isDescendant(selectedTargetId, entries)) {
       toast.error('Cannot move a folder into itself or its subfolder.');
       return;
@@ -40,14 +39,21 @@ export const ExplorerPageService = {
     }
 
     const failed = [...folderResult.failed, ...fileResult.failed];
-    if (folderResult.failed.length > 0) {
-      toast.error(`Failed to move ${failed.length} item(s)`);
+    if (failed.length > 0) {
+      const reason = failed[0]?.error;
+      toast.error(
+        reason
+          ? `Failed to move ${failed.length} item(s): ${reason}`
+          : `Failed to move ${failed.length} item(s)`
+      );
     }
 
     return updated;
   },
 
-  async isDescendant(targetId: string, entries: ContentEntry[]): Promise<boolean> {
+  async isDescendant(targetId: string | null, entries: ContentEntry[]): Promise<boolean> {
+    if (!targetId) return false; // Root can never be a descendant of a selected folder.
+
     const selectedFolderIds = new Set(entries.filter(e => e.isFolder).map(e => e.id));
 
     if (selectedFolderIds.has(targetId)) return true;
