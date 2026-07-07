@@ -5,7 +5,7 @@ import {
   EncryptionRegistry,
   fetchSessionCryptoMaterial,
 } from '@agam-space/client';
-import { usePreferencesStore } from '@/store/preferences.store';
+import { getPersistedSessionAutoUnlock } from '@/store/preferences.store';
 import { idbSessionStore } from '@/storage/indexdb';
 import { ClientSeedSync } from '@/services/cross-tab';
 
@@ -89,8 +89,7 @@ export class SessionUnlockManager {
   }
 
   static isSessionAutoUnlockEnabled(): boolean {
-    if (typeof window === 'undefined') return false;
-    return usePreferencesStore.getState().security?.sessionAutoUnlock ?? false;
+    return getPersistedSessionAutoUnlock();
   }
 
   static async saveCMKForAutoUnlock(cmk: Uint8Array): Promise<void> {

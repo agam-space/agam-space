@@ -48,6 +48,23 @@ const DEFAULT_PREFS: Preferences = {
   security: { sessionAutoUnlock: false, clearDeviceDataOnLogout: false },
 };
 
+const PREFERENCES_STORAGE_KEY = 'preferences';
+
+/** Read persisted security prefs synchronously (avoids zustand rehydrate race). */
+export function getPersistedSessionAutoUnlock(): boolean {
+  if (typeof window === 'undefined') return DEFAULT_PREFS.security.sessionAutoUnlock;
+
+  try {
+    const raw = localStorage.getItem(PREFERENCES_STORAGE_KEY);
+    if (!raw) return DEFAULT_PREFS.security.sessionAutoUnlock;
+
+    const parsed = JSON.parse(raw) as { state?: Partial<Preferences> };
+    return parsed.state?.security?.sessionAutoUnlock ?? DEFAULT_PREFS.security.sessionAutoUnlock;
+  } catch {
+    return DEFAULT_PREFS.security.sessionAutoUnlock;
+  }
+}
+
 export const usePreferencesStore = create<Preferences & Actions>()(
   persist(
     set => ({
@@ -68,7 +85,7 @@ export const usePreferencesStore = create<Preferences & Actions>()(
         set(s => ({ security: { ...s.security, clearDeviceDataOnLogout } })),
     }),
     {
-      name: 'preferences',
+      name: PREFERENCES_STORAGE_KEY,
       version: 4,
       storage: createJSONStorage(() => localStorage),
       partialize: s => ({ explorer: s.explorer, trash: s.trash, security: s.security }),
