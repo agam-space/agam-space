@@ -27,9 +27,26 @@ export default function AdminPage() {
   const activeSection = sections.find(s => pathname.startsWith(s.href)) || sections[0];
 
   return (
-    <div className='flex h-full'>
-      {/* Sidebar */}
-      <div className='w-48 border-r p-4 space-y-2'>
+    <div className='flex flex-col sm:flex-row h-full'>
+      {/* Mobile: horizontal scrollable tab bar */}
+      <div className='sm:hidden flex gap-2 overflow-x-auto border-b p-3 -mb-px'>
+        {sections.map(section => (
+          <Button
+            key={section.label}
+            variant={activeSection?.href === section.href ? 'default' : 'ghost'}
+            size='sm'
+            className='shrink-0'
+            onClick={() => {
+              router.push(section.href);
+            }}
+          >
+            {section.label}
+          </Button>
+        ))}
+      </div>
+
+      {/* Desktop: left sidebar */}
+      <div className='hidden sm:block w-48 border-r p-4 space-y-2'>
         {sections.map(section => (
           <Button
             key={section.label}
@@ -45,7 +62,7 @@ export default function AdminPage() {
       </div>
 
       {/* Main content */}
-      <div className='flex-1 p-6'>
+      <div className='flex-1 p-4 sm:p-6 overflow-y-auto'>
         {activeSection?.label === 'Users' && <AdminUserList />}
         {activeSection?.label === 'Invite Codes' && <AdminInviteCodes />}
 

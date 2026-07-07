@@ -91,7 +91,7 @@ export function DownloadTray() {
   if (visible.length === 0) return null;
 
   return (
-    <div className='fixed bottom-4 right-4 z-50 w-full max-w-md rounded-xl bg-card text-card-foreground shadow-lg border border-border p-4 space-y-3'>
+    <div className='pointer-events-auto w-full max-w-md rounded-xl bg-card text-card-foreground shadow-lg border border-border p-4 space-y-3'>
       <h4 className='text-sm font-semibold flex justify-between items-center'>
         <span>Downloads</span>
         {inProgress.length > 0 && (

@@ -127,7 +127,7 @@ export default function TrustedDevicesPage() {
             </div>
             <div className='flex items-center gap-2'>
               {isCurrentDeviceRegistered ? (
-                <span className='px-3 py-1 text-xs font-medium rounded-full bg-green-100 text-green-700 border border-green-300'>
+                <span className='px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary border border-primary/30'>
                   ✓ Registered
                 </span>
               ) : (
@@ -184,7 +184,7 @@ export default function TrustedDevicesPage() {
                     <span className='flex items-center gap-2'>
                       <span className='font-medium'>{device.deviceName}</span>
                       {isCurrent && (
-                        <span className='px-2 py-0.5 text-xs rounded bg-blue-100 text-blue-700 border border-blue-300'>
+                        <span className='px-2 py-0.5 text-xs rounded bg-primary/10 text-primary border border-primary/30'>
                           This Device
                         </span>
                       )}
@@ -215,9 +215,10 @@ export default function TrustedDevicesPage() {
               Register This Device
             </Button>
             <a
-              href='/docs-private/security/device-unlock-flow'
+              href='https://docs.agamspace.app/security/cmk-unlock'
               target='_blank'
-              className='text-sm text-blue-600 hover:text-blue-800 underline'
+              rel='noopener noreferrer'
+              className='text-sm text-primary hover:underline'
             >
               Learn more in our security docs →
             </a>

@@ -142,7 +142,7 @@ export function PublicShareFilePreview({
 
   if (error) {
     return (
-      <div className='flex items-center justify-center min-h-screen text-white bg-red-900/20 rounded-lg p-4 border border-red-500/50'>
+      <div className='flex items-center justify-center min-h-screen text-destructive bg-destructive/10 rounded-lg p-4 border border-destructive/30'>
         {error}
       </div>
     );
@@ -202,17 +202,17 @@ export function PublicShareFilePreview({
         </div>
       </div>
 
-      <div className='relative flex-1 flex items-center justify-center overflow-hidden'>
+      <div className='relative flex-1 min-h-0 flex items-center justify-center overflow-hidden'>
         <div
-          className={`w-full h-full flex items-center justify-center overflow-auto transition-all duration-300 ${
-            showFileInfo ? 'pr-80' : 'pr-0'
+          className={`w-full h-full min-h-0 flex items-center justify-center overflow-auto transition-all duration-300 ${
+            showFileInfo ? 'sm:pr-80' : 'pr-0'
           }`}
         >
           <FilePreviewCoordinator data={fileData} fileEntry={fileEntry} />
         </div>
 
         <div
-          className={`absolute top-0 right-0 h-full w-80 bg-background border-l transition-transform duration-300 ease-in-out ${
+          className={`absolute top-0 right-0 h-full w-full sm:w-80 bg-background border-l transition-transform duration-300 ease-in-out ${
             showFileInfo ? 'translate-x-0' : 'translate-x-full'
           }`}
         >

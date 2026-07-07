@@ -98,7 +98,7 @@ export function ExplorerItem({
   const icon = entry.isFolder ? (
     <Folder className={cn(view === 'grid' ? 'w-6 h-6' : 'w-5 h-5', 'text-yellow-500')} />
   ) : (
-    getFileIconV2(entry.mime)
+    getFileIconV2(entry.mime, entry.name)
   );
 
   const fileSizeText = !entry.isFolder && entry.size ? formatBytes(entry.size) : null;
@@ -131,17 +131,27 @@ export function ExplorerItem({
           onClick?.(e);
         }}
         className={cn(
-          'select-none transition-colors duration-100 cursor-pointer',
+          'select-none transition-all duration-150 cursor-pointer',
           view === 'grid'
-            ? 'relative flex flex-col items-center justify-center gap-2 p-4 border rounded-lg'
+            ? 'relative flex flex-col items-center justify-center gap-2 h-[104px] p-4 border rounded-lg hover:shadow-sm'
             : 'flex items-center h-9 px-4 text-sm',
           selected
             ? 'bg-primary/10 border border-primary text-primary'
             : 'bg-muted/50 hover:bg-muted'
         )}
       >
+        <button
+          className='absolute top-1 right-1 p-1 rounded hover:bg-muted-foreground/20 transition-colors'
+          onClick={triggerContextMenu}
+          aria-label='More actions'
+        >
+          <MoreVertical className='w-4 h-4 text-muted-foreground' />
+        </button>
         {icon}
-        <div className='truncate w-full text-center font-medium text-sm text-foreground'>
+        <div
+          title={entry.name}
+          className='truncate w-full text-center font-medium text-sm text-foreground'
+        >
           {entry.name}
         </div>
         {!entry.isFolder && entry.size && (
@@ -163,10 +173,12 @@ export function ExplorerItem({
         }}
       >
         {/* column 1: icon */}
-        <div className='w-5 text-yellow-500'>{icon}</div>
+        <div className='w-5 flex-shrink-0'>{icon}</div>
 
         {/* column 2: name */}
-        <div className='flex-1 min-w-0 pl-2 truncate'>{entry.name}</div>
+        <div title={entry.name} className='flex-1 min-w-0 pl-2 truncate'>
+          {entry.name}
+        </div>
 
         {/* column 3: size */}
         <div className='w-24 sm:w-32 md:w-40 lg:w-48 xl:w-56 text-right text-muted-foreground pr-6'>

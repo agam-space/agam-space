@@ -59,7 +59,7 @@ export function FilePreview({ fileEntry, onClose }: Props) {
 
   if (error)
     return (
-      <div className='flex items-center justify-center min-h-[400px] text-white bg-red-900/20 rounded-lg p-4 border border-red-500/50'>
+      <div className='flex items-center justify-center min-h-[400px] text-destructive bg-destructive/10 rounded-lg p-4 border border-destructive/30'>
         {error}
       </div>
     );

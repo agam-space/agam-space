@@ -36,8 +36,8 @@ export function TextFileEditor({ content, fileId, language = 'plaintext', onSave
   };
 
   return (
-    <div className='flex flex-col h-full w-full max-h-[85vh] max-w-[90vw] rounded-lg overflow-hidden border border-border/50 mt-4 mb-8'>
-      <div className='flex-1'>
+    <div className='flex flex-col min-h-0 h-full w-full max-h-[85vh] max-w-[90vw] rounded-lg overflow-hidden border border-border/50 mt-4 mb-8'>
+      <div className='flex-1 min-h-0'>
         <MonacoEditor
           language={language}
           value={value}

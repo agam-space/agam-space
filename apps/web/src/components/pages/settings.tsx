@@ -61,11 +61,25 @@ export default function SettingsPage({ initialTab }: SettingsPageProps) {
     }
   };
 
-  //TODO need sidebar menu for small screens
   return (
-    <div className='flex h-full'>
-      {/* Left Navigation */}
-      <div className='w-48 border-r p-4 space-y-2'>
+    <div className='flex flex-col sm:flex-row h-full'>
+      {/* Mobile: horizontal scrollable tab bar */}
+      <div className='sm:hidden flex gap-2 overflow-x-auto border-b p-3 -mb-px'>
+        {sections.map(section => (
+          <Button
+            key={section}
+            variant={activeSection === section ? 'default' : 'ghost'}
+            size='sm'
+            className='shrink-0'
+            onClick={() => handleSectionChange(section)}
+          >
+            {section}
+          </Button>
+        ))}
+      </div>
+
+      {/* Desktop: left navigation */}
+      <div className='hidden sm:block w-48 border-r p-4 space-y-2'>
         {sections.map(section => (
           <Button
             key={section}
@@ -79,7 +93,7 @@ export default function SettingsPage({ initialTab }: SettingsPageProps) {
       </div>
 
       {/* Right Detail Pane */}
-      <div className='flex-1 p-6'>
+      <div className='flex-1 p-4 sm:p-6 overflow-y-auto'>
         {activeSection === 'Encryption' && (
           <div className='space-y-6'>
             <h2 className='text-xl font-semibold'>Encryption Settings</h2>

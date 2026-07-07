@@ -82,22 +82,22 @@ export function FilePreviewModal({ file, onClose }: Props) {
         </div>
 
         {/* Preview content - fills remaining height */}
-        <div className='relative flex-1 flex items-center justify-center overflow-hidden'>
+        <div className='relative flex-1 min-h-0 flex items-center justify-center overflow-hidden'>
           <div
-            className={`w-full h-full flex items-center justify-center overflow-auto transition-all duration-300 ${
-              showFileInfo ? 'pr-80' : 'pr-0'
+            className={`w-full h-full min-h-0 flex items-center justify-center overflow-auto transition-all duration-300 ${
+              showFileInfo ? 'sm:pr-80' : 'pr-0'
             }`}
           >
             <FilePreview fileEntry={file} onClose={onClose} />
           </div>
 
-          {/* Info side panel - absolute positioned, slides in from right */}
+          {/* Info side panel - full-screen overlay on mobile, side panel on larger screens */}
           <div
-            className={`absolute top-0 right-0 h-full w-80 transition-transform duration-300 ease-in-out ${
+            className={`absolute top-0 right-0 h-full w-full sm:w-80 transition-transform duration-300 ease-in-out ${
               showFileInfo ? 'translate-x-0' : 'translate-x-full'
             }`}
           >
-            <div className='h-full m-4 bg-card/95 backdrop-blur-sm border border-border rounded-lg overflow-hidden'>
+            <div className='h-full sm:m-4 bg-card/95 backdrop-blur-sm border border-border sm:rounded-lg overflow-y-auto'>
               <div className='p-6 pb-8 space-y-6'>
                 <h3 className='text-lg font-semibold text-card-foreground border-b border-border pb-3'>
                   File Details
@@ -153,8 +153,12 @@ export function FilePreviewModal({ file, onClose }: Props) {
                   )}
 
                   <div>
-                    <label className='text-xs text-white/60 uppercase tracking-wide'>File ID</label>
-                    <p className='text-white/60 mt-1 text-xs font-mono break-all'>{file.id}</p>
+                    <label className='text-xs text-muted-foreground uppercase tracking-wide'>
+                      File ID
+                    </label>
+                    <p className='text-muted-foreground mt-1 text-xs font-mono break-all'>
+                      {file.id}
+                    </p>
                   </div>
                 </div>
               </div>

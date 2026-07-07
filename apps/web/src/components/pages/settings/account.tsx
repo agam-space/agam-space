@@ -104,7 +104,7 @@ export function AccountSettingsSection() {
                   {user?.oidcProvider ? `${user.oidcProvider} Single Sign-On` : 'Single Sign-On'}
                 </span>
               ) : (
-                <span className='text-sm bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300 px-2.5 py-0.5 rounded font-medium'>
+                <span className='text-sm bg-muted text-muted-foreground px-2.5 py-0.5 rounded font-medium'>
                   Password
                 </span>
               )}
