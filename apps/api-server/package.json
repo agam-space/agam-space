@@ -21,6 +21,8 @@
   "dependencies": {
     "@agam-space/core": "workspace:*",
     "@agam-space/shared-types": "workspace:*",
+    "@aws-sdk/client-s3": "^3.1075.0",
+    "@aws-sdk/lib-storage": "^3.1075.0",
     "@fastify/cookie": "^11.0.2",
     "@fastify/helmet": "^13.0.2",
     "@fastify/middie": "^9.3.2",

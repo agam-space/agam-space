@@ -7,7 +7,7 @@ import { drizzle } from 'drizzle-orm/postgres-js';
 import { FileChunk, fileChunks, NewFileChunk, files } from '@/database';
 
 import { DATABASE_CONNECTION } from '@/database';
-import { StorageService } from '@/modules/storage/storage.service';
+import { ChunkAlreadyExistsError, StorageService } from '@/modules/storage/storage.abstract';
 import { AppConfigService } from '@/config/config.service';
 import { DrizzleTransaction } from '@/database/database.providers';
 
@@ -41,14 +41,36 @@ export class FileChunkService {
       throw new BadRequestException('Checksum is required');
     }
 
-    // TODO: handle errors from storage service and mark chunk as failed
-    const { size, chunkFilePath } = await this.storageService.saveFileChunkStream(
-      fileDirPath,
-      chunkIndex,
-      stream,
-      checksum,
-      this.configService.getConfig().file.chunkSize
-    );
+    let saveResult: { size: number; chunkFilePath: string };
+    try {
+      // TODO: handle other storage errors and mark chunk as failed
+      saveResult = await this.storageService.saveFileChunkStream(
+        fileDirPath,
+        chunkIndex,
+        stream,
+        checksum,
+        this.configService.getConfig().file.chunkSize
+      );
+    } catch (e) {
+      if (e instanceof ChunkAlreadyExistsError) {
+        // No DB row exists for this chunk (checked above), so the object in
+        // storage is orphaned from a previously interrupted upload — clear it
+        // so the client's retry/resume of this chunk index can succeed.
+        this.logger.warn(
+          `Orphaned chunk detected, clearing stale data: file=${fileId} index=${chunkIndex}`
+        );
+        await this.storageService.deleteChunk(fileDirPath, chunkIndex).catch(cleanupError => {
+          this.logger.error(
+            `Failed to clean up orphaned chunk: file=${fileId} index=${chunkIndex}`,
+            cleanupError
+          );
+        });
+        throw new ConflictException('Stale chunk data was cleared. Please retry the upload.');
+      }
+      throw e;
+    }
+
+    const { size, chunkFilePath } = saveResult;
 
     const newChunk: NewFileChunk = {
       fileId,

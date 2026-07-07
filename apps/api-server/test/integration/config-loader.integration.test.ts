@@ -46,6 +46,13 @@ describe('ConfigLoader Integration', () => {
     'DOMAIN',
     'WEBAUTHN_ORIGIN',
     'WEBAUTHN_RPID',
+    'STORAGE_BACKEND',
+    'S3_BUCKET',
+    'S3_REGION',
+    'S3_ENDPOINT',
+    'S3_ACCESS_KEY_ID',
+    'S3_SECRET_ACCESS_KEY',
+    'S3_PATH_STYLE_ENDPOINT',
   ];
 
   beforeAll(() => {

@@ -10,7 +10,7 @@ import { and, eq, inArray, isNull, not, or, sql } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/postgres-js';
 
 import { DATABASE_CONNECTION, type FileEntity, files, NewFile } from '@/database';
-import { StorageService } from '../storage/storage.service';
+import { StorageService } from '../storage/storage.abstract';
 import { FileChunkService } from './file-chunk.service';
 import { FileUploadStatusDto } from '@/modules/files/dto/upload.dto';
 import { FoldersService, isFolderIdRoot } from '@/modules/folders/folders.service';

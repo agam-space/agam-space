@@ -96,6 +96,32 @@ export const webauthnConfigSchema = z
   })
   .optional();
 
+// Storage backend configuration
+export const storageConfigSchema = z
+  .object({
+    backend: z.enum(['local', 's3']).default('local'),
+    s3: z
+      .object({
+        bucket: z.string().min(1),
+        region: z.string().default('auto'),
+        endpoint: z.string().url().optional(), // for R2 / MinIO / Backblaze B2
+        accessKeyId: z.string().min(1),
+        secretAccessKey: z.string().min(1),
+        pathStyleEndpoint: z.boolean().default(false), // required for MinIO
+      })
+      .optional(),
+  })
+  .superRefine((data, ctx) => {
+    if (data.backend === 's3' && !data.s3) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message:
+          'S3 config is required when STORAGE_BACKEND=s3. Set S3_BUCKET, S3_ACCESS_KEY_ID, and S3_SECRET_ACCESS_KEY.',
+        path: ['s3'],
+      });
+    }
+  });
+
 // Main configuration schema - only user-configurable settings
 export const configSchema = z.object({
   domain: domainConfigSchema.default({ domain: 'localhost' }),
@@ -111,6 +137,7 @@ export const configSchema = z.object({
   }),
   sso: ssoConfigSchema,
   webauthn: webauthnConfigSchema,
+  storage: storageConfigSchema.default({ backend: 'local' }),
 });
 
 export type AppConfig = z.infer<typeof configSchema>;
@@ -183,4 +210,13 @@ export const envMappings = {
   // WebAuthn
   'webauthn.origin': 'WEBAUTHN_ORIGIN',
   'webauthn.rpId': 'WEBAUTHN_RPID',
+
+  // Storage backend
+  'storage.backend': 'STORAGE_BACKEND',
+  'storage.s3.bucket': 'S3_BUCKET',
+  'storage.s3.region': 'S3_REGION',
+  'storage.s3.endpoint': 'S3_ENDPOINT',
+  'storage.s3.accessKeyId': 'S3_ACCESS_KEY_ID',
+  'storage.s3.secretAccessKey': 'S3_SECRET_ACCESS_KEY',
+  'storage.s3.pathStyleEndpoint': 'S3_PATH_STYLE_ENDPOINT',
 } as const;

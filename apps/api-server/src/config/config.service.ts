@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
-import type { AppConfig } from './config.schema';
+import type { AppConfig, storageConfigSchema } from './config.schema';
+import type { z } from 'zod';
 
 /**
  * Wrapper around NestJS ConfigService for easier access to our configuration
@@ -24,7 +25,12 @@ export class AppConfigService {
       security: this.configService.get('security'),
       sso: this.configService.get('sso'),
       account: this.configService.get('account'),
+      storage: this.configService.get('storage'),
     } as AppConfig;
+  }
+
+  getStorage(): z.infer<typeof storageConfigSchema> {
+    return this.configService.get('storage');
   }
 
   /**
