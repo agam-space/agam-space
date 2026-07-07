@@ -33,7 +33,9 @@ Not yet. Sharing is planned but not implemented. Each user's data is isolated.
 
 ### Does it work on mobile?
 
-The web UI is responsive and works on phones/tablets. No native apps yet.
+The web UI is responsive and works on phones/tablets. It's also installable as a
+Progressive Web App (PWA) - add it to your home screen for an app-like
+experience with its own icon and no browser address bar. No native apps yet.
 
 ### What file types can I preview?
 
@@ -98,7 +100,9 @@ Regular self-hosted solutions (Nextcloud without E2EE) are fine for many people.
 
 ### Can I use S3 for storage?
 
-Not yet. Currently local filesystem only. S3 backend planned.
+Yes. Set `STORAGE_BACKEND=s3` with your bucket and credentials. Works with AWS
+S3 and S3-compatible providers (Cloudflare R2, MinIO, Backblaze B2). See
+[Configuration Reference](./configuration/configuration-reference.md#storage-backend).
 
 ### How do I backup my data?
 

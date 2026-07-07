@@ -73,6 +73,97 @@ These must be set for Agam Space to run:
 | `CHUNK_SIZE`                  | `files.chunkSize`                | `8000000`            | Chunk size for file uploads (8MB)       |
 | `TRASH_CLEANUP_INTERVAL_DAYS` | `files.trashCleanupIntervalDays` | `7`                  | Days before auto-deleting trashed files |
 
+## Storage Backend
+
+Files can be stored on the local filesystem (default) or in an S3-compatible
+object store.
+
+| Environment Variable     | Config File Property           | Default            | Description                                                              |
+| ------------------------ | ------------------------------ | ------------------ | ------------------------------------------------------------------------ |
+| `STORAGE_BACKEND`        | `storage.backend`              | `local`            | Storage backend: `local` or `s3`                                         |
+| `S3_BUCKET`              | `storage.s3.bucket`            | _required if `s3`_ | S3 bucket name                                                           |
+| `S3_REGION`              | `storage.s3.region`            | `auto`             | AWS region (or `auto` for R2/MinIO)                                      |
+| `S3_ENDPOINT`            | `storage.s3.endpoint`          | -                  | Custom endpoint for S3-compatible providers (R2, MinIO, Backblaze B2)    |
+| `S3_ACCESS_KEY_ID`       | `storage.s3.accessKeyId`       | _required if `s3`_ | S3 access key ID                                                         |
+| `S3_SECRET_ACCESS_KEY`   | `storage.s3.secretAccessKey`   | _required if `s3`_ | S3 secret access key                                                     |
+| `S3_PATH_STYLE_ENDPOINT` | `storage.s3.pathStyleEndpoint` | `false`            | Use path-style URLs instead of virtual-hosted style (required for MinIO) |
+
+**Example S3 configuration (AWS):**
+
+```env
+STORAGE_BACKEND=s3
+S3_BUCKET=my-agam-space-bucket
+S3_REGION=eu-central-1
+S3_ACCESS_KEY_ID=your_access_key_id
+S3_SECRET_ACCESS_KEY=your_secret_access_key
+```
+
+**Example S3-compatible configuration (MinIO):**
+
+```env
+STORAGE_BACKEND=s3
+S3_BUCKET=agam-space
+S3_REGION=auto
+S3_ENDPOINT=http://minio:9000
+S3_ACCESS_KEY_ID=minioadmin
+S3_SECRET_ACCESS_KEY=minioadmin
+S3_PATH_STYLE_ENDPOINT=true
+```
+
+Config file:
+
+```json
+{
+  "storage": {
+    "backend": "s3",
+    "s3": {
+      "bucket": "agam-space",
+      "region": "auto",
+      "endpoint": "http://minio:9000",
+      "accessKeyId": "minioadmin",
+      "secretAccessKey": "minioadmin",
+      "pathStyleEndpoint": true
+    }
+  }
+}
+```
+
+:::info
+
+`S3_BUCKET`, `S3_ACCESS_KEY_ID`, and `S3_SECRET_ACCESS_KEY` are only required
+when `STORAGE_BACKEND=s3`. If `s3` config is missing while the backend is set to
+`s3`, the application fails to start with a clear error.
+
+On startup, the API server also checks that the configured bucket is actually
+reachable (equivalent to the `DATA_DIR` write check for the local backend). If
+the bucket doesn't exist, credentials are invalid, or the endpoint is
+unreachable, the application fails to start with a descriptive error instead of
+failing later on the first upload. The same check runs on every call to
+`/server/health`, so ongoing outages are visible there too.
+
+:::
+
+:::info
+
+Tested against AWS S3 and MinIO; should work with any S3-compatible provider
+(Cloudflare R2, Backblaze B2, Wasabi, DigitalOcean Spaces, etc). The client is
+configured to only request integrity checksums when a provider explicitly
+requires them, since AWS SDK v3's newer checksum defaults aren't supported by
+all third-party S3 implementations.
+
+:::
+
+:::tip
+
+Chunk uploads that crash between writing to S3 and committing the database
+record leave a small orphaned object behind, which is cleaned up automatically
+on the next upload attempt for that chunk. If you want extra peace of mind
+against orphaned data from crashes that never retry (e.g. an abandoned upload),
+configure a bucket lifecycle rule to abort incomplete multipart uploads after a
+few days.
+
+:::
+
 ## Security Configuration
 
 | Environment Variable | Config File Property      | Default | Description                                |

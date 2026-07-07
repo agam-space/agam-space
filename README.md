@@ -134,8 +134,8 @@ docker-compose up -d
 
 Access at http://localhost:3331
 
-**For production setup with HTTPS, reverse proxy, and more:**  
-👉 [Installation Guide](https://docs.agamspace.app/installation/docker-compose)
+**For production setup with HTTPS, reverse proxy, and more:** 👉
+[Installation Guide](https://docs.agamspace.app/installation/docker-compose)
 
 ## Tech Stack
 
@@ -188,7 +188,7 @@ pnpm install
 pnpm dev
 
 # Or start individually
-pnpm dev:api    # API server (port 3001)
+pnpm dev:api    # API server (port 3331)
 pnpm dev:web    # Web UI (port 3000)
 pnpm dev:docs   # Documentation (port 3002)
 

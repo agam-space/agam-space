@@ -61,7 +61,7 @@ access controls.
 - **Language**: TypeScript
 - **Database**: PostgreSQL with Drizzle ORM
 - **Authentication**: Passport.js (Local + SSO via OIDC)
-- **Storage**: Local filesystem (S3 support planned)
+- **Storage**: Local filesystem or S3-compatible object storage
 
 ### Frontend
 

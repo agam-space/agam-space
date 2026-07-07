@@ -37,6 +37,8 @@ Running Agam Space on your own infrastructure gives you:
 
 - **Web UI** - Responsive interface works on desktop, tablet, and mobile
   browsers
+- **Installable PWA** - Add to your home screen on mobile or desktop for an
+  app-like experience, no app store needed
 - **No installation needed** - Access via any modern browser
 
 **Browser requirements:**

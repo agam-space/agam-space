@@ -21,7 +21,6 @@ No timeline commitments - features built as time permits.
 - File sharing between users
 - Search across files and folders
 - Encrypted tags for organization
-- S3-compatible storage backend support
 
 ## Feature requests
 

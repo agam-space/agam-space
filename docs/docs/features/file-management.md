@@ -118,8 +118,9 @@ Admin can set quotas per user. See
 
 ## Storage backend
 
-Files are stored encrypted on the server filesystem with an efficient directory
-structure.
+Files are stored encrypted using either the local server filesystem or an
+S3-compatible object store, with an efficient directory/key structure shared
+across both backends.
 
 ### Physical storage structure
 
@@ -170,6 +171,13 @@ Inside this directory, chunks are stored as `chunk-0`, `chunk-1`, etc.
 
 ### Current implementation
 
-- Local filesystem storage (S3 support can be added in future based on demand)
-- Configurable storage path
-- 2-level sharding for efficient file distribution
+- Local filesystem storage (default) or S3-compatible object storage
+  (`STORAGE_BACKEND=s3`), including AWS S3, Cloudflare R2, MinIO, and Backblaze
+  B2
+- Configurable storage path (local) or bucket/credentials/endpoint (S3)
+- 2-level sharding for efficient file distribution, same key structure on both
+  backends
+
+See
+[Configuration Reference](../configuration/configuration-reference#storage-backend)
+for S3 setup.

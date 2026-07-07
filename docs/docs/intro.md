@@ -62,12 +62,12 @@ but expect bugs and breaking changes.
 - Public sharing — share files or folders via a link (no account needed)
 - SSO via OIDC (Authelia, Authentik, Keycloak, etc.)
 - Invite codes for controlled user registration
+- S3-compatible storage backend (local filesystem by default)
 
 **Known limitations:**
 
-- No mobile apps (web UI is responsive)
+- No native mobile apps (web UI is responsive and installable as a PWA)
 - No file versioning
-- Local storage only (no S3 yet)
 
 ## Why Agam Space?
 
