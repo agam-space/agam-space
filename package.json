@@ -12,12 +12,20 @@
     "dev": "pnpm --parallel -r dev",
     "dev:api": "pnpm --filter api-server dev",
     "dev:web": "pnpm --filter web dev",
+    "dev:tui": "mprocs",
     "start:api": "pnpm --filter @agam-space/api-server start",
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "eslint . --fix --ext .ts,.tsx",
     "format": "prettier --write \"**/*.{ts,js,json,md,yml,yaml}\" --ignore-path .prettierignore",
     "format:check": "prettier --check \"**/*.{ts,js,json,md,yml,yaml}\" --ignore-path .prettierignore",
-    "release": "bash scripts/release.sh"
+    "release": "bash scripts/release.sh",
+    "infra:up": "docker compose -f .local/docker-compose.dev.yml up -d",
+    "infra:down": "docker compose -f .local/docker-compose.dev.yml down",
+    "infra:restart": "pnpm infra:down && pnpm infra:up",
+    "infra:logs": "docker compose -f .local/docker-compose.dev.yml logs -f",
+    "infra:status": "docker compose -f .local/docker-compose.dev.yml ps",
+    "infra:reset": "bash -c 'read -r -p \"This deletes .local/data (DB + MinIO). Type DELETE to confirm: \" c; [ \"$c\" = DELETE ] || { echo Aborted.; exit 1; }; pnpm infra:down && rm -rf .local/data && pnpm infra:up'",
+    "dev:wipe": "bash scripts/wipe-local-data.sh"
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx}": [
@@ -42,6 +50,7 @@
     "husky": "^9.1.7",
     "jest": "^30.4.2",
     "lint-staged": "^17.0.5",
+    "mprocs": "^0.9.6",
     "postcss": "^8.5.15",
     "prettier": "^3.8.3",
     "rimraf": "^6.1.3",

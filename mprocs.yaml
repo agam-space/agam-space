@@ -1,0 +1,8 @@
+procs:
+  api:
+    shell: 'pnpm dev:api'
+    cwd: '<CONFIG_DIR>'
+
+  web:
+    shell: 'pnpm dev:web'
+    cwd: '<CONFIG_DIR>'
