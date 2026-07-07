@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react';
 import { useAppBootstrap } from '@/lib/init/use-bootstrap-app';
 import { GlobalEventListeners } from '@/components/global-event-listeners';
 import { PageLoader } from '@/components/page-loader';
+import { ServiceWorkerManager } from '@/components/service-worker-manager';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -61,11 +62,14 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <div className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
       <GlobalEventListeners />
+      <ServiceWorkerManager />
       {showAppShell && ready ? (
         <AppShell showSidebar={showSidebar}>
           <Component {...pageProps} />
-          <UploadTray />
-          <DownloadTray />
+          <div className='fixed safe-bottom safe-left safe-right sm:left-auto sm:w-full sm:max-w-md z-50 flex flex-col-reverse gap-3 pointer-events-none [--safe-bottom-offset:1rem] [--safe-left-offset:1rem] [--safe-right-offset:1rem]'>
+            <UploadTray />
+            <DownloadTray />
+          </div>
         </AppShell>
       ) : (
         <Component {...pageProps} />

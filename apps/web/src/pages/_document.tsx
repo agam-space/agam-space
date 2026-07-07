@@ -13,6 +13,13 @@ class MyDocument extends Document {
     return (
       <Html lang='en'>
         <Head>
+          <meta name='viewport' content='width=device-width, initial-scale=1, viewport-fit=cover' />
+          <meta name='theme-color' content='#ffffff' />
+          <meta name='mobile-web-app-capable' content='yes' />
+          <meta name='apple-mobile-web-app-capable' content='yes' />
+          <meta name='apple-mobile-web-app-status-bar-style' content='default' />
+          <meta name='apple-mobile-web-app-title' content='Agam Space' />
+
           {/* Build metadata for integrity verification */}
           <meta name='agam-version' content={version} />
           <meta name='agam-commit' content={commit} />

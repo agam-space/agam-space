@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#ffffff" />
+    <title>You're offline - Agam Space</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+      }
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        font-family:
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          'Segoe UI',
+          sans-serif;
+        background: #ffffff;
+        color: #0f172a;
+      }
+      @media (prefers-color-scheme: dark) {
+        body {
+          background: #111827;
+          color: #f3f4f6;
+        }
+        .icon {
+          background: #1f2937;
+        }
+        .retry {
+          background: #f3f4f6;
+          color: #111827;
+        }
+      }
+      .card {
+        max-width: 360px;
+        text-align: center;
+      }
+      .icon {
+        width: 64px;
+        height: 64px;
+        margin: 0 auto 20px;
+        border-radius: 9999px;
+        background: #f1f5f9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      h1 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin: 0 0 8px;
+      }
+      p {
+        font-size: 0.9rem;
+        line-height: 1.5;
+        color: inherit;
+        opacity: 0.7;
+        margin: 0 0 24px;
+      }
+      .retry {
+        appearance: none;
+        border: none;
+        border-radius: 8px;
+        padding: 10px 20px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        background: #0f172a;
+        color: #ffffff;
+        cursor: pointer;
+      }
+      .retry:active {
+        opacity: 0.85;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+          <path
+            d="M8.5 16.5a4.5 4.5 0 0 1 1.5-8.7M12 3a9 9 0 0 1 9 9M3 12a9 9 0 0 1 3-6.7M3 3l18 18"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </div>
+      <h1>You're offline</h1>
+      <p>This page isn't available without an internet connection. Check your connection and try again.</p>
+      <button class="retry" onclick="location.reload()">Retry</button>
+    </div>
+  </body>
+</html>

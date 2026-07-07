@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
-    "build:prod": "next build && node scripts/add-sri.js out && node scripts/generate-integrity-manifest.js out",
+    "build:prod": "next build && node scripts/inject-sw-version.js out && node scripts/add-sri.js out && node scripts/generate-integrity-manifest.js out",
     "start": "next start",
     "lint": "next lint"
   },
