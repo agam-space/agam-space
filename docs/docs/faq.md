@@ -106,8 +106,11 @@ S3 and S3-compatible providers (Cloudflare R2, MinIO, Backblaze B2). See
 
 ### How do I backup my data?
 
-Backup the `files/` directory and PostgreSQL database. Encrypted files are
-useless without the database (contains encryption metadata).
+Backup the PostgreSQL database and your encrypted file storage - either the
+`files/` directory (local backend) or your S3 bucket (S3 backend, via your
+provider's own backup/replication tools). Encrypted files are useless without
+the database (contains encryption metadata). See
+[Backups](./installation/backups.md).
 
 ### Can I run it without Docker?
 

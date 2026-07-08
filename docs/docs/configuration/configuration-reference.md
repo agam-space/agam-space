@@ -110,6 +110,17 @@ S3_SECRET_ACCESS_KEY=minioadmin
 S3_PATH_STYLE_ENDPOINT=true
 ```
 
+**Example S3-compatible configuration (Cloudflare R2):**
+
+```env
+STORAGE_BACKEND=s3
+S3_BUCKET=agam-space
+S3_REGION=auto
+S3_ENDPOINT=https://<account_id>.r2.cloudflarestorage.com
+S3_ACCESS_KEY_ID=your_r2_access_key_id
+S3_SECRET_ACCESS_KEY=your_r2_secret_access_key
+```
+
 Config file:
 
 ```json
@@ -134,12 +145,27 @@ Config file:
 when `STORAGE_BACKEND=s3`. If `s3` config is missing while the backend is set to
 `s3`, the application fails to start with a clear error.
 
+The bucket must already exist - Agam Space does not create it for you. The IAM
+user/access key needs at minimum: `s3:GetObject`, `s3:PutObject`,
+`s3:DeleteObject`, `s3:ListBucket`, and permission to abort/list incomplete
+multipart uploads (`s3:AbortMultipartUpload`, `s3:ListMultipartUploadParts`) for
+chunk cleanup.
+
 On startup, the API server also checks that the configured bucket is actually
 reachable (equivalent to the `DATA_DIR` write check for the local backend). If
 the bucket doesn't exist, credentials are invalid, or the endpoint is
 unreachable, the application fails to start with a descriptive error instead of
 failing later on the first upload. The same check runs on every call to
 `/server/health`, so ongoing outages are visible there too.
+
+:::
+
+:::caution
+
+`DATA_DIR` (and `FILES_DIR` under it) is still required even when
+`STORAGE_BACKEND=s3` - the server always sets up a local data directory for
+config, cache, and logs. `FILES_DIR` itself just goes unused for chunk storage
+in that case, since chunks are written to the S3 bucket instead.
 
 :::
 
@@ -302,6 +328,13 @@ DEFAULT_USER_STORAGE_QUOTA=50000000000
 MAX_FILE_SIZE=2000000000
 TRASH_CLEANUP_INTERVAL_DAYS=14
 
+# Storage backend - omit these to use the local filesystem instead
+STORAGE_BACKEND=s3
+S3_BUCKET=my-agam-space-bucket
+S3_REGION=eu-central-1
+S3_ACCESS_KEY_ID=your_access_key_id
+S3_SECRET_ACCESS_KEY=your_secret_access_key
+
 # WebAuthn
 DOMAIN=yourdomain.com
 WEBAUTHN_ORIGIN=https://files.yourdomain.com
@@ -316,8 +349,8 @@ DOCS_ENABLED=false
 Agam Space loads configuration in this order (later overrides earlier):
 
 1. **Default values** (from config schema)
-2. **Environment variables** (from `.env` file or Docker)
-3. **Runtime overrides** (rarely used)
+2. **Config file** (`${CONFIG_DIR}/config.json`, if present)
+3. **Environment variables** (from `.env` file or Docker)
 
 ## Validation
 

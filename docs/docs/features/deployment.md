@@ -22,6 +22,14 @@ The recommended way to run Agam Space is with Docker Compose.
 See [Installation - Docker Compose](../installation/docker-compose) for setup
 instructions.
 
+## Storage backend
+
+File chunks can be stored on the container's local filesystem (default) or in an
+S3-compatible bucket (AWS S3, Cloudflare R2, MinIO, Backblaze B2, etc) - useful
+if you want storage decoupled from the host running the container. See
+[Storage Backend](../configuration/configuration-reference.md#storage-backend)
+for setup.
+
 ## Self-hosted benefits
 
 Running Agam Space on your own infrastructure gives you:

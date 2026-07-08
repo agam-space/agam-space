@@ -143,7 +143,7 @@ Access at http://localhost:3331
 
 - NestJS + Fastify
 - PostgreSQL + Drizzle ORM
-- Local file storage
+- Local filesystem or S3-compatible object storage
 
 **Frontend:**
 
@@ -221,7 +221,6 @@ Possible features under consideration:
 
 - File sharing between users
 - Public links with expiry
-- S3 backend support
 - Encrypted tags and search
 
 **See [Roadmap](https://docs.agamspace.app/features/roadmap) for details.**

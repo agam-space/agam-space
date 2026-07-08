@@ -12,7 +12,9 @@ Two things, both required:
 
 - **PostgreSQL database** - user accounts, file metadata, folder structure, and
   the encrypted key envelopes
-- **`./data/files`** - the encrypted file chunks on disk
+- **Your encrypted file chunks** - `./data/files` on disk if using the local
+  storage backend, or your S3 bucket if using
+  [`STORAGE_BACKEND=s3`](../configuration/configuration-reference.md#storage-backend)
 
 You can skip `./data/cache` and `./data/logs` - they're regenerated
 automatically.
@@ -21,8 +23,14 @@ automatically.
 database holds the encrypted keys; the files hold the encrypted data. Back up
 both.
 
-The files on disk are already encrypted client-side - you can copy them using
-any method you like without any extra encryption step.
+The files are already encrypted client-side - you can copy them using any method
+you like without any extra encryption step, whether they're on disk or in a
+bucket.
+
+If you're using the S3 backend, skip the "Back up the files" and "Restore the
+files" sections below and instead rely on your S3 provider's own backup
+mechanism (e.g. S3 versioning, cross-region replication, or a scheduled
+`aws s3 sync`/`rclone sync` to a second bucket).
 
 ## Back up the database
 

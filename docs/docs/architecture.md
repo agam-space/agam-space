@@ -244,7 +244,9 @@ Folders form a tree:
 
 ### Server-Side Storage Structure
 
-How encrypted files are physically stored on disk:
+How encrypted files are physically stored, whether on the local filesystem or in
+an S3-compatible bucket (same key layout either way - see
+[Storage Backend](./configuration/configuration-reference.md#storage-backend)):
 
 **Example:** User uploads `Documents/passport.pdf`
 
@@ -256,16 +258,20 @@ My Files/
     passport.pdf
 ```
 
-**What's stored on server filesystem:**
+**What's stored on disk (local backend) or as object keys (S3 backend):**
 
 ```
-/data/files/
-  u-01H2K3M4N5P6Q7R8S9/           ← User ID (ULID)
-    f-01H9X8W7V6U5T4S3R2/          ← File ID (ULID)
-      chunk-0                      ← Encrypted chunk (binary)
-      chunk-1                      ← Encrypted chunk (binary)
-      chunk-2                      ← Encrypted chunk (binary)
+u-01H2K3M4N5P6Q7R8S9/             ← User ID (ULID)
+  f/ab/cd/01H9X8W7V6U5T4S3R2/     ← 2-level shard from the file ID, then File ID
+    chunk-0                      ← Encrypted chunk (binary)
+    chunk-1                      ← Encrypted chunk (binary)
+    chunk-2                      ← Encrypted chunk (binary)
 ```
+
+The shard prefix (`ab/cd` above) spreads files across subdirectories/prefixes to
+avoid too many entries in one directory (or S3 prefix) as the number of files
+grows. With the local backend this path is rooted at `FILES_DIR`; with the S3
+backend it's the object key directly in the configured bucket.
 
 **What's in the database:**
 
