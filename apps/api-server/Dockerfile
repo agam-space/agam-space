@@ -1,5 +1,5 @@
 # --- 1. Builder Stage: Build source files ---
-FROM node:22.22-bullseye-slim AS builder
+FROM node:22.23-bookworm-slim AS builder
 
 WORKDIR /app
 
@@ -36,7 +36,7 @@ RUN find . -name '*.tsbuildinfo' -delete && \
 
 
 # --- 2. Deps Stage: Create clean deployable output ---
-FROM node:22.22-bullseye-slim AS deps
+FROM node:22.23-bookworm-slim AS deps
 
 WORKDIR /app
 
@@ -75,7 +75,7 @@ COPY --from=builder /app/apps/web/out ./deploy/public
 
 
 # --- 3. Hardened Runner Stage: Security-hardened production image ---
-FROM dhi.io/node:22.22 AS runner-hardened
+FROM dhi.io/node:22.23 AS runner-hardened
 
 ARG BUILD_ID
 ARG BUILD_COMMIT
@@ -107,7 +107,7 @@ CMD ["node", "dist/main.js"]
 
 
 # --- 4. Runner Stage: Minimal production image (DEFAULT) ---
-FROM node:22.22-bullseye-slim AS runner
+FROM node:22.23-bookworm-slim AS runner
 
 RUN apt-get update && \
     apt-get upgrade -y --no-install-recommends && \
