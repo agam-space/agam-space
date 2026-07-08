@@ -24,7 +24,7 @@
     "infra:restart": "pnpm infra:down && pnpm infra:up",
     "infra:logs": "docker compose -f .local/docker-compose.dev.yml logs -f",
     "infra:status": "docker compose -f .local/docker-compose.dev.yml ps",
-    "infra:reset": "bash -c 'read -r -p \"This deletes .local/data (DB + MinIO). Type DELETE to confirm: \" c; [ \"$c\" = DELETE ] || { echo Aborted.; exit 1; }; pnpm infra:down && rm -rf .local/data && pnpm infra:up'",
+    "infra:reset": "bash -c 'read -r -p \"This deletes .local/data (DB + Garage). Type DELETE to confirm: \" c; [ \"$c\" = DELETE ] || { echo Aborted.; exit 1; }; pnpm infra:down && rm -rf .local/data && pnpm infra:up'",
     "dev:wipe": "bash scripts/wipe-local-data.sh"
   },
   "lint-staged": {

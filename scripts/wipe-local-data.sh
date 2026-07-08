@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # Usage: pnpm dev:wipe
-# Wipes ALL local dev data: the Postgres DB, MinIO bucket (.local/data/*),
+# Wipes ALL local dev data: the Postgres DB, Garage bucket (.local/data/*),
 # and the app's DATA_DIR (uploaded files, config, cache, logs). Requires
 # typing "DELETE" to confirm — nothing is removed otherwise.
 
@@ -10,7 +10,7 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT_DIR"
 
 ENV_FILE="apps/api-server/.env"
-TARGETS=(".local/data/postgres" ".local/data/minio")
+TARGETS=(".local/data/postgres" ".local/data/garage")
 
 # Resolve DATA_DIR from apps/api-server/.env, same as the app does at runtime.
 if [ -f "$ENV_FILE" ]; then

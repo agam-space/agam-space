@@ -25,8 +25,8 @@ instructions.
 ## Storage backend
 
 File chunks can be stored on the container's local filesystem (default) or in an
-S3-compatible bucket (AWS S3, Cloudflare R2, MinIO, Backblaze B2, etc) - useful
-if you want storage decoupled from the host running the container. See
+S3-compatible bucket (AWS S3, Cloudflare R2, Garage, MinIO, Backblaze B2, etc) -
+useful if you want storage decoupled from the host running the container. See
 [Storage Backend](../configuration/configuration-reference.md#storage-backend)
 for setup.
 

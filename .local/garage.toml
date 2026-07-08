@@ -1,0 +1,22 @@
+# Garage config for local dev only. Secrets below are fixed dev-only values
+# (not used anywhere real) so every developer gets the same reproducible
+# setup - same pattern as the Postgres dev password.
+metadata_dir = "/var/lib/garage/meta"
+data_dir = "/var/lib/garage/data"
+db_engine = "sqlite"
+
+replication_factor = 1
+
+rpc_bind_addr = "[::]:3901"
+rpc_public_addr = "127.0.0.1:3901"
+rpc_secret = "24bf97ab45dfc793d1b4707430e25c2bdf4a4a109fd796a119957fcc2b0d1e55"
+
+[s3_api]
+s3_region = "garage"
+api_bind_addr = "[::]:3900"
+root_domain = ".s3.garage.localhost"
+
+[admin]
+api_bind_addr = "[::]:3903"
+admin_token = "KjzykbJFs0iF3r9+sCYAInama8NUEuZQ46MJwZPVs+k="
+metrics_token = "MmtQmroMT8OM+GK6y4wbYIgQaf6n+USNZcEUoQyWbP8="

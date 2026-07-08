@@ -172,8 +172,8 @@ Inside this directory, chunks are stored as `chunk-0`, `chunk-1`, etc.
 ### Current implementation
 
 - Local filesystem storage (default) or S3-compatible object storage
-  (`STORAGE_BACKEND=s3`), including AWS S3, Cloudflare R2, MinIO, and Backblaze
-  B2
+  (`STORAGE_BACKEND=s3`), including AWS S3, Cloudflare R2, Garage, MinIO, and
+  Backblaze B2
 - Configurable storage path (local) or bucket/credentials/endpoint (S3)
 - 2-level sharding for efficient file distribution, same key structure on both
   backends

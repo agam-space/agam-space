@@ -78,15 +78,15 @@ These must be set for Agam Space to run:
 Files can be stored on the local filesystem (default) or in an S3-compatible
 object store.
 
-| Environment Variable     | Config File Property           | Default            | Description                                                              |
-| ------------------------ | ------------------------------ | ------------------ | ------------------------------------------------------------------------ |
-| `STORAGE_BACKEND`        | `storage.backend`              | `local`            | Storage backend: `local` or `s3`                                         |
-| `S3_BUCKET`              | `storage.s3.bucket`            | _required if `s3`_ | S3 bucket name                                                           |
-| `S3_REGION`              | `storage.s3.region`            | `auto`             | AWS region (or `auto` for R2/MinIO)                                      |
-| `S3_ENDPOINT`            | `storage.s3.endpoint`          | -                  | Custom endpoint for S3-compatible providers (R2, MinIO, Backblaze B2)    |
-| `S3_ACCESS_KEY_ID`       | `storage.s3.accessKeyId`       | _required if `s3`_ | S3 access key ID                                                         |
-| `S3_SECRET_ACCESS_KEY`   | `storage.s3.secretAccessKey`   | _required if `s3`_ | S3 secret access key                                                     |
-| `S3_PATH_STYLE_ENDPOINT` | `storage.s3.pathStyleEndpoint` | `false`            | Use path-style URLs instead of virtual-hosted style (required for MinIO) |
+| Environment Variable     | Config File Property           | Default            | Description                                                                                                                                                                   |
+| ------------------------ | ------------------------------ | ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `STORAGE_BACKEND`        | `storage.backend`              | `local`            | Storage backend: `local` or `s3`                                                                                                                                              |
+| `S3_BUCKET`              | `storage.s3.bucket`            | _required if `s3`_ | S3 bucket name                                                                                                                                                                |
+| `S3_REGION`              | `storage.s3.region`            | `auto`             | AWS region, or the provider's expected region string (`auto` for R2; the provider's own region name for Garage/MinIO - some self-hosted providers reject a mismatched region) |
+| `S3_ENDPOINT`            | `storage.s3.endpoint`          | -                  | Custom endpoint for S3-compatible providers (R2, Garage, MinIO, Backblaze B2)                                                                                                 |
+| `S3_ACCESS_KEY_ID`       | `storage.s3.accessKeyId`       | _required if `s3`_ | S3 access key ID                                                                                                                                                              |
+| `S3_SECRET_ACCESS_KEY`   | `storage.s3.secretAccessKey`   | _required if `s3`_ | S3 secret access key                                                                                                                                                          |
+| `S3_PATH_STYLE_ENDPOINT` | `storage.s3.pathStyleEndpoint` | `false`            | Use path-style URLs instead of virtual-hosted style (required for self-hosted providers like Garage/MinIO)                                                                    |
 
 **Example S3 configuration (AWS):**
 
@@ -98,17 +98,32 @@ S3_ACCESS_KEY_ID=your_access_key_id
 S3_SECRET_ACCESS_KEY=your_secret_access_key
 ```
 
-**Example S3-compatible configuration (MinIO):**
+**Example S3-compatible configuration (Garage, self-hosted):**
 
 ```env
 STORAGE_BACKEND=s3
 S3_BUCKET=agam-space
-S3_REGION=auto
-S3_ENDPOINT=http://minio:9000
-S3_ACCESS_KEY_ID=minioadmin
-S3_SECRET_ACCESS_KEY=minioadmin
+S3_REGION=garage
+S3_ENDPOINT=http://garage:3900
+S3_ACCESS_KEY_ID=your_access_key_id
+S3_SECRET_ACCESS_KEY=your_secret_access_key
 S3_PATH_STYLE_ENDPOINT=true
 ```
+
+`S3_REGION` must exactly match the `s3_region` value in your Garage config
+(`garage` above) - unlike some providers, Garage rejects requests with a
+mismatched region rather than ignoring it.
+
+:::info
+
+The `.local/docker-compose.dev.yml` in this repo runs Garage for local
+development (see `.local/README.md`). We use Garage rather than MinIO because
+MinIO's community edition repository was archived in 2026 with no further
+releases or official Docker images - Garage is Apache-2.0 licensed and actively
+maintained by [Deuxfleurs](https://garagehq.deuxfleurs.fr/). Existing MinIO
+deployments still work fine as a storage backend if you're already running one.
+
+:::
 
 **Example S3-compatible configuration (Cloudflare R2):**
 
@@ -129,10 +144,10 @@ Config file:
     "backend": "s3",
     "s3": {
       "bucket": "agam-space",
-      "region": "auto",
-      "endpoint": "http://minio:9000",
-      "accessKeyId": "minioadmin",
-      "secretAccessKey": "minioadmin",
+      "region": "garage",
+      "endpoint": "http://garage:3900",
+      "accessKeyId": "your_access_key_id",
+      "secretAccessKey": "your_secret_access_key",
       "pathStyleEndpoint": true
     }
   }
@@ -171,11 +186,11 @@ in that case, since chunks are written to the S3 bucket instead.
 
 :::info
 
-Tested against AWS S3 and MinIO; should work with any S3-compatible provider
-(Cloudflare R2, Backblaze B2, Wasabi, DigitalOcean Spaces, etc). The client is
-configured to only request integrity checksums when a provider explicitly
-requires them, since AWS SDK v3's newer checksum defaults aren't supported by
-all third-party S3 implementations.
+Tested against AWS S3 and Garage; should work with any S3-compatible provider
+(Cloudflare R2, MinIO, Backblaze B2, Wasabi, DigitalOcean Spaces, etc). The
+client is configured to only request integrity checksums when a provider
+explicitly requires them, since AWS SDK v3's newer checksum defaults aren't
+supported by all third-party S3 implementations.
 
 :::
 
