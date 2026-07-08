@@ -106,8 +106,8 @@ export default function TrustedDevicesPage() {
     <div className='space-y-6'>
       <h2 className='text-xl font-semibold'>Trusted Devices</h2>
 
-      {/* Current Device Section - only show if at least current device is registered */}
-      {isCurrentDeviceRegistered && (
+      {/* Current Device Section - show whenever this device can be managed or registered */}
+      {(isCurrentDeviceRegistered || devices.length > 0) && (
         <div className='border p-4 rounded-xl space-y-4'>
           <div>
             <h3 className='font-medium mb-1'>Current Device</h3>
@@ -138,23 +138,25 @@ export default function TrustedDevicesPage() {
             </div>
           </div>
 
-          <div className='border-t pt-4'>
-            <div className='flex items-start justify-between gap-4'>
-              <div className='flex-1'>
-                <h4 className='text-sm font-medium mb-1'>Clear device data on logout</h4>
-                <p className='text-xs text-muted-foreground'>
-                  Remove this device's biometric unlock on logout. When disabled, the device unlock
-                  key is safely stored encrypted in your browser - your data remains end-to-end
-                  encrypted either way.
-                </p>
+          {isCurrentDeviceRegistered && (
+            <div className='border-t pt-4'>
+              <div className='flex items-start justify-between gap-4'>
+                <div className='flex-1'>
+                  <h4 className='text-sm font-medium mb-1'>Clear device data on logout</h4>
+                  <p className='text-xs text-muted-foreground'>
+                    Remove this device's biometric unlock on logout. When disabled, the device
+                    unlock key is safely stored encrypted in your browser - your data remains
+                    end-to-end encrypted either way.
+                  </p>
+                </div>
+                <Switch
+                  checked={security.clearDeviceDataOnLogout}
+                  onCheckedChange={setClearDeviceDataOnLogout}
+                  className='ml-4'
+                />
               </div>
-              <Switch
-                checked={security.clearDeviceDataOnLogout}
-                onCheckedChange={setClearDeviceDataOnLogout}
-                className='ml-4'
-              />
             </div>
-          </div>
+          )}
         </div>
       )}
 
