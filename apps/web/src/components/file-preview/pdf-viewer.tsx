@@ -6,7 +6,7 @@ import { ZoomIn, ZoomOut } from 'lucide-react';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
 
-pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.js';
+pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.mjs';
 
 type Props = {
   data: Uint8Array;

@@ -2,6 +2,7 @@
   "name": "web",
   "private": true,
   "scripts": {
+    "postinstall": "node scripts/copy-pdf-worker.js",
     "dev": "next dev --turbopack",
     "build": "next build",
     "build:prod": "next build && node scripts/inject-sw-version.js out && node scripts/add-sri.js out && node scripts/generate-integrity-manifest.js out",
