@@ -44,11 +44,14 @@ export const TrustedDevicesService = {
   async registerDevice({
     userId,
     deviceName,
-    cmk,
+    getCmk,
   }: {
     userId: string;
     deviceName: string;
-    cmk: Uint8Array;
+    // Lazily provides the CMK. Invoked only after the WebAuthn ceremony so the
+    // heavy Argon2id decryption doesn't consume iOS/Safari's transient user
+    // activation before navigator.credentials.create() runs.
+    getCmk: () => Promise<Uint8Array>;
   }) {
     const { publicKey: devicePublicKey, privateKey: devicePrivateKey } =
       await DeviceKeyManager.generateDeviceKeyPair();
@@ -90,6 +93,8 @@ export const TrustedDevicesService = {
 
     const envelopePriv = await EncryptionRegistry.get().encrypt(devicePrivateKey, unlockKey);
     const encryptedDevicePrivateKey = EncryptedEnvelopeCodec.serializeToTLV(envelopePriv);
+
+    const cmk = await getCmk();
 
     const encryptedCMKBytes = await DeviceKeyManager.encryptWithDevicePublicKey(
       cmk,
@@ -291,20 +296,21 @@ export const TrustedDevicesService = {
       const { encCmkWithPassword } = e2eeKeys;
       const salt = e2eeKeys.kdfMetadata?.salt;
       if (!encCmkWithPassword || !salt) throw new Error('Missing encrypted CMK or salt');
-      let cmk: Uint8Array | null = null;
-      try {
-        cmk = await decryptCmkWithPassword(encCmkWithPassword, password, salt);
-        if (!cmk) {
-          toast.error(
-            'Failed to unlock your master key. Please check your password and try again.'
+      // Defer the Argon2id decryption until after the WebAuthn ceremony so iOS
+      // keeps the user activation needed for navigator.credentials.create().
+      const getCmk = async (): Promise<Uint8Array> => {
+        try {
+          const cmk = await decryptCmkWithPassword(encCmkWithPassword, password, salt);
+          if (!cmk) throw new Error('CMK decryption returned empty result');
+          return cmk;
+        } catch (err) {
+          throw new Error(
+            'Failed to unlock your master key. Please check your password and try again.',
+            { cause: err }
           );
-          return;
         }
-      } catch {
-        toast.error('Failed to unlock your master key. Please check your password and try again.');
-        return;
-      }
-      await TrustedDevicesService.registerDevice({ userId, deviceName, cmk });
+      };
+      await TrustedDevicesService.registerDevice({ userId, deviceName, getCmk });
       fetchDevices();
       setModalOpen(false);
       setPassword('');
