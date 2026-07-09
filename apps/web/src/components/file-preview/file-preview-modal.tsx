@@ -36,19 +36,21 @@ export function FilePreviewModal({ file, onClose }: Props) {
         </VisuallyHidden>
 
         {/* Toolbar at the very top - fixed */}
-        <div className='flex items-center justify-between px-6 py-3 flex-shrink-0'>
-          <div className='flex items-center gap-3'>
+        <div className='flex items-center justify-between gap-2 px-6 pb-3 safe-top [--safe-top-offset:0.75rem] flex-shrink-0'>
+          <div className='flex items-center gap-3 min-w-0 flex-1'>
             <DialogClose asChild>
               <button
-                className='rounded-full p-2 text-muted-foreground hover:text-foreground hover:bg-accent transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring'
+                className='shrink-0 rounded-full p-2 text-muted-foreground hover:text-foreground hover:bg-accent transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring'
                 aria-label='Close'
               >
                 <X className='w-5 h-5' />
               </button>
             </DialogClose>
-            <h2 className='text-base font-semibold truncate text-foreground'>{file.name}</h2>
+            <h2 className='text-base font-semibold truncate min-w-0 text-foreground'>
+              {file.name}
+            </h2>
           </div>
-          <div className='flex items-center gap-2'>
+          <div className='flex items-center gap-2 shrink-0'>
             <button
               onClick={() => setShowFileInfo(!showFileInfo)}
               className='rounded-full p-2 text-muted-foreground hover:text-foreground hover:bg-accent transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring'

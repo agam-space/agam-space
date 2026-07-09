@@ -30,6 +30,7 @@ import { useDownloadStore } from '@/store/download-store';
 import { useState } from 'react';
 import { RenameDialog } from '@/components/explorer/rename-dialog';
 import { CreatePublicShareDialog } from '@/components/explorer/create-public-share-dialog';
+import { useIsCoarsePointer } from '@/hooks/use-is-coarse-pointer';
 
 type ExplorerItemProps = {
   entry: ContentEntry;
@@ -38,7 +39,11 @@ type ExplorerItemProps = {
   selected?: boolean;
   multiSelect?: boolean;
   isTrashView?: boolean;
+  /** True when at least one item in the list is currently selected. */
+  hasSelection?: boolean;
   onClick?: (e: React.MouseEvent) => void;
+  /** Adds/removes this item from selection without affecting others - used for touch tap-to-toggle while `hasSelection` is true. */
+  onToggleSelect?: () => void;
   onTrash?: (id: string, isFolder: boolean) => void;
   onRestore?: () => void;
   onDeletePermanent?: () => void;
@@ -63,7 +68,9 @@ export function ExplorerItem({
   isTrashView = false,
   onRestore,
   onDeletePermanent,
+  hasSelection = false,
   onClick = () => {},
+  onToggleSelect,
   onDoubleClick,
   checkIfNameExists,
   onRename = () => {},
@@ -74,9 +81,31 @@ export function ExplorerItem({
 }: ExplorerItemProps) {
   const router = useRouter();
   const contextMenuTriggerRef = useRef<HTMLDivElement>(null);
+  const isCoarsePointer = useIsCoarsePointer();
 
   const [showRenameDialog, setShowRenameDialog] = useState(false);
   const [showShareDialog, setShowShareDialog] = useState(false);
+
+  // Opens the folder/file - used by desktop double-click and, on touch
+  // devices, by a plain tap (double-tap isn't a discoverable mobile gesture).
+  const handleOpen = () => {
+    if (entry.isFolder && href) router.push(href);
+    else if (!entry.isFolder) onDoubleClick?.();
+  };
+
+  // On touch: no selection yet -> tap opens; already in selection mode
+  // (from a long-press, via the context menu) -> tap toggles this item.
+  // On mouse: unchanged, delegates to the caller's select/range-select logic.
+  const handleTap = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (isCoarsePointer) {
+      if (hasSelection) onToggleSelect?.();
+      else handleOpen();
+    } else {
+      onClick?.(e);
+    }
+  };
 
   const triggerContextMenu = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -124,11 +153,7 @@ export function ExplorerItem({
   const content =
     view === 'grid' ? (
       <div
-        onClick={e => {
-          e.preventDefault(); // ✅ stop browser default
-          e.stopPropagation(); // ✅ prevent bubbling
-          onClick?.(e);
-        }}
+        onClick={handleTap}
         className={cn(
           'select-none transition-all duration-150 cursor-pointer',
           view === 'grid'
@@ -165,11 +190,7 @@ export function ExplorerItem({
             ? 'bg-primary/10 border border-primary text-primary'
             : 'bg-muted/50 hover:bg-muted'
         )}
-        onClick={e => {
-          e.preventDefault();
-          e.stopPropagation();
-          onClick?.(e);
-        }}
+        onClick={handleTap}
       >
         {/* column 1: icon */}
         <div className='w-5 flex-shrink-0'>{icon}</div>
@@ -207,20 +228,17 @@ export function ExplorerItem({
         onOpenChange={open => {
           if (open) {
             onContextOpen?.(); // Notify parent
-          } else {
+          } else if (!isCoarsePointer) {
+            // On touch, the long-press that opens this menu doubles as
+            // "enter selection mode" - keep the item selected once the
+            // menu closes. Desktop right-click keeps the existing
+            // select-only-while-menu-is-open behavior.
             onContextClose?.();
           }
         }}
       >
         <ContextMenuTrigger asChild>
-          <div
-            ref={contextMenuTriggerRef}
-            onDoubleClick={() => {
-              if (entry.isFolder && href) router.push(href);
-              else if (!entry.isFolder) onDoubleClick?.();
-            }}
-            className='cursor-pointer'
-          >
+          <div ref={contextMenuTriggerRef} onDoubleClick={handleOpen} className='cursor-pointer'>
             {content}
           </div>
         </ContextMenuTrigger>

@@ -569,11 +569,26 @@ export function ExplorerPage({ folderId }: { folderId: string }) {
                     href={entry.isFolder ? `/explorer/${entry.id}` : undefined}
                     selected={selectedIds.has(entry.id)}
                     multiSelect
+                    hasSelection={selectedIds.size > 0}
                     onClick={e => handleItemClick(e, entry.id, index)}
+                    onToggleSelect={() => {
+                      toggleSelection(entry.id);
+                      setLastSelectedIndex(index);
+                    }}
                     onDoubleClick={
                       !entry.isFolder ? () => setPreviewingFile(entry as FileEntry) : undefined
                     }
                     onTrash={() => handleTrash(entry.id, entry.isFolder)}
+                    onContextOpen={() => {
+                      setSelectedIds(prev => new Set(prev).add(entry.id));
+                    }}
+                    onContextClose={() => {
+                      setSelectedIds(prev => {
+                        const next = new Set(prev);
+                        next.delete(entry.id);
+                        return next;
+                      });
+                    }}
                     checkIfNameExists={checkIfNameExists}
                     onRename={handleRename}
                     onMove={item => {
@@ -666,7 +681,12 @@ export function ExplorerPage({ folderId }: { folderId: string }) {
                     href={entry.isFolder ? `/explorer/${entry.id}` : undefined}
                     selected={selectedIds.has(entry.id)}
                     multiSelect
+                    hasSelection={selectedIds.size > 0}
                     onClick={e => handleItemClick(e, entry.id, index)}
+                    onToggleSelect={() => {
+                      toggleSelection(entry.id);
+                      setLastSelectedIndex(index);
+                    }}
                     onDoubleClick={
                       !entry.isFolder ? () => setPreviewingFile(entry as FileEntry) : undefined
                     }

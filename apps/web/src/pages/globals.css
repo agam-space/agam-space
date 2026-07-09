@@ -79,6 +79,10 @@
 
 @layer utilities {
   /* Keep fixed/absolute UI clear of notches and the home indicator on iOS. */
+  .safe-top {
+    padding-top: calc(env(safe-area-inset-top, 0px) + var(--safe-top-offset, 0px));
+  }
+
   .safe-bottom {
     bottom: calc(env(safe-area-inset-bottom, 0px) + var(--safe-bottom-offset, 0px));
   }

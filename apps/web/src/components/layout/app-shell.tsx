@@ -44,13 +44,15 @@ export function AppShell({ children, showSidebar }: Props) {
       {/* Topbar */}
       <header className='h-14 border-b bg-background text-foreground px-4 sm:px-6 flex items-center justify-between'>
         <div className='flex items-center gap-2'>
-          {/* Show menu button on small screens */}
-          <button
-            className='sm:hidden p-2 rounded hover:bg-muted'
-            onClick={() => setSidebarOpen(true)}
-          >
-            <MenuIcon className='w-5 h-5' />
-          </button>
+          {/* Show menu button on small screens, only on routes with a sidebar to show */}
+          {showSidebar && (
+            <button
+              className='sm:hidden p-2 rounded hover:bg-muted'
+              onClick={() => setSidebarOpen(true)}
+            >
+              <MenuIcon className='w-5 h-5' />
+            </button>
+          )}
 
           <Link href='/explorer' className='font-semibold text-lg hover:opacity-80'>
             Agam Space
@@ -105,14 +107,10 @@ export function AppShell({ children, showSidebar }: Props) {
       <Sheet open={sidebarOpen} onOpenChange={setSidebarOpen}>
         <SheetContent side='left' className='w-60 p-0'>
           <div className='p-4 bg-muted/10 h-full'>
-            {(pathname.startsWith('/explorer') || pathname.startsWith('/trash')) && (
-              <>
-                <SheetHeader>
-                  <SheetTitle className='text-base mb-4'>Menu</SheetTitle>
-                </SheetHeader>
-                <ExplorerSidebarBase onNavigate={() => setSidebarOpen(false)} />
-              </>
-            )}
+            <SheetHeader>
+              <SheetTitle className='text-base mb-4'>Menu</SheetTitle>
+            </SheetHeader>
+            <ExplorerSidebarBase onNavigate={() => setSidebarOpen(false)} />
           </div>
         </SheetContent>
       </Sheet>
