@@ -114,7 +114,7 @@ jobs:
           if-no-files-found: ignore
 
       - name: Upload coverage to Codecov – core
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v7
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: packages/core/coverage/lcov.info
@@ -122,7 +122,7 @@ jobs:
           fail_ci_if_error: false
 
       - name: Upload coverage to Codecov – client
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v7
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: packages/client/coverage/lcov.info
@@ -130,7 +130,7 @@ jobs:
           fail_ci_if_error: false
 
       - name: Upload coverage to Codecov – api-server
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v7
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: apps/api-server/coverage/lcov.info
