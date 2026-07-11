@@ -20,15 +20,15 @@
     "@noble/hashes": "^1.8.0",
     "libsodium-wrappers": "^0.8.4",
     "libsodium-wrappers-sumo": "^0.8.4",
-    "lru-cache": "^11.5.1",
+    "lru-cache": "^11.5.2",
     "sha256": "link:@noble/hashes/sha256",
     "ulid": "^3.0.2",
     "zod": "^4.4.3"
   },
   "devDependencies": {
     "@types/jest": "^30.0.0",
-    "@types/libsodium-wrappers": "^0.7.14",
-    "@types/libsodium-wrappers-sumo": "^0.7.8",
+    "@types/libsodium-wrappers": "^0.8.2",
+    "@types/libsodium-wrappers-sumo": "^0.8.2",
     "@types/node": "^22.20.0",
     "jest": "^30.4.2",
     "rimraf": "^6.1.3",
