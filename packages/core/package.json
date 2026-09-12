@@ -18,12 +18,12 @@
     "@noble/hashes": "^1.8.0",
     "bs58": "^6.0.0",
     "libsodium-wrappers-sumo": "^0.8.4",
-    "zod": "^4.4.3"
+    "zod": "^4.5.4"
   },
   "devDependencies": {
-    "@types/libsodium-wrappers-sumo": "^0.7.8",
+    "@types/libsodium-wrappers-sumo": "^0.8.2",
     "@types/node": "^22.20.0",
-    "jest": "^30.4.2",
+    "jest": "^30.5.1",
     "typescript": "^6.0.3"
   }
 }
