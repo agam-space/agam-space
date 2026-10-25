@@ -7,9 +7,14 @@ export const UlidSchema = z
   .length(26)
   .regex(/^[0-9A-Z]{26}$/, 'Invalid ULID format');
 
-export const datetimeSchema = z
-  .union([z.string().datetime(), z.date()])
-  .transform(val => (val instanceof Date ? val.toISOString() : val));
+// Accepts an ISO datetime string or a Date (normalized to ISO on output).
+// Uses preprocess rather than a `z.date()` union member so the schema stays
+// representable as JSON Schema (z.date() makes zod's toJSONSchema throw, which
+// breaks OpenAPI/Swagger generation when docs are enabled).
+export const datetimeSchema = z.preprocess(
+  val => (val instanceof Date ? val.toISOString() : val),
+  z.string().datetime()
+);
 
 export const bigintSchema = z
   .union([z.string(), z.number().nonnegative()])
