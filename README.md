@@ -179,7 +179,7 @@ agam-space/
 ## Development
 
 ```bash
-# Prerequisites: Node.js 22, pnpm 9
+# Prerequisites: Node.js 24, pnpm 11
 
 # Install dependencies
 pnpm install

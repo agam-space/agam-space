@@ -59,7 +59,7 @@ security.
 
 | Aspect           | Normal (`latest`)               | Hardened (`latest-hardened`)       |
 | ---------------- | ------------------------------- | ---------------------------------- |
-| Base image       | `node:22-alpine`                | `dhi.io/node:22-alpine3.23`        |
+| Base image       | `node:24-bookworm-slim`         | `dhi.io/node:24.19`                |
 | Shell access     | ✅ Available (`docker exec sh`) | ❌ No shell (maximum security)     |
 | Init system      | Tini (signal handling)          | Direct Node.js execution           |
 | Debugging        | ✅ Easy (can inspect files)     | ⚠️ Limited (no interactive access) |
